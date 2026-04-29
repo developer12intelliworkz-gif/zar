@@ -60,6 +60,9 @@ export default function HeroSection() {
     [emblaApi],
   );
 
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+
   return (
     <section className={styles.hero}>
       <div className={styles.viewport} ref={emblaRef}>
@@ -126,6 +129,21 @@ export default function HeroSection() {
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}
+      </div>
+
+      <div className={styles.heroNav}>
+        <button className={styles.heroNavBtn} onClick={scrollPrev} aria-label="Previous slide">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="-0.75" y="0.75" width="70.5" height="70.5" rx="35.25" transform="matrix(-1 0 0 1 70.5 0)" stroke="#A38274" strokeWidth="1.5"/>
+            <path d="M42.258 48.1166L29.742 35.6006L42.258 23.8828" stroke="#A38274" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+        <button className={styles.heroNavBtn} onClick={scrollNext} aria-label="Next slide">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.75" y="0.75" width="70.5" height="70.5" rx="35.25" fill="none" stroke="#A38274" strokeWidth="1.5"/>
+            <path d="M29.7419 48.1166L42.2579 35.6006L29.7419 23.8828" stroke="#A38274" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
       </div>
 
       <EnquiryModal open={enquiryOpen} onClose={() => setEnquiryOpen(false)} />

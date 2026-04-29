@@ -121,3 +121,39 @@
     padding: 0;
   }
 }
+
+/* Hero navigation arrows – bottom-left */
+.heroNav {
+  position: absolute;
+  bottom: 40px;
+  left: 150px;
+  z-index: 5;
+  display: flex;
+  gap: 12px;
+}
+
+.heroNavBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  line-height: 0;
+  transition: opacity 0.3s ease;
+}
+
+.heroNavBtn:hover {
+  opacity: 0.75;
+}
+
+@media (max-width: 767px) {
+  .heroNav {
+    bottom: 20px;
+    right: 20px;
+    gap: 8px;
+  }
+
+  .heroNavBtn svg {
+    width: 48px;
+    height: 48px;
+  }
+}

@@ -21,7 +21,7 @@ interface Testimonial {
   designation: string;
 }
 
-const testimonials: Testimonial[] = [
+const baseTestimonials: Testimonial[] = [
   {
     video: 'https://www.w3schools.com/html/mov_bbb.mp4',
     quote: "The bangles I found at the expo were exactly what I'd been searching for. The craftsmanship is truly world-class.",
@@ -46,8 +46,33 @@ const testimonials: Testimonial[] = [
     name: 'Sunita Joshi',
     designation: 'Heritage Curator, Jaipur',
   },
-  
+  {
+    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    quote: "The bangles I found at the expo were exactly what I'd been searching for. The craftsmanship is truly world-class.",
+    name: 'Priya Sharma',
+    designation: 'Bridal Client, Mumbai',
+  },
+  {
+    video: 'https://www.w3schools.com/html/movie.mp4',
+    quote: "Every piece feels curated with intention. Our customers keep coming back for the exclusivity this platform provides.",
+    name: 'Ananya Mehta',
+    designation: 'Boutique Director, Delhi',
+  },
+  {
+    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    quote: "Partnering with them transformed our store. The quality of their jewellery collection is simply unmatched in the market.",
+    name: 'Rekha Nair',
+    designation: 'Jewellery Store Owner, Kochi',
+  },
+  {
+    video: 'https://www.w3schools.com/html/movie.mp4',
+    quote: "The designs speak to our heritage beautifully. I have never seen my clients so excited about a new collection.",
+    name: 'Sunita Joshi',
+    designation: 'Heritage Curator, Jaipur',
+  },
 ];
+
+const testimonials: Testimonial[] = [...baseTestimonials];
 
 export default function RetailerSlider() {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
@@ -112,16 +137,19 @@ export default function RetailerSlider() {
         <p>Hear from our partners about their journey through our exclusive showcases.</p>
       </div>
 
-      <div className={styles.outer}>
+      <div 
+        className={styles.outer}
+        onMouseEnter={() => swiperRef.current?.autoplay?.pause()}
+        onMouseLeave={() => swiperRef.current?.autoplay?.resume()}
+      >
         <Swiper
           modules={[Autoplay]}
-          dir="rtl"
           loop={true}
-          loopAdditionalSlides={testimonials.length}
           autoplay={{
             delay: 3000,
             disableOnInteraction: false,
             pauseOnMouseEnter: true,
+            reverseDirection: true,
           }}
           centeredSlides={true}
           slidesPerView={3}

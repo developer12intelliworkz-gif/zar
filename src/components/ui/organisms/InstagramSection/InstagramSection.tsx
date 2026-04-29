@@ -65,7 +65,7 @@ export default function InstagramSection() {
           viewport={{ once: true, amount: 0.2 }}
         >
           <Image
-            src="/images/instagram-icon.svg"
+            src="/images/homepage/instagram-icon.webp"
             alt="Instagram"
             width={72}
             height={72}
