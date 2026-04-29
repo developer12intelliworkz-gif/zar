@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import TypingText from '../../atoms/TypingText/TypingText';
 import styles from './Footer.module.css';
 
 const linkCol1 = [
@@ -30,7 +31,9 @@ export default function Footer() {
         <div className={styles.quoteSection}>
           <div className={styles.quoteInner}>
             <span className={styles.quoteMarkLeft}>&ldquo;</span>
-            <p className={styles.quoteText}>Excellence is not a skill, it&apos;s an attitude</p>
+            <p className={styles.quoteText}>
+              <TypingText text="Excellence is not a skill, it's an attitude" speed={500} />
+            </p>
             <span className={styles.quoteMarkRight}>&ldquo;</span>
           </div>
         </div>
