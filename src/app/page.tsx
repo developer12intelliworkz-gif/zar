@@ -1,6 +1,7 @@
 import HeroSection from '@/components/ui/organisms/HeroSection/HeroSection';
 import LegacySection from '@/components/ui/organisms/LegacySection/LegacySection';
 import CollectionShowcase from '@/components/ui/organisms/CollectionShowcase/CollectionShowcase';
+import ModelShowcaseSection from '@/components/ui/organisms/ModelShowcaseSection/ModelShowcaseSection';
 import ManufacturingSection from '@/components/ui/organisms/ManufacturingSection/ManufacturingSection';
 import CraftsmanshipSection from '@/components/ui/organisms/CraftsmanshipSection/CraftsmanshipSection';
 import ModernWomanSection from '@/components/ui/organisms/ModernWomanSection/ModernWomanSection';
@@ -15,6 +16,7 @@ export default function Home() {
       <HeroSection />
       <LegacySection />
       <CollectionShowcase />
+      {/* <ModelShowcaseSection /> */}
       <ManufacturingSection />
       <CraftsmanshipSection />
       <ModernWomanSection />
