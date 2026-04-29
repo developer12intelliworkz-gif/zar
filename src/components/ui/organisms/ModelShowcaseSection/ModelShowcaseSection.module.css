@@ -2,7 +2,7 @@
   text-align: center;
   margin-bottom: 42px;
 }
-
+.header p{margin-bottom:20px;}
 /* Wrapper for slider + arrows positioning */
 .sliderWrapper {
   position: relative;
