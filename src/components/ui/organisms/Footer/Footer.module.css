@@ -56,11 +56,10 @@
 
 .quoteText {
   font-family: var(--font-heading);
-  font-size: var(--fs-3xl);
-  font-weight: var(--fw-semibold);
+  font-size: 60px;
+  font-weight: 600;
   line-height: 66px;
   color: var(--color-gold-accent);
-  font-style: italic;
 }
 
 /* ── Footer Top ── */

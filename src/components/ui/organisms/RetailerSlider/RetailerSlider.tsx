@@ -145,12 +145,12 @@ export default function RetailerSlider() {
         <Swiper
           modules={[Autoplay]}
           loop={true}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-            reverseDirection: true,
-          }}
+          // autoplay={{
+          //   delay: 3000,
+          //   disableOnInteraction: false,
+          //   pauseOnMouseEnter: true,
+          //   reverseDirection: true,
+          // }}
           centeredSlides={true}
           slidesPerView={3}
           spaceBetween={50}

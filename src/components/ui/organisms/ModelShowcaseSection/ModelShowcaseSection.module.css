@@ -21,9 +21,16 @@
   transform: scale(0.8);
   opacity: 1;
 }
+.slider :global(.swiper-slide) .cardLabel {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
 
 .slider :global(.swiper-slide-active) {
   transform: scale(1);
+  opacity: 1;
+}
+.slider :global(.swiper-slide-active) .cardLabel {
   opacity: 1;
 }
 
