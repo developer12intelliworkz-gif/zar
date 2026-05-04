@@ -9,23 +9,21 @@ const HIDE_DELAY_MS = 1400;
 
 export default function FirstVisitLoader() {
   const pathname = usePathname();
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(pathname === '/');
 
   useEffect(() => {
     if (pathname !== '/') {
+      setIsVisible(false);
       return;
     }
 
-    const showTimer = window.setTimeout(() => {
-      setIsVisible(true);
-    }, 0);
+    setIsVisible(true);
 
     const hideTimer = window.setTimeout(() => {
       setIsVisible(false);
     }, HIDE_DELAY_MS);
 
     return () => {
-      window.clearTimeout(showTimer);
       window.clearTimeout(hideTimer);
     };
   }, [pathname]);
@@ -36,7 +34,7 @@ export default function FirstVisitLoader() {
 
   return (
     <div className={styles.overlay} role="status" aria-live="polite" aria-label="Loading application">
-      <AppLoader delayMs={0} size={150} label="git add ." />
+      <AppLoader delayMs={0} size={150} label="Loading application" showLabel={false} />
     </div>
   );
 }

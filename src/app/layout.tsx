@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import "@/styles/index.css";
 import 'swiper/css';
 import ReduxProvider from "@/store/ReduxProvider";
@@ -26,9 +25,7 @@ export default function RootLayout({
           <FirstVisitLoader />
           <Header />
           <main>
-            <Suspense fallback={null}>
-              <PageTransitionProvider>{children}</PageTransitionProvider>
-            </Suspense>
+            <PageTransitionProvider>{children}</PageTransitionProvider>
           </main>
           <Footer />
         </ReduxProvider>
