@@ -124,7 +124,7 @@
 /* Links grid (2 columns) */
 .linksGrid {
   display: grid;
-  grid-template-columns: 1fr 1.5fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 30px;
 }
 
@@ -260,6 +260,9 @@
 
   .topInner {
     gap: 50px;
+  }
+  .linksGrid{
+    grid-template-columns: 1fr 1.2fr 1fr;
   }
 }
 

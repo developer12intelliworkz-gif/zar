@@ -67,7 +67,7 @@ export default function CareerSlider() {
             slidesPerView: 2,
             spaceBetween: 20,
           },
-          1024: {
+          1280: {
             slidesPerView: 2.5,
             spaceBetween: 30,
           },

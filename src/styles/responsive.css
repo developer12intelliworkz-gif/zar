@@ -44,6 +44,26 @@
   :root {
     --max-width: 1360px;
   }
+
+  .fs_54 {
+    font-size: 40px;
+    line-height: 50px;
+    letter-spacing: -0.01em;
+  }
+
+  .storyGrid .fs_54 {
+    margin-bottom: 30px;
+  }
+
+  .valueIcon {
+    margin-bottom: 10px;
+  }
+
+  .fs_30 {
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: -0.01em;
+  }
 }
 
 @media (max-width: 1367px) {
@@ -82,27 +102,18 @@
   .formHeading {
     margin-bottom: 10px;
   }
-}
 
-@media (max-width: 766px) {
-  :root {
-    --max-width: calc(100% - 40px);
+  .valuesGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .mt-100 {
-    margin-top: 40px;
-  }
-
-  .mb-100 {
-    margin-bottom: 40px;
-  }
-
-  .formHeading {
-    margin-bottom: 10px;
+  .storyGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
 }
 
-@media (max-width: 766px) {
+@media (max-width: 769px) {
   :root {
     --max-width: calc(100% - 40px);
   }
@@ -128,5 +139,15 @@
 
   .bannerImage {
     height: 250px;
+  }
+
+  .formRow {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 576px) {
+  .valuesGrid {
+    grid-template-columns: repeat(1, 1fr);
   }
 }

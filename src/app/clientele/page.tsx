@@ -37,15 +37,15 @@ export default function ClientelePage() {
         heading="Our Clientele"
         description="ZAR partners with leading jewellers and retail brands, built on consistency, precision, and long-standing trust."
       />
-      <div className='banner'>
-        <Image
-          src="/images/about/about_banner.webp"
-          alt="Crafting gold bangle"
-          fill
-          style={{ objectFit: 'contain' }}
-          priority
-        />
-      </div>
+      <div className='bannerImage'>
+              <Image
+                src="/images/about/about_banner.webp"
+                alt="Crafting gold bangle"
+                fill
+                style={{ objectFit: 'cover' }}
+                priority
+              />
+            </div>
 
       <section className={`container mt-100 ${styles.section2}`}>
         <div className={styles.flexBox}>

@@ -68,6 +68,11 @@ ol {
   margin-right: auto;
 }
 
+.imgFluid{
+  width: 100%;
+  height: auto;
+}
+
 .mb_30 {
   margin-bottom: 30px;
 }
@@ -90,13 +95,6 @@ ol {
 
 .txt_black {
   color: var(--color-black) !important;
-}
-
-.bannerImage {
-  width: 100%;
-  position: relative;
-  height: 400px;
-  margin: 40px 0;
 }
 
 /* utilities */
@@ -133,13 +131,12 @@ ol {
 }
 
 /*----------------------------- banner img css -----------------------------*/
-.banner {
+.bannerImage {
   width: 100%;
   position: relative;
   height: 400px;
   margin: 40px 0;
 }
-
 /*----------------------------- banner img css -----------------------------*/
 /* form css */
 .fieldGroup {
@@ -169,6 +166,7 @@ ol {
   font-weight: 600;
   line-height: 66px;
   text-transform: uppercase;
+  letter-spacing: -0.01em;
 }
 
 .label {

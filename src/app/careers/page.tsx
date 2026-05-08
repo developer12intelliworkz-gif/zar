@@ -136,13 +136,13 @@ export default function CareersPage() {
         ]}
         heading="Build Your Career with ZAR"
         description="Be part of a team where craftsmanship meets innovation. At ZAR, we combine traditional artistry with modern precision to create jewellery defined by quality and design."
-      />
-      <div style={{ width: '100%', position: 'relative', height: 400, margin: '40px 0' }}>
+      />      
+      <div className='bannerImage'>
         <Image
           src="/images/career/career-banner.webp"
           alt="Crafting gold bangle"
           fill
-          style={{ objectFit: 'contain' }}
+          style={{ objectFit: 'cover' }}
           priority
         />
       </div>
@@ -260,7 +260,7 @@ export default function CareersPage() {
       <section ref={openingsRef} className={`mt-100 ${styles.openingsSection}`}>
         <div className="container">
           <h2 className="fs_54 txt_center" style={{ marginBottom: '12px' }}>CURRENT OPENINGS</h2>
-          <p style={{ textAlign: 'center', color: '#666', marginBottom: '60px', fontSize: '14px' }}>
+          <p>
             Explore opportunities across teams and find a role aligned with your skills, experience, and growth.
           </p>
           
@@ -315,7 +315,7 @@ export default function CareersPage() {
         <div className={`container ${styles.ctaContainer}`}>
           <h2 className={styles.ctaTitle}>Let’s Build Something Together</h2>
           <p className={styles.ctaDescription}>
-            If you don’t see a suitable role, share your profile with us—we’ll reach out when an opportunity aligns with your expertise.
+            If you don’t see a suitable role, share your profile with us we’ll reach out when an opportunity aligns with your expertise.
           </p>
           <Button href="mailto:info@zarjewels.com" variant="secondary" showArrow>
             Email Your Resume
