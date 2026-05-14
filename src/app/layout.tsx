@@ -6,6 +6,7 @@ import Header from "@/components/ui/organisms/Header/Header";
 import Footer from "@/components/ui/organisms/Footer/Footer";
 import PageTransitionProvider from "@/components/ui/organisms/PageTransitionProvider/PageTransitionProvider";
 import FirstVisitLoader from "@/components/ui/organisms/FirstVisitLoader/FirstVisitLoader";
+import CartDrawer from "@/components/ui/organisms/CartDrawer/CartDrawer";
 
 export const metadata: Metadata = {
   title: "Zar Jewels — India's Trusted Gold Bangle Manufacturer",
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body suppressHydrationWarning={true}>
         <ReduxProvider>
+          <CartDrawer />
           <FirstVisitLoader />
           <Header />
           <main style={{ paddingTop: '90px' }}>

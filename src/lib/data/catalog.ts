@@ -12,11 +12,12 @@ type CatalogProduct = {
   images?: string[];
   model3d?: string;
   variants?: string[];
-  weight?: string;
+  pcs?: string;
   finish?: string;
   specifications?: Record<string, string>;
-  technicalSpecs?: ProductDetail['technicalSpecs'];
+  technicalSpecs?: Array<{ feature: string; details: string }>;
   manufacturing?: ProductDetail['manufacturing'];
+  manufacturingHtml?: string;        // ← New: Full HTML from admin panel
 };
 
 type CatalogStyle = {
@@ -129,37 +130,16 @@ export function getProductDetail(
     sku: product.sku || `${style.name} Collection`,
     model3d: product.model3d || '/images/models/ZAR-1.glb',
     variants: product.variants || ['2.2', '2.4', '2.6', '2.8'],
-    weight: product.weight || '8.186',
-    finish: product.finish || 'High-polish with intricate laser-cut filigree work.',
+    pcs: product.pcs || '1',
+    finish: product.finish,
     specifications: product.specifications || {
       'Gross Weight:': '42.500 grams',
       'Net Gold Weight:': '38.200 grams',
       'Stone Weight:': '4.300 grams (21.50 Carats)',
     },
-    technicalSpecs: product.technicalSpecs || [
-      { feature: 'Metal Purity', details: `Standard ${purity.toUpperCase()} Gold` },
-      { feature: 'Finish', details: 'High-Polish Tri-Tone' },
-      { feature: 'Stone Composition', details: 'Premium Princess-Cut Synthetic Rubies' },
-      { feature: 'Construction', details: 'Cast and CNC hybrid for uniform durability' },
-    ],
-    manufacturing: product.manufacturing || {
-      heading: 'Manufacturing & Customization Support',
-      subtitle: 'As the direct manufacturer, Zar offers the following B2B support for this design:',
-      points: [
-        {
-          label: 'Stone Customization',
-          text: 'Replace synthetic stones with natural stones or certified diamonds for bulk orders.',
-        },
-        {
-          label: 'Size Scalability',
-          text: 'Available in standard Indian sizes (2.2 to 2.10) with adjusted weight calculations.',
-        },
-        {
-          label: 'Branding',
-          text: 'Provision for private-label hallmarking or custom HUID engraving for volume orders.',
-        },
-      ],
-    },
+    technicalSpecs: product.technicalSpecs || [],
+    manufacturing: product.manufacturing,
+    manufacturingHtml: product.manufacturingHtml,     // ← New
     images: product.images?.length ? product.images : [product.image],
   };
 }

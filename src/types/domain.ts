@@ -42,6 +42,7 @@ export interface ProductDetail extends ProductCard {
   images: string[];
   model3d?: string;
   variants?: string[];
+  pcs?: string;
   weight?: string;
   finish?: string;
   specifications?: Record<string, string>;
@@ -51,6 +52,7 @@ export interface ProductDetail extends ProductCard {
     subtitle: string;
     points: ManufacturingPoint[];
   };
+  manufacturingHtml?: string;
 }
 
 export interface CareerPosition {

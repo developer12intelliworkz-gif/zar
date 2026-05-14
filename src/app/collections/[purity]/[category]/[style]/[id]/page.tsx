@@ -42,17 +42,22 @@ const TRADE_HIGHLIGHTS: TradeHighlight[] = [
   {
     icon: '/images/sa.svg',
     title: 'Sample Availability',
-    description: 'Ready for viewing at our headquarters and major trade shows.',
+    description: 'At the Zar Experience Center, Mumbai as well as in leading trade shows across the country',
   },
   {
-    icon: '/images/bp.svg',
-    title: 'Bulk Production',
+    icon: '/images/slt.svg',
+    title: 'Service Lead Times',
+    description: 'Bulk: 7–10 business days <br/> Customer order: 5 business days',
+  },
+  {
+    icon: '/images/rsa.svg',
+    title: 'Ready Stock Availability',
     description: '12 to 15 business days from order confirmation.',
   },
   {
-    icon: '/images/moq.svg',
-    title: 'MOQ',
-    description: '1 Piece (Custom) or 5+ Pieces for wholesale pricing.',
+    icon: '/images/za.svg',
+    title: 'Zar App',
+    description: 'Get real-time updates to latest designs at your fingertips through the Zar app. Register now!',
   },
 ];
 
@@ -118,15 +123,19 @@ export default async function ProductDetailPage({ params }: Props) {
             <div className={styles.infoColumn}>
               <ProductInfo
                 product={{
+                  id: product.id,
                   title: product.name,
                   sku: product.sku,
                   description: product.description,
+                  price: product.price,
+                  image: product.image,
                   specifications: product.specifications || {},
                   purity: product.purity,
-                  weight: product.weight,
+                  pcs: product.pcs,
                   finish: product.finish,
                   technicalSpecs: product.technicalSpecs,
                   manufacturing: product.manufacturing,
+                  manufacturingHtml: product.manufacturingHtml,
                 }}
               />
             </div>

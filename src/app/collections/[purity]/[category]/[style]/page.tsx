@@ -52,6 +52,7 @@ export default async function ProductListingPage({ params }: Props) {
         title: item.name,
         description: item.description,
         image: item.image,
+        price: item.price,
       }))
     )
     .catch(() => []);

@@ -189,6 +189,10 @@
     font-size: var(--fs-xs);
     color: var(--color-gray-600);
     line-height: var(--lh-relaxed);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 
 .enquireBtn {

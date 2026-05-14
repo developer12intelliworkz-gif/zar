@@ -18,6 +18,10 @@
   margin-top: -10px;
 }
 
+.description{
+  padding-top:50px;
+  border-top: 1px solid #e8e0d0;
+}
 
 /* ── Meta row: purity badge, weight badge, finish line ── */
 .metaRow {
@@ -69,7 +73,6 @@
 
 /* ── Weight breakdown grid ── */
 .specificationsContainer {
-  border-top: 1px solid #e8e0d0;
   padding-top: 20px;
 }
 
@@ -124,17 +127,15 @@
 .techSpecTable {
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid #d0b480;
   font-size: 18px;
 }
 
 .techSpecHeader {
   text-align: left;
   padding: 9px 15px;
-  background: #000;
+  background: #EAE1D9;
   font-weight: 400;
-  color: #fff;
-  border: 1px solid #d0b480;
+  color: #000;
   font-family: var(--font-body, 'Helvetica Neue', sans-serif);
   line-height: 1;
 }
@@ -165,7 +166,7 @@
   padding-top: 20px;
 }
 
-.manufacturingHeading {
+.manufacturingContainer h6 {
   font-size: 18px;
   font-family: var(--font-body, 'Helvetica Neue', sans-serif);
   font-weight: 400;
@@ -173,7 +174,7 @@
   color: #000;
 }
 
-.manufacturingSubtitle {
+.manufacturingContainer p {
   font-size: 18px;
   color: #666666;
   margin: 0 0 14px;
@@ -181,7 +182,7 @@
   font-family: var(--font-body, 'Helvetica Neue', sans-serif);
 }
 
-.manufacturingList {
+.manufacturingContainer ul {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -190,7 +191,7 @@
   gap: 10px;
 }
 
-.manufacturingItem {
+.manufacturingContainer li {
   font-size: 18px;
   color: #666666;
   padding-left: 22px;
@@ -199,18 +200,23 @@
   font-family: var(--font-body, 'Helvetica Neue', sans-serif);
 }
 
-.manufacturingItem::before {
+.manufacturingContainer li strong,
+.manufacturingContainer li b {
+  color: #000;
+}
+
+.manufacturingContainer li::before {
   content: '';
   position: absolute;
   left: 3px;
-  top: 15px;
+  top: 10px;
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: #d0b480;
 }
 
-.manufacturingLabel {
+.manufacturingContainer span {
   font-weight: 400;
   color: #666666;
 }
@@ -272,4 +278,3 @@
     border-bottom: 1px solid #d0b480;
   }
 }
-

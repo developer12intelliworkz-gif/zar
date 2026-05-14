@@ -3,15 +3,17 @@
 import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
-import Button from '@/components/ui/atoms/Button/Button';
-import EnquiryModal from '@/components/ui/organisms/EnquiryModal/EnquiryModal';
+import CartButton from '@/components/ui/atoms/CartButton/CartButton';
 import styles from './ProductListingClient.module.css';
+import { useAppDispatch } from '@/store/hooks';
+import { addItem, toggleCart } from '@/features/cart/cartSlice';
 
 interface Product {
     id: string;
     title: string;
     description: string;
     image: string;
+    price: number;
 }
 
 interface ProductListingClientProps {
@@ -32,10 +34,9 @@ export default function ProductListingClient({
 }: ProductListingClientProps) {
     const router = useRouter();
     const pathname = usePathname();
+    const dispatch = useAppDispatch();
     const [sortBy, setSortBy] = useState('new-arrivals');
     const [filterOpen, setFilterOpen] = useState(false);
-    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-    const [enquiryOpen, setEnquiryOpen] = useState(false);
 
     const sortedProducts = useMemo<Product[]>(() => {
         const copy = [...products];
@@ -46,14 +47,15 @@ export default function ProductListingClient({
 
     const activeSortLabel = SORT_OPTIONS.find((o) => o.value === sortBy)?.label ?? 'New Arrivals';
 
-    function openEnquiry(product: Product) {
-        setSelectedProduct(product);
-        setEnquiryOpen(true);
-    }
-
-    function closeEnquiry() {
-        setEnquiryOpen(false);
-        setSelectedProduct(null);
+    function handleAddToCart(product: Product) {
+        dispatch(addItem({
+            id: product.id,
+            name: product.title,
+            price: product.price,
+            quantity: 1,
+            image: product.image,
+        }));
+        dispatch(toggleCart());
     }
 
     function navigateToProduct(productId: string) {
@@ -73,7 +75,7 @@ export default function ProductListingClient({
                 </div>
 
                 {/* Filter & Sort Bar */}
-                <div className={styles.toolbar}>
+                {/* <div className={styles.toolbar}>
                     <button
                         className={styles.filterBtn}
                         onClick={() => setFilterOpen((prev) => !prev)}
@@ -107,10 +109,10 @@ export default function ProductListingClient({
                             ))}
                         </select>
                     </div>
-                </div>
+                </div> */}
 
                 {/* Filter Panel */}
-                {filterOpen && (
+                {/* {filterOpen && (
                     <div className={styles.filterPanel}>
                         <div className={styles.filterGroup}>
                             <h4 className={styles.filterGroupTitle}>Weight</h4>
@@ -131,7 +133,7 @@ export default function ProductListingClient({
                             ))}
                         </div>
                     </div>
-                )}
+                )} */}
 
                 {/* Product Grid */}
                 <div className={styles.productGrid}>
@@ -165,14 +167,10 @@ export default function ProductListingClient({
                                     <p className={styles.productDesc}>{product.description}</p>
                                 </div>
                                 <div onClick={(event) => event.stopPropagation()}>
-                                    <Button
-                                        variant="primary"
-                                        showArrow
-                                        onClick={() => openEnquiry(product)}
+                                    <CartButton
+                                        onClick={() => handleAddToCart(product)}
                                         className={styles.enquireBtn}
-                                    >
-                                        Enquire Now
-                                    </Button>
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -180,11 +178,6 @@ export default function ProductListingClient({
                 </div>
             </div>
 
-            <EnquiryModal
-                open={enquiryOpen}
-                onClose={closeEnquiry}
-                productName={selectedProduct?.title}
-            />
         </>
     );
 }

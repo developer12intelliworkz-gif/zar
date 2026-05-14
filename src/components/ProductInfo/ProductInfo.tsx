@@ -1,36 +1,19 @@
 'use client';
 
-import { useState } from 'react';
-import Button from '@/components/ui/atoms/Button/Button';
-import EnquiryModal from '@/components/ui/organisms/EnquiryModal/EnquiryModal';
+import parse from 'html-react-parser';
+import CartButton from '@/components/ui/atoms/CartButton/CartButton';
 import styles from './ProductInfo.module.css';
+import type { ProductDetail } from '@/types/domain';
+import { useAppDispatch } from '@/store/hooks';
+import { addItem, toggleCart } from '@/features/cart/cartSlice';
 
-interface TechSpec {
-  feature: string;
-  details: string;
-}
-
-interface ManufacturingPoint {
-  label: string;
-  text: string;
-}
-
-interface ManufacturingInfo {
-  heading: string;
-  subtitle: string;
-  points: ManufacturingPoint[];
-}
-
-interface ProductDetails {
+interface ProductDetails extends Pick<
+  ProductDetail,
+  'id' | 'sku' | 'description' | 'price' | 'image' | 'pcs' | 'finish' | 'technicalSpecs' | 'manufacturing' | 'manufacturingHtml'
+> {
   title: string;
-  sku: string;
-  description: string;
-  specifications: Record<string, string>;
+  specifications?: Record<string, string>;
   purity?: string;
-  weight?: string;
-  finish?: string;
-  technicalSpecs?: TechSpec[];
-  manufacturing?: ManufacturingInfo;
 }
 
 interface ProductInfoProps {
@@ -38,7 +21,18 @@ interface ProductInfoProps {
 }
 
 export default function ProductInfo({ product }: ProductInfoProps) {
-  const [enquiryOpen, setEnquiryOpen] = useState(false);
+  const dispatch = useAppDispatch();
+
+  function handleAddToCart() {
+    dispatch(addItem({
+      id: product.id,
+      name: product.title,
+      price: product.price,
+      quantity: 1,
+      image: product.image,
+    }));
+    dispatch(toggleCart());
+  }
 
   return (
     <>
@@ -47,30 +41,35 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         <p className={styles.sku}>{product.sku}</p>
 
         <div className={styles.actions}>
-          <Button
-            variant="primary"
+          <CartButton
             showArrow
-            onClick={() => setEnquiryOpen(true)}
+            onClick={handleAddToCart}
             className={styles.enquireBtn}
-          >
-            Enquire Now
-          </Button>
+          />
         </div>
 
         <div className={styles.description}>
           <p>{product.description}</p>
         </div>
 
-        {/* Inline meta: purity, weight, finish */}
-        {(product.purity || product.weight || product.finish) && (
+        {/* Inline meta: purity, pcs, finish */}
+        {(product.purity || product.pcs || product.finish) && (
           <div className={styles.metaRow}>
             {product.purity && (
-              <div className={styles.metaItem}>
-                <svg className={styles.metaIcon} width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <mask id="mask0_155_1629" style={{ maskType: 'luminance' }} maskUnits="userSpaceOnUse" x="0" y="0" width="36" height="36">
+              <div className={styles.metaItem}>                
+                <svg
+                className={styles.metaIcon}
+                  width="36"
+                  height="36"
+                  viewBox="0 0 36 36"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <mask id="mask0_61_936" maskUnits="userSpaceOnUse" x="0" y="0" width="36" height="36">
                     <path d="M0.75 35.25V0.75H35.25V35.25H0.75Z" fill="white" stroke="white" strokeWidth="1.5" />
                   </mask>
-                  <g mask="url(#mask0_155_1629)">
+                  <g mask="url(#mask0_61_936)">
                     <path d="M28.5 18C28.5 17.9739 28.5208 17.9531 28.5469 17.9531C28.573 17.9531 28.5938 17.9739 28.5938 18C28.5938 18.0261 28.573 18.0469 28.5469 18.0469C28.5208 18.0469 28.5 18.0261 28.5 18Z" fill="#D0B480" stroke="#D0B480" strokeWidth="1.5" />
                     <path d="M0.703121 18C0.703121 27.3199 8.68008 35.2969 18 35.2969C27.3199 35.2969 35.2969 27.3199 35.2969 18C35.2969 8.68008 27.3199 0.703121 18 0.703121C8.68008 0.703121 0.703121 8.68008 0.703121 18Z" stroke="#D0B480" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M18 31.5703C25.3666 31.5703 31.5703 25.3666 31.5703 18C31.5703 10.6334 25.3666 4.42969 18 4.42969C10.6334 4.42969 4.42969 10.6334 4.42969 18C4.42969 25.3666 10.6334 31.5703 18 31.5703Z" stroke="#D0B480" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
@@ -82,19 +81,9 @@ export default function ProductInfo({ product }: ProductInfoProps) {
               </div>
             )}
 
-            {product.weight && (
+            {product.pcs && (
               <div className={styles.metaItem}>
-                <svg className={styles.metaIcon} xmlns="http://www.w3.org/2000/svg" width="36" height="27" viewBox="0 0 36 27" fill="none" aria-hidden="true">
-                  <path d="M9.27709 16.3934H26.3281V12.6846L22.991 6.54102H12.6143L9.27709 12.6846V16.3934Z" stroke="#D0B480" strokeWidth="1.5" strokeMiterlimit="10" />
-                  <path d="M17.8005 26.247H34.8516V22.5381L31.5144 16.3945H21.1377L17.8005 22.5381V26.247Z" stroke="#D0B480" strokeWidth="1.5" strokeMiterlimit="10" />
-                  <path d="M0.749744 26.247H17.8008V22.5381L14.4636 16.3945H4.08688L0.749744 22.5381V26.247Z" stroke="#D0B480" strokeWidth="1.5" strokeMiterlimit="10" />
-                  <path d="M7.94434 5.11719H5.82165" stroke="#D0B480" strokeWidth="1.5" strokeMiterlimit="10" />
-                  <path d="M18.8633 0.75H16.7406" stroke="#D0B480" strokeWidth="1.5" strokeMiterlimit="10" />
-                  <path d="M4.40625 9.6875H2.28357" stroke="#D0B480" strokeWidth="1.5" strokeMiterlimit="10" />
-                  <path d="M27.6615 5.11719H29.7842" stroke="#D0B480" strokeWidth="1.5" strokeMiterlimit="10" />
-                  <path d="M31.1986 9.6875H33.3213" stroke="#D0B480" strokeWidth="1.5" strokeMiterlimit="10" />
-                </svg>
-                <span className={styles.metaText}>{product.weight} gm</span>
+                <span className={styles.metaText}>Pcs: {product.pcs}</span>
               </div>
             )}
 
@@ -112,7 +101,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         <div className={styles.specificationsContainer}>
           <h2 className={styles.specificationsTitle}>Weight</h2>
           <div className={styles.weightGrid}>
-            {Object.entries(product.specifications).map(([key, value]) => (
+            {Object.entries(product.specifications || {}).map(([key, value]) => (
               <div key={key} className={styles.weightItem}>
                 <span className={styles.weightLabel}>{key}</span>
                 <span className={styles.weightValue}>{value}</span>
@@ -144,8 +133,12 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           </div>
         )}
 
-        {/* Manufacturing & Customization Support */}
-        {product.manufacturing && (
+        {/* Manufacturing & Customization Support - PRIORITY TO HTML */}
+        {product.manufacturingHtml ? (
+          <div className={styles.manufacturingContainer}>
+            {parse(product.manufacturingHtml)}
+          </div>
+        ) : product.manufacturing ? (
           <div className={styles.manufacturingContainer}>
             <h2 className={styles.manufacturingHeading}>{product.manufacturing.heading}</h2>
             <p className={styles.manufacturingSubtitle}>{product.manufacturing.subtitle}</p>
@@ -158,14 +151,9 @@ export default function ProductInfo({ product }: ProductInfoProps) {
               ))}
             </ul>
           </div>
-        )}
+        ) : null}
       </div>
 
-      <EnquiryModal
-        open={enquiryOpen}
-        onClose={() => setEnquiryOpen(false)}
-        productName={product.title}
-      />
     </>
   );
 }
