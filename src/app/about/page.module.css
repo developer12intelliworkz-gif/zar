@@ -29,9 +29,9 @@
   gap: 60px;
 }
 
-.margin_fs_54 {  
+/* .margin_fs_54 {  
   margin-bottom: 60px;
-}
+} */
 
 .section {
   display: flex;
@@ -92,13 +92,13 @@
   line-height: 26px;
 }
 
-.abt_des_wrapper {
+/* .abt_des_wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
   justify-content: space-between;
   align-items: center;
-}
+} */
 
 @media (min-width: 1024px) {
   .grid {
@@ -138,10 +138,10 @@
 
 .visionMissionSection {
   padding: 100px 0;
-  background-image: url('/images/about/about-bg.png');
+  /* background-image: url('/images/about/about-bg.png');
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
   position: relative;
 }
 
@@ -153,6 +153,7 @@
 
 .visionCard,
 .missionCard {
+  border: 1px solid #CFB480;
   background: rgba(255, 255, 255, 0.30);
   box-shadow: 0 9px 15px 0 rgba(163, 130, 116, 0.50);
   padding: 40px;

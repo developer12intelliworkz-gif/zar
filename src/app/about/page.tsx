@@ -20,7 +20,7 @@ export default function AboutPage() {
           { label: 'The Story of Zar', isActive: true }
         ]}
         heading="THE STORY OF ZAR"
-        description="Crafting timeless gold bangles through generations of heritage, precision, and design."
+        description="ZAR began with a singular pursuit—perfecting the craft of gold bangles through precision, consistency, and trust."
       />
       <div className='bannerImage'>
         <Image
@@ -36,10 +36,10 @@ export default function AboutPage() {
       <section className="mb-100">
         <div className="container">
           <p>
-            The story of ZAR is rooted in a legacy built on trust, craftsmanship, and enduring relationships. It’s a name long associated with purity and integrity. ZAR represents the evolution of that tradition into a modern expression of gold jewellery.<br/><br/>
+            Over time, that pursuit evolved into something greater: a disciplined system of excellence shaped by innovation and continuous improvement. Today, with a strong presence across India and Dubai, ZAR stands as a premium jewellery house—defined not only by what it creates, but by the standards it upholds.<br /><br />
           </p>
           <p>
-            Today, ZAR carries this legacy forward by creating gold bangles that blend <strong className="txt_black">timeless artistry with modern precision.</strong>.
+            <strong className="txt_black">Because at ZAR, the benchmark is always rising</strong>.
           </p>
         </div>
       </section>
@@ -54,19 +54,13 @@ export default function AboutPage() {
             <div className="storyTextBlock">
               <h2 className="fs_54">OUR STORY</h2>
               <p>
-                From Girdharlal & Bros to ZAR
+                <strong className="txt_black">From Girdharlal & Bros to ZAR: A Journey of Evolution</strong>
               </p>
               <p>
-                The journey of ZAR draws inspiration from the vision of <strong className="txt_black">Gurmukhdas Takhtani</strong>, a pioneering jeweller whose commitment to honesty and craftsmanship shaped one of India’s most respected jewellery traditions.
+                The journey began in the early 1950s, when Gurmukhdas Takhtani set out to master gold bangle craftsmanship through uncompromising quality and precision.
               </p>
               <p>
-                His philosophy was simple: jewellery should be crafted with integrity and offered with complete transparency.
-              </p>
-              <p>
-                Over time, this legacy evolved into <strong className="txt_black">Girdharlal & Bros</strong>, where specialised gold bangle manufacturing became the focus of the business.
-              </p>
-              <p>
-                Generations of expertise and craftsmanship eventually led to the creation of <strong className="txt_black"> </strong>ZAR, a modern brand built on heritage and driven by innovation.
+                What started as a craft was built on discipline a principle that shaped everything that followed.
               </p>
             </div>
           </div>
@@ -99,6 +93,48 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Our Philosophy Section */}
+      {/* <section className="mb-100">
+        <div className="container">
+          <div className={styles.legacyGrid}>
+            <div className={styles.legacyTextBlock}>
+              <h2 className={`fs_54 ${styles.margin_fs_54}`}>Our Philosophy</h2>
+              <p>Crafted with Care. Built to Scale.</p>
+              <p>At ZAR, craftsmanship and precision go hand in hand.</p>
+              <p>Traditional expertise is combined with modern manufacturing to create gold bangles that are refined, consistent, and elegant.</p>
+              <p>This approach allows ZAR to grow while remaining true to its craft.</p>
+            </div>
+            <div className={styles.legacyImageWrapper}>
+              <Image src="/images/about/about_4.webp" alt="Zar founders and team" fill className={styles.legacyImage} />
+            </div>
+          </div>
+        </div>
+      </section> */}
+
+      {/* Timeline Section */}
+      <Timeline />
+
+      {/* {design & finish section} */}
+      {/* <section className="mt-100">
+        <div className="container">
+          <div className={styles.abt_des_wrapper}>
+            <div>
+              <div>
+                <Image src="/images/design-finish-img.png" alt="Zar founders and team" width={690} height={820} className={styles.legacyImage} />
+              </div>
+            </div>
+            <div>
+              <h2 className={`fs_54 ${styles.margin_fs_54}`}>
+                Design & Finish
+              </h2>
+              <p>Excellence in Every Detail</p>
+              <p>Design lies at the heart of ZAR jewellery.</p>
+              <p>Our artisans and designers work together to create bangles defined by balance, elegance, and precision.</p>
+              <p>Every piece is finished with meticulous care, reflecting the craftsmanship that defines the ZAR legacy.</p>
+            </div>
+          </div>
+        </div>
+      </section> */}
       {/* Vision & Mission Section */}
       <section className={styles.visionMissionSection}>
         <div className="container">
@@ -129,9 +165,7 @@ export default function AboutPage() {
                 </g>
               </svg>
               <h3>VISION</h3>
-              <h4>Shaping the Future of Handcrafted Gold Bangles</h4>
-              <p>To carry forward a legacy of jewellery craftsmanship while embracing innovation in design and manufacturing.</p>
-              <p>ZAR strives to create gold bangles that reflect elegance, precision, and timeless appeal.</p>
+              <p>To craft jewellery that transcends ornamentation becoming a symbol of identity, legacy, and enduring elegance.</p>
             </div>
             <div className={styles.missionCard}>
               <svg width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -156,9 +190,26 @@ export default function AboutPage() {
                 </g>
               </svg>
               <h3>MISSION</h3>
-              <h4>Preserving Craft. Elevating Design.</h4>
-              <p>Our mission is to honour traditional jewellery craftsmanship while refining it through modern techniques and design.</p>
-              <p>Every piece reflects our commitment to quality, precision, and trust.</p>
+              <p>To build a globally respected gold jewellery house driven by excellence, innovation, and continuous growth.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Story Section */}
+      <section className="storySection">
+        <div className="container">
+          <div className="storyGrid">
+            <div className="storyImageWrapper">
+              <Image src="/images/about/about_1.png" alt="Zar team at work" fill className="storyImage" />
+            </div>
+            <div className="storyTextBlock">
+              <h2 className="fs_54">Design & Innovation</h2>
+              <p>
+                <strong className="txt_black">Precision, Engineered.</strong>
+              </p>
+              <p>At ZAR, design is not just expression it is execution.                </p>
+              <p>We create ultra-light, design-led gold jewellery that merges heritage craftsmanship with modern engineering—crafted for those who value precision, comfort, and refinement.</p>
             </div>
           </div>
         </div>
@@ -230,48 +281,6 @@ export default function AboutPage() {
               </div>
               <h4>Trust & Transparency</h4>
               <p>Integrity remains central to every relationship we build.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* Our Philosophy Section */}
-      <section className="mb-100">
-        <div className="container">
-          <div className={styles.legacyGrid}>
-            <div className={styles.legacyTextBlock}>
-              <h2 className={`fs_54 ${styles.margin_fs_54}`}>Our Philosophy</h2>
-              <p>Crafted with Care. Built to Scale.</p>
-              <p>At ZAR, craftsmanship and precision go hand in hand.</p>
-              <p>Traditional expertise is combined with modern manufacturing to create gold bangles that are refined, consistent, and elegant.</p>
-              <p>This approach allows ZAR to grow while remaining true to its craft.</p>
-            </div>
-            <div className={styles.legacyImageWrapper}>
-              <Image src="/images/about/about_4.webp" alt="Zar founders and team" fill className={styles.legacyImage} />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Timeline Section */}
-      <Timeline />
-
-      {/* {design & finish section} */}
-      <section className="mt-100">
-        <div className="container">
-          <div className={styles.abt_des_wrapper}>
-            <div>
-              <div>
-                <Image src="/images/design-finish-img.png" alt="Zar founders and team" width={690} height={820} className={styles.legacyImage} />
-              </div>
-            </div>
-            <div>
-              <h2 className={`fs_54 ${styles.margin_fs_54}`}>
-                Design & Finish
-              </h2>
-              <p>Excellence in Every Detail</p>
-              <p>Design lies at the heart of ZAR jewellery.</p>
-              <p>Our artisans and designers work together to create bangles defined by balance, elegance, and precision.</p>
-              <p>Every piece is finished with meticulous care, reflecting the craftsmanship that defines the ZAR legacy.</p>
             </div>
           </div>
         </div>
