@@ -254,7 +254,7 @@ textarea::placeholder {
   margin-top: 4px;
   text-align: center;
   color: #969696;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 /* form css */
@@ -271,7 +271,7 @@ textarea::placeholder {
 }
 
 .storyGrid .fs_54 {
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 
 .storyImageWrapper {
@@ -287,8 +287,6 @@ textarea::placeholder {
 
 
 .storyTextBlock p {
-  font-size: 24px;
-  line-height: 32px;
   color: var(--color-gray-600);
   margin-bottom: 16px;
 }
@@ -312,7 +310,7 @@ textarea::placeholder {
 
 .valuesGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 50px;
 }
 

@@ -8,8 +8,8 @@ import styles from './MegaMenu.module.css';
 import { cn } from '@/lib/utils';
 
 const ktFilters = [
-  { label: '22 KT Jewellery', value: '22kt' },
   { label: '18 KT Jewellery', value: '18kt' },
+  { label: '22 KT Jewellery', value: '22kt' },
 ];
 
 interface Category {
@@ -26,7 +26,6 @@ const categoriesByKt: Record<string, Category[]> = {
     { label: 'Earrings', href: '/collections/22k/earrings', image: '/images/menu/menu-4.png' },
     { label: 'Kids Jewellery', href: '/collections/22k/kids-jewellery', image: '/images/menu/menu-5.png' },
     { label: 'Lightweight Jewellery', href: '/collections/22k/lightweight-jewellery', image: '/images/menu/menu-8.png' },
-    { label: 'Rings', href: '/collections/22k/rings', image: '/images/menu/menu-6.png' },
   ],
   '18kt': [
     { label: 'Bangles & Bracelet', href: '/collections/18k/bangles-bracelet', image: '/images/menu/menu-1.png' },
@@ -44,29 +43,46 @@ interface MegaMenuProps {
 }
 
 export default function MegaMenu({ open, onClose }: MegaMenuProps) {
-  const [activeKt, setActiveKt] = useState('22kt');
+  const [activeKt, setActiveKt] = useState('18kt');
 
-  const categories = categoriesByKt[activeKt] ?? categoriesByKt['22kt'];
+  const categories = categoriesByKt[activeKt] ?? categoriesByKt['18kt'];
 
   const overlayClass = cn(styles.overlay, open && styles.overlayOpen);
-  // console.log('MegaMenu open:', open, 'class:', overlayClass);
 
   return (
     <div className={overlayClass}>
       <div className={styles.inner}>
         <div className={styles.sidebar}>
-          {ktFilters.map((filter) => (
+          {ktFilters.map((kt) => (
             <button
-              key={filter.value}
-              className={cn(styles.ktButton, activeKt === filter.value && styles.ktButtonActive)}
-              onClick={() => setActiveKt(filter.value)}
+              key={kt.value}
+              type="button"
+              className={cn(styles.ktCard, activeKt === kt.value && styles.ktCardActive)}
+              onClick={() => setActiveKt(kt.value)}
+              style={{ cursor: 'pointer', background: 'none', border: 'none', padding: 0 }}
+              aria-pressed={activeKt === kt.value}
             >
-              {filter.label}
-              <span className={styles.ktArrow}>
-                <svg viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1 1L6 6L1 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
+              <div className={styles.ktCardImageWrap}>
+                <Image
+                  src={kt.value === '18kt' ? '/images/menu/18k_menu.png' : '/images/menu/22kt_menu.png'}
+                  alt={kt.label}
+                  width={70}
+                  height={70}
+                />
+              </div>
+              <div className={styles.ktCardText}>
+                <div className={styles.ktCardTitle}>
+                  {kt.value === '18kt' ? '18' : '22'} <span className={styles.ktCardKt}>KT</span>
+                </div>
+                <div className={styles.ktCardSubtitle}>
+                  {kt.value === '18kt' ? 'Contemporary Gold' : 'Classic Gold'}
+                </div>
+              </div>
+              <div className={styles.ktCardPara}>
+                {kt.value === '18kt'
+                  ? 'Modern silhouettes, precise Italian design, and two-tone finishes for the minimalist.'
+                  : 'Traditional craftsmanship meets everyday luxury in our signature high-purity collections.'}
+              </div>
             </button>
           ))}
         </div>
@@ -87,29 +103,6 @@ export default function MegaMenu({ open, onClose }: MegaMenuProps) {
           ))}
         </div>
 
-        <div className={styles.featured}>
-          <div className={styles.featuredImage}>
-            <Image
-              src="/images/dazz-coll.webp"
-              alt="Dazzling Collection"
-              fill
-              sizes="300px"
-              loading="eager"
-            />
-          </div>
-          <h3 className={styles.featuredTitle}>Dazzling Collection (Stone)</h3>
-          {/* <Link href="/collections/dazzling" className={styles.featuredButton}>
-            Explore Collection
-            <span className={styles.featuredArrow}>
-              <svg viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 5H12M8.5 1L12.5 5L8.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </span>
-          </Link> */}
-          <Button href={`/collections/${activeKt === '18kt' ? '18k' : '22k'}`}  variant="primary" showArrow>
-            Explore Collections
-          </Button>
-        </div>
       </div>
     </div>
   );

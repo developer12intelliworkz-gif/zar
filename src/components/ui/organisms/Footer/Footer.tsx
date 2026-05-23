@@ -33,7 +33,7 @@ export default function Footer() {
           <div className={styles.quoteInner}>
             <span className={styles.quoteMarkLeft}>&ldquo;</span>
             <p className={styles.quoteText}>
-              <TypingText text="Crafted in gold. Defined by precision. Trusted for generations." speed={100} />
+              <TypingText text="Excellence is not a skill, it's an attitude" speed={100} />
             </p>
             <span className={styles.quoteMarkRight}>&ldquo;</span>
           </div>
