@@ -4,6 +4,7 @@ import styles from './page.module.css';
 import PageHeader from '@/components/ui/PageHeader/PageHeader';
 import RetailerSlider from '@/components/ui/organisms/RetailerSlider/RetailerSlider';
 import testimonials from '@/lib/data/text_testimonials';
+import Testimonials from '@/components/Testimonials';
 import clientLogos from '@/lib/data/client_logos';
 import { useState } from 'react';
 import NavTabs from '@/components/ui/NavTabs/NavTabs';
@@ -104,20 +105,7 @@ export default function ClientelePage() {
       </section>
 
       <RetailerSlider />
-      <section className="mt-100 mb-100">
-        <div className="container">
-          <h4 className="fs_54 txt_center">What Our Customers Say</h4>
-          <div className={styles.text_testi_grid}>
-            {testimonials.map((testi, idx) => (
-              <div className={styles.text_test_card} key={idx}>
-                <div className={styles.testi_message}>{testi.message}</div>
-                <div className={styles.testi_name}>{testi.name}</div>
-                <div className={styles.testi_designation}>{testi.designation}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Testimonials testimonials={testimonials} />
     </main>
   );
 }

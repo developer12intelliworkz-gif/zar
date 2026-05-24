@@ -2,9 +2,11 @@
 
 import { useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Link from 'next/link';
 import { Autoplay } from 'swiper/modules';
 import Button from '@/components/ui/atoms/Button/Button';
 import { showcaseModels } from '@/lib/model-showcase';
+
 
 // Triple the list so we have enough real slides to scroll both directions
 // without loop mode (which clones DOM nodes and breaks model-viewer web components).
@@ -95,6 +97,15 @@ export default function ModelShowcaseSection() {
                     />
                   </div>
                   <span className={styles.cardLabel}>{model.name}</span>
+                  {model.url ? (
+                    <Link href={`/${model.url}`} passHref>
+                      <Button variant="primary">
+                        Know More
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Button variant="primary">Know More</Button>
+                  )}
                 </article>
               </SwiperSlide>
             ))}

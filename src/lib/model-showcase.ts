@@ -3,6 +3,7 @@ export interface ShowcaseModel {
   src: string;
   alt: string;
   poster: string;
+  url?: string;
 }
 
 export const showcaseModels: ShowcaseModel[] = [
@@ -11,24 +12,31 @@ export const showcaseModels: ShowcaseModel[] = [
     src: '/images/models/ZAR-1.glb',
     alt: 'Interactive 3D jewellery model 1',
     poster: '/images/homepage/product_1.webp',
+    url: 'collections/18k/bangles-bracelet/plain/plain-1',
   },
   {
     name: 'Dazzling-2',
     src: '/images/models/ZAR-2.glb',
     alt: 'Interactive 3D jewellery model 2',
     poster: '/images/homepage/product_2.webp',
+    url: 'collections/18k/bangles-bracelet/plain/plain-1',
+
   },
   {
     name: 'Dazzling-3',
     src: '/images/models/ZAR-3.glb',
     alt: 'Interactive 3D jewellery model 3',
     poster: '/images/homepage/product_3.webp',
+    url: 'collections/18k/bangles-bracelet/plain/plain-1',
+
   },
   {
     name: 'Dazzling-4',
     src: '/images/models/ZAR-4.glb',
     alt: 'Interactive 3D jewellery model 4',
     poster: '/images/homepage/product_4.webp',
+    url: 'collections/18k/bangles-bracelet/plain/plain-1',
+
   },
 ];
 

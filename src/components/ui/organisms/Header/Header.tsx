@@ -168,19 +168,7 @@ export default function Header() {
             <li><Link href="/partner" onClick={() => setMenuOpen(false)}>Become a Partner</Link></li>
             <li><Link href="/careers" onClick={() => setMenuOpen(false)}>Careers</Link></li>
             <li><Link href="/contact" onClick={() => setMenuOpen(false)}>Contact</Link></li>
-          </ul>
-          <button
-            className={styles.cartIcon}
-            onClick={() => { setMenuOpen(false); dispatch(toggleCart()); }}
-            aria-label={`Open cart (${cartCount} items)`}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              <path d="M16 10a4 4 0 01-8 0" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            Cart{cartCount > 0 && ` (${cartCount})`}
-          </button>
+          </ul>          
         </div>
       </header>
     </>

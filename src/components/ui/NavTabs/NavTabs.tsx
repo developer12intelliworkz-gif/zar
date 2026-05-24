@@ -10,7 +10,7 @@ interface NavTabsProps {
 
 export default function NavTabs({ selectedNation, setSelectedNation }: NavTabsProps) {
   return (
-    <div style={{ display: 'flex', gap: 16, marginBottom: 32 }}>
+    <div className={styles.tabWrapper}>
       <button
         type="button"
         className={selectedNation === 'uae' ? styles.activeTab : styles.inactiveTab}
