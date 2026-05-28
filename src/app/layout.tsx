@@ -26,7 +26,7 @@ export default function RootLayout({
           <CartDrawer />
           <FirstVisitLoader />
           <Header />
-          <main style={{ paddingTop: '90px' }}>
+          <main className="main">
             <PageTransitionProvider>{children}</PageTransitionProvider>
           </main>
           <Footer />

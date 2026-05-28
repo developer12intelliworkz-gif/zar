@@ -13,6 +13,24 @@ interface TimelineItem {
 
 const timelineData: TimelineItem[] = [
   {
+    year: '1920',
+    title: '1920',
+    description: 'The journey begins with Girdharlal & Bros, focusing on specialised gold bangle manufacturing.',
+    image: '/images/about/about_5.webp',
+  },
+  {
+    year: '1930',
+    title: '1930',
+    description: 'The journey begins with Girdharlal & Bros, focusing on specialised gold bangle manufacturing.',
+    image: '/images/about/about_5.webp',
+  },
+  {
+    year: '1940',
+    title: '1940',
+    description: 'The journey begins with Girdharlal & Bros, focusing on specialised gold bangle manufacturing.',
+    image: '/images/about/about_5.webp',
+  },
+  {
     year: '1950',
     title: '1950',
     description: 'The journey begins with Girdharlal & Bros, focusing on specialised gold bangle manufacturing.',

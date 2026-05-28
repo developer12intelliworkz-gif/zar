@@ -21,10 +21,10 @@ html {
 }
 
 body {
-  font-family: var(--font-body);
   font-size: 18px;
-  font-weight: 400;
   line-height: 26px;
+  font-family: var(--font-body);
+  font-weight: 400;
   color: var(--color-gray-600);
   overflow-x: hidden;
 }
@@ -68,9 +68,13 @@ ol {
   margin-right: auto;
 }
 
-.imgFluid{
-  width: 100%!important;
-  height: auto!important;
+.imgFluid {
+  width: 100% !important;
+  height: auto !important;
+}
+
+.h-full {
+  height: 100% !important;
 }
 
 .mb_30 {
@@ -130,6 +134,12 @@ ol {
   line-height: 36px;
 }
 
+/*----------------------------- MAIN lAYOUT css -----------------------------*/
+.main {
+  padding-top: 80px;
+}
+
+/*----------------------------- MAIN lAYOUT css -----------------------------*/
 /*----------------------------- banner img css -----------------------------*/
 .bannerImage {
   width: 100%;
@@ -137,6 +147,7 @@ ol {
   height: 400px;
   margin: 40px 0;
 }
+
 /*----------------------------- banner img css -----------------------------*/
 /* form css */
 .fieldGroup {
@@ -277,7 +288,7 @@ textarea::placeholder {
 .storyImageWrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: -webkit-fill-available;
   overflow: hidden;
 }
 
@@ -317,6 +328,9 @@ textarea::placeholder {
 .valueCard {
   border: 1px solid var(--color-brown);
   padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .valueIcon {
@@ -424,4 +438,78 @@ textarea::placeholder {
 }
 
 
-/* resposnive css starts  */
+/*----------------------- resposnive css starts ------------------------- */
+@media (max-width: 1537px) {
+  .mb-100 {
+    margin-bottom: 70px;
+  }
+
+  .mt-100 {
+    margin-top: 70px;
+  }
+
+  .bannerImage {
+    height: 320px;
+  }
+
+  .fs_54 {
+    letter-spacing: -0.01em;
+  }
+}
+
+@media (max-width: 1367px) {
+  .bannerImage {
+    height: 285px;
+  }
+}
+
+@media (max-width: 1281px) {
+  .bannerImage {
+    height: 270px;
+    margin: 20px 0;
+  }
+
+  .valueCard h4 {
+    font-size: 24px;
+    line-height: normal;
+    letter-spacing: -0.01em;
+  }
+
+  .valuesGrid {
+    gap: 30px;
+  }
+
+  .valueCard {
+    padding: 20px;
+  }
+
+  .valueIcon img {
+    width: 80px;
+    height: auto;
+  }
+}
+
+@media (max-width: 992px) {
+  .bannerImage img {
+    height: 270px !important;
+  }
+
+  .storyImageWrapper {
+    height: 500px;
+  }
+
+  .valuesSectionSubtitle {
+    margin-bottom: 20px;
+  }
+
+  .storyGrid {
+    gap: 25px;
+  }
+
+  body {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+/*------------------------ resposnive css ends --------------------------------------------- */

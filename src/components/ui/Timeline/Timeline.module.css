@@ -7,7 +7,7 @@
   position: relative;
 }
 
-.timelineSection > * {
+.timelineSection>* {
   position: relative;
   z-index: 1;
 }
@@ -16,6 +16,7 @@
   font-family: var(--font-heading);
   font-size: var(--fs-2xl);
   font-weight: var(--fw-semibold);
+  line-height: normal;
   color: #fff;
   text-align: center;
   margin-bottom: 12px;
@@ -100,6 +101,45 @@
   color: #fff;
 }
 
+
+/*----------------------- resposnive css starts ------------------------- */
+@media (max-width: 1537px) {
+  .yearList {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1337px) {
+  .timelineWrapper {
+    gap: 70px;
+  }
+}
+
+@media (max-width: 992px) {
+  .timelineWrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .timelineWrapper> :nth-child(1) {
+    order: 3;
+  }
+
+  /* Original 1st → becomes last */
+  .timelineWrapper> :nth-child(2) {
+    order: 1;
+  }
+
+  /* Original 2nd → becomes first */
+  .timelineWrapper> :nth-child(3) {
+    order: 2;
+  }
+
+  /* Original 3rd → becomes second */
+  .yearList {
+    flex-direction: row;
+  }
+}
+
 @media (max-width: 768px) {
   .timelineWrapper {
     grid-template-columns: 1fr;
@@ -108,19 +148,51 @@
 
   .drumWrapper {
     height: 80px;
-    mask-image: linear-gradient(
-      to right,
-      transparent 0%,
-      black 20%,
-      black 80%,
-      transparent 100%
-    );
-    -webkit-mask-image: linear-gradient(
-      to right,
-      transparent 0%,
-      black 20%,
-      black 80%,
-      transparent 100%
-    );
+    mask-image: linear-gradient(to right,
+        transparent 0%,
+        black 20%,
+        black 80%,
+        transparent 100%);
+    -webkit-mask-image: linear-gradient(to right,
+        transparent 0%,
+        black 20%,
+        black 80%,
+        transparent 100%);
   }
 }
+
+@media (max-width: 577px) {
+  .yearList {
+    overflow-x: auto;
+    /* Enables horizontal scrolling */
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    /* or 'x proximity' for softer snapping */
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    /* Firefox */
+    scrollbar-color: #888 #f1f1f1;
+  }
+
+  .yearList::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .yearList::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  .yearList::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+
+
+  .timelineSection {
+    padding: 70px 0;
+    height: 960px;
+  }
+}
+
+/*----------------------- resposnive css ends ------------------------- */

@@ -27,8 +27,9 @@ export default function AboutPage() {
           src="/images/about/about_banner.webp"
           alt="Crafting gold bangle"
           fill
-          style={{ objectFit: 'contain' }}
+          style={{ objectFit: 'cover' }}
           priority
+          className="imgFluid"
         />
       </div>
 
@@ -49,7 +50,8 @@ export default function AboutPage() {
         <div className="container">
           <div className="storyGrid">
             <div className="storyImageWrapper">
-              <Image src="/images/about/about_1.png" alt="Zar team at work" fill className="storyImage" />
+              <Image src="/images/about/about_1.png" alt="Zar team at work" width={800}
+                height={500} className="storyImage" />
             </div>
             <div className="storyTextBlock">
               <h2 className="fs_54">OUR STORY</h2>
@@ -77,6 +79,9 @@ export default function AboutPage() {
                 <p>In <span className="txt_black">1970</span>, the second generation carried this forward under Girdharlal & Bros, strengthening the foundation through deeper specialization and consistency. </p>
                 <h6 className="txt_black">Growth was never incidental.It was deliberate.</h6>
               </div>
+              <div className={styles.beliefText_4}>
+                <Image src="/images/about/belief_mob.png" alt="Zar" width={300} height={300} className={styles.beliefMobImage} />
+              </div>
               <div className={styles.beliefText_2}>
                 <p>In <span className="txt_black">2007</span>, the third generation established R.G. Bangle Private Limited, introducing scale, structure, and refined processes.</p>
                 <h6 className="txt_black">Standards were elevated.Efficiency became embedded.</h6>
@@ -88,7 +93,7 @@ export default function AboutPage() {
             </div>
           </div>
           <div className={styles.beliefBottom}>
-            <div className="container">
+            <div className="">
               <p>Across generations, one belief has remained constant: there is always a higher standard to pursue.</p>
               <p>This belief defines ZAR today not just as a legacy, but as a journey in motion.</p>
             </div>
@@ -238,7 +243,7 @@ export default function AboutPage() {
         <div className="container">
           <div className="storyGrid">
             <div className="storyImageWrapper">
-              <Image src="/images/about/abt-4.jpg" alt="Zar team at work" fill className="storyImage imgFluid" />
+              <Image src="/images/about/abt-4.jpg" alt="Zar team at work" fill className="storyImage imgFluid h-full" />
             </div>
             <div className="storyTextBlock">
               <h2 className="fs_54">Design & Innovation</h2>
@@ -256,7 +261,7 @@ export default function AboutPage() {
                 <li>A blend of handcrafted artistry and CNC precision for consistent detailing</li>
               </ul>
               <p>Innovation, for us, is not feature-driven. It is progress-driven.</p>
-              <p className='txt_black'>We don’t follow trends.<br/> We set new benchmarks.</p>
+              <p className='txt_black'>We don’t follow trends.<br /> We set new benchmarks.</p>
               <p style={{ color: '#A38274' }}>Because there is always a better way to create—and we are committed to finding it.</p>
             </div>
           </div>
@@ -296,7 +301,7 @@ export default function AboutPage() {
               </div>
               <h4>Discipline Over Hype</h4>
               <p>We value consistency, precision, and execution over noise.</p>
-            </div>                        
+            </div>
           </div>
         </div>
       </section>

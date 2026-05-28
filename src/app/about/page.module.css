@@ -118,7 +118,10 @@
   overflow: hidden;
 }
 
-.legacyTextBlock h2 {margin-bottom: 40px;}
+.legacyTextBlock h2 {
+  margin-bottom: 40px;
+}
+
 .legacyTextBlock p {
   color: var(--color-gray-600);
   margin-bottom: 16px;
@@ -187,6 +190,7 @@
   font-weight: var(--fw-semibold);
   color: var(--color-brown);
   margin-bottom: 8px;
+  margin-top: 40px;
 }
 
 .visionCard h4,
@@ -203,12 +207,6 @@
   font-size: var(--fs-base);
   line-height: 26px;
   color: var(--color-gray-600);
-  margin-bottom: 12px;
-}
-
-.visionCard p:last-child,
-.missionCard p:last-child {
-  margin-bottom: 0;
 }
 
 
@@ -329,7 +327,7 @@
 /* belief section */
 .beliefSection {
   position: relative;
-  margin-bottom:50px;
+  margin-bottom: 50px;
 }
 
 .beliefContent h6 {
@@ -359,29 +357,37 @@
   width: 30%;
 }
 
+.beliefText_4 {
+  display: none;
+}
+
 .beliefImage {
   position: static !important;
   width: 100% !important;
   height: auto !important;
 }
-.beliefBottom p:first-child{
+
+.beliefBottom p:first-child {
   font-size: 30px;
   line-height: 40px;
   font-family: var(--font-body);
-  color:var(--color-black);
+  color: var(--color-black);
 }
-.beliefBottom p:last-child{
+
+.beliefBottom p:last-child {
   font-size: 36px;
   line-height: normal;
   text-transform: uppercase;
-  color:var(--color-black);
+  color: var(--color-black);
   font-family: var(--font-heading);
 }
+
 /* belief section */
-ul.designList{
+ul.designList {
   list-style: disc;
   padding-left: 20px;
 }
+
 ul.designList li::marker {
   color: #666;
 }
@@ -389,12 +395,123 @@ ul.designList li::marker {
 
 /* -------------------------------------------------------------- RESPONSIVE STARTS --------------------------------------------------------------*/
 @media (max-width: 1537px) {
-
+  .beliefBottom p:last-child {
+    font-size: 30px;
+  }
 }
+
+@media (max-width: 1367px) {
+  .beliefBottom p:last-child {
+    font-size: 30px;
+  }
+
+  .beliefContent h6 {
+    font-size: 20px;
+    line-height: 26px;
+    margin-top: 16px;
+  }
+
+  .beliefText_3 {
+    width: 35%;
+  }
+
+  .beliefBottom p:first-child {
+    font-size: 24px;
+  }
+
+  .beliefBottom p:last-child {
+    font-size: 26px;
+  }
+}
+
 @media (max-width: 1024px) {
   .collectionsGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+  }
+
+  .visionMissionSection {
+    padding: 50px 0;
+  }
+
+  .visionCard h3,
+  .missionCard h3 {
+    margin-top: 20px;
+  }
+
+  .beliefText_4 {
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .beliefText_4 img {
+    margin-left: 15%;
+  }
+
+  .beliefImage {
+    display: none;
+  }
+
+  .beliefText_2,
+  .beliefText_3 {
+    position: static;
+    width: 100%;
+  }
+
+  .beliefText_1 {
+    left: 60%;
+    width: 33%;
+    top: 5%;
+  }
+
+  .beliefContent {
+    display: grid;
+  }
+
+  .beliefBottom p:first-child {
+    font-size: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .beliefBottom p:last-child {
+    font-size: 26px;
+    letter-spacing: -0.01em;
+  }
+
+  .beliefSection {
+    margin-bottom: 10px;
+  }
+
+  .legacyBottomText p:nth-child(1) {
+    font-size: 36px;
+  }
+
+  .legacyBottomText p:nth-child(3) {
+    font-size: 20px;
+    margin-bottom: 0;
+  }
+
+  .legacyBottomText p:nth-child(4) {
+    font-size: 48px;
+    line-height: 66px;
+  }
+
+  .legacyBottomText {
+    margin-top: 20px;
+  }
+
+  .legacyGrid {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .legacyTextBlock h2 {
+    margin-bottom: 10px;
+  }
+
+  .legacyTextBlock p {
+    margin-bottom: 6px;
   }
 }
 
@@ -406,5 +523,27 @@ ul.designList li::marker {
 
   .collectionCard {
     max-width: 100%;
+  }
+}
+
+@media (max-width: 577px) {
+  .beliefText_1 {
+    position: static;
+    width: 100%;
+  }
+
+  .legacyBottomText p:nth-child(1) {
+    font-size: 28px;
+  }
+
+  .legacyBottomText p:nth-child(3) {
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+
+  .legacyBottomText p:nth-child(4) {
+    font-size: 30px;
+    line-height: 40px;
+    letter-spacing: -0.01em;
   }
 }
