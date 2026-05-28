@@ -24,10 +24,12 @@ export default function RootLayout({
       <body suppressHydrationWarning={true}>
         <ReduxProvider>
           <CartDrawer />
-          <FirstVisitLoader />
+          {/* <FirstVisitLoader /> */}
           <Header />
           <main className="main">
-            <PageTransitionProvider>{children}</PageTransitionProvider>
+            {/* <PageTransitionProvider> */}
+              {children}
+              {/* </PageTransitionProvider> */}
           </main>
           <Footer />
         </ReduxProvider>

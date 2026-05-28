@@ -7,7 +7,7 @@
   z-index: 100;
   background-color: var(--color-white);
   transition: box-shadow var(--transition-base), transform 0.35s ease;
-  padding: 15px 0 0;
+  padding: 15px 0 0 ;
 }
 
 .headerScrolled {
@@ -283,7 +283,7 @@
 .mobileMenuList a {
   display: block;
   font-family: var(--font-body);
-  font-size: 24px;
+  font-size: 18px;
   font-weight: var(--fw-regular);
   color: var(--color-gray-600);
   padding: 10px 0;
@@ -317,9 +317,5 @@
   .mobileMenu,
   .mobileMenuOpen {
     display: none;
-  }
-
-  .header {
-    padding: 15px 0;
   }
 }

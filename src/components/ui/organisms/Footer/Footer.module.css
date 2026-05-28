@@ -98,7 +98,7 @@
 
 .socials {
   display: flex;
-  gap: 12px;
+  gap: 0px;
   margin-top: 4px;
 }
 
