@@ -1,3 +1,46 @@
+/* Mobile trade highlights slider */
+.tradeHighlightsMobile {
+  display: none;
+}
+
+.tradeHighlightsSlider {
+  width: 100%;
+}
+
+.tradeHighlightsSliderWrap {
+  padding: 32px 0;
+}
+
+@media (max-width: 576px) {
+  .tradeHighlights {
+    display: none;
+  }
+
+  .tradeHighlightsMobile {
+    display: block;
+  }
+
+  .tradeHighlightsSlider .swiper-pagination {
+    position: static;
+    margin-top: 16px;
+    text-align: center;
+  }
+
+  .tradeHighlightsSlider .swiper-pagination-bullet {
+    background: #bfa15a;
+    opacity: 0.5;
+    width: 10px;
+    height: 10px;
+    margin: 0 4px;
+    border-radius: 50%;
+    transition: opacity 0.2s;
+  }
+
+  .tradeHighlightsSlider .swiper-pagination-bullet-active {
+    opacity: 1;
+  }
+}
+
 .page {
   padding-bottom: 80px;
 }
@@ -16,7 +59,8 @@
 
 .stickyGallery {
   position: sticky;
-  top: 100px; /* Offset for header/navbar */
+  top: 100px;
+  /* Offset for header/navbar */
 }
 
 /* .infoColumn {
@@ -37,8 +81,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-   gap: 20px;
+  gap: 20px;
   padding: 0 32px;
+  text-align: center;
 }
 
 .highlightCard:not(:last-child) {
@@ -70,7 +115,43 @@
   text-align: center;
 }
 
+.mobProd {
+  display: none;
+}
+
+/* ---------------------RESPONSIVE STARTS HERE--------------------- */
+
+@media (max-width: 1281px) {
+  .tradeHighlightsInner {
+    padding: 50px 0px;
+  }
+}
+
 @media (max-width: 992px) {
+  .mobProd {
+    display: none;
+  }
+
+  .grid {
+    margin-top: 30px;
+  }
+
+  .mobProd h1 {
+    font-size: 60px;
+    line-height: 80px;
+    font-family: var(--font-heading);
+    font-weight: 500;
+    margin: 0;
+    color: var(--color-brown);
+  }
+
+  .mobProd div {
+    font-size: 18px;
+    line-height: 26px;
+    color: #666;
+    margin-bottom: 30px;
+  }
+
   .grid {
     grid-template-columns: 1fr;
     gap: 30px;
@@ -90,8 +171,8 @@
   }
 
   .tradeHighlightsInner {
-    grid-template-columns: 1fr;
-    gap: 30px;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 30px;
   }
 
   .highlightCard {
@@ -99,8 +180,21 @@
   }
 
   .highlightCard:not(:last-child) {
-    border-right: 0;
-    border-bottom: 1px solid #c4b18f;
     padding-bottom: 30px;
+    border: none;
+  }
+
+  .highlightCard:first-child, .highlightCard:nth-child(3) {
+    border-right: 1px solid #c4b18f;
+  }
+
+}
+
+@media (max-width: 577px) {
+  .mobProd h1 {
+    font-size: 40px;
+    line-height: 60px;
   }
 }
+
+/* ---------------------RESPONSIVE ENDS HERE--------------------- */

@@ -1,0 +1,50 @@
+.tradeHighlightsMobile {
+    display: none;
+}
+
+.tradeHighlightsSlider {
+    width: 100%;
+}
+
+.tradeHighlightsSliderWrap {
+    padding: 32px 0;
+}
+
+@media (max-width: 576px) {
+    .tradeHighlightsMobile {
+        display: block;
+    }
+
+    .tradeHighlightsSlider .swiper-pagination {
+        position: static;
+        margin-top: 16px;
+        text-align: center;
+    }
+
+    .tradeHighlightsSlider .swiper-pagination-bullet {
+        background: #bfa15a;
+        opacity: 0.5;
+        width: 10px;
+        height: 10px;
+        margin: 0 4px;
+        border-radius: 50%;
+        transition: opacity 0.2s;
+    }
+
+    .tradeHighlightsSlider .swiper-pagination-bullet-active {
+        opacity: 1;
+    }
+
+    .highlightCard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .tradeHighlightsSlider {
+        padding-bottom: 50px;
+    }
+
+}

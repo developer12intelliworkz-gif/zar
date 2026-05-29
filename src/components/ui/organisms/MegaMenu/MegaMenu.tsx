@@ -82,6 +82,22 @@ export default function MegaMenu({ open, onClose }: MegaMenuProps) {
                 {kt.value === '18kt'
                   ? 'Modern silhouettes, precise Italian design, and two-tone finishes for the minimalist.'
                   : 'Traditional craftsmanship meets everyday luxury in our signature high-purity collections.'}
+                <div>
+                  <a
+                    href={kt.value === '18kt' ? '/collections/18k' : '/collections/22k'}
+                    className={styles.ktCardLink}
+                    style={{ display: 'inline-block', marginTop: 8, color: '#bfa15a', textDecoration: 'underline' }}
+                    onClick={onClose}
+                    tabIndex={0}
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="24" height="24" rx="12" fill="#D0B480" />
+                      <path d="M9 17.8491L14.4246 12.4246L9 7" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+
+
+                  </a>
+                </div>
               </div>
             </button>
           ))}

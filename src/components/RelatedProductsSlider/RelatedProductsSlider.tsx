@@ -65,7 +65,7 @@ export default function RelatedProductsSlider({
   }
 
   return (
-    <section className={styles.section} aria-label="Related products">
+    <section className="mt-100" aria-label="Related products">
       <div className={styles.inner}>
         <div className={styles.headerRow}>
           <h2 className={styles.title}>{title}</h2>

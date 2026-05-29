@@ -7,6 +7,8 @@ import catalogData from '@/lib/data/catalog.json';
 import { notFound } from 'next/navigation';
 import styles from './page.module.css';
 
+import TradeHighlightsSlider from '@/components/TradeHighlightsSlider';
+
 type Props = {
   params: Promise<{ purity: string; category: string; style: string; id: string }>;
 };
@@ -47,7 +49,7 @@ const TRADE_HIGHLIGHTS: TradeHighlight[] = [
   {
     icon: '/images/slt.svg',
     title: 'Service Lead Times',
-    description: 'Bulk: 7–10 business days <br/> Customer order: 5 business days',
+    description: 'Bulk: 7–10 business days Customer order: 5 business days',
   },
   {
     icon: '/images/rsa.svg',
@@ -115,6 +117,10 @@ export default async function ProductDetailPage({ params }: Props) {
         <div className="container mb-100">
           <div className={styles.grid}>
             <div className={styles.galleryColumn}>
+              <div className={styles.mobProd}>
+                <h1>{product.name}</h1>
+                <div>{product.sku}</div>
+              </div>
               <div className={styles.stickyGallery}>
                 <ProductGallery images={product.images} />
               </div>
@@ -158,6 +164,10 @@ export default async function ProductDetailPage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {/* Mobile Trade Highlights Slider (≤576px) */}
+      <TradeHighlightsSlider highlights={TRADE_HIGHLIGHTS} />
+
 
   <RelatedProductsSlider
     title="You might also like"

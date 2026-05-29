@@ -512,4 +512,8 @@ textarea::placeholder {
   }
 }
 
+.swiper-pagination-bullet-active {
+  background: #cfb480 !important;
+}
+
 /*------------------------ resposnive css ends --------------------------------------------- */

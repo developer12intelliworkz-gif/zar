@@ -40,20 +40,27 @@
     line-height: 60px;
   }
 }
+
 @media (max-width: 1441px) {
   .breadcrumbs {
     margin-top: 20px;
   }
 }
+
 @media (max-width: 1281px) {
   .breadcrumbs {
     margin-bottom: 0px;
     margin-top: 0px;
   }
 }
+
 @media (max-width: 576px) {
   .heading {
     font-size: 36px;
     line-height: 46px;
+  }
+
+  .breadcrumbs {
+    font-size: 10px;
   }
 }

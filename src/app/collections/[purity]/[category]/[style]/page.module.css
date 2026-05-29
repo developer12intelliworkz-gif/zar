@@ -34,7 +34,6 @@
 }
 
 .productImage {
-  /* object-fit: cover; */
   transition: transform 0.5s ease;
   margin: auto;
 }
@@ -50,6 +49,7 @@
   text-align: center;
   color: var(--color-brown);
 }
+/* ------------------------RESPONSIVE STARTS HERE------------------------ */
 
 @media (max-width: 1200px) {
   .productGrid {
@@ -69,3 +69,4 @@
     grid-template-columns: 1fr;
   }
 }
+/* ------------------------RESPONSIVE ENDS HERE------------------------ */

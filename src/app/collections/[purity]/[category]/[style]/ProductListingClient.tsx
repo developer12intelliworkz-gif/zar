@@ -63,19 +63,18 @@ export default function ProductListingClient({
     }
 
     return (
-        <>
-            <div className='container mt-100 mb-100'>
-                {/* Heading + Description */}
-                <div className={styles.headerSection}>
-                    <h1 className={styles.heading}>
-                        {heading}
-                        <span className={styles.resultCount}>({products.length} Results)</span>
-                    </h1>
-                    <p className="">{description}</p>
-                </div>
+        <div className='container mt-100 mb-100'>
+            {/* Heading + Description */}
+            <div className={styles.headerSection}>
+                <h1 className={styles.heading}>
+                    {heading}
+                    <span className={styles.resultCount}>({products.length} Results)</span>
+                </h1>
+                <p className="">{description}</p>
+            </div>
 
-                {/* Filter & Sort Bar */}
-                {/* <div className={styles.toolbar}>
+            {/* Filter & Sort Bar */}
+            {/* <div className={styles.toolbar}>
                     <button
                         className={styles.filterBtn}
                         onClick={() => setFilterOpen((prev) => !prev)}
@@ -111,8 +110,8 @@ export default function ProductListingClient({
                     </div>
                 </div> */}
 
-                {/* Filter Panel */}
-                {/* {filterOpen && (
+            {/* Filter Panel */}
+            {/* {filterOpen && (
                     <div className={styles.filterPanel}>
                         <div className={styles.filterGroup}>
                             <h4 className={styles.filterGroupTitle}>Weight</h4>
@@ -135,49 +134,47 @@ export default function ProductListingClient({
                     </div>
                 )} */}
 
-                {/* Product Grid */}
-                <div className={styles.productGrid}>
-                    {sortedProducts.map((product: Product) => (
-                        <div
-                            key={product.id}
-                            className={styles.productCard}
-                            role="link"
-                            tabIndex={0}
-                            onClick={() => navigateToProduct(product.id)}
-                            onKeyDown={(event) => {
-                                if (event.key === 'Enter' || event.key === ' ') {
-                                    event.preventDefault();
-                                    navigateToProduct(product.id);
-                                }
-                            }}
-                            aria-label={`View details for ${product.title}`}
-                        >
-                            <div className={styles.productImageWrapper}>
-                                <Image
-                                    src={product.image}
-                                    alt={product.title}
-                                    fill
-                                    className={styles.productImage}
-                                    sizes="(max-width: 768px) 50vw, 25vw"
+            {/* Product Grid */}
+            <div className={styles.productGrid}>
+                {sortedProducts.map((product: Product) => (
+                    <div
+                        key={product.id}
+                        className={styles.productCard}
+                        role="link"
+                        tabIndex={0}
+                        onClick={() => navigateToProduct(product.id)}
+                        onKeyDown={(event) => {
+                            if (event.key === 'Enter' || event.key === ' ') {
+                                event.preventDefault();
+                                navigateToProduct(product.id);
+                            }
+                        }}
+                        aria-label={`View details for ${product.title}`}
+                    >
+                        <div className={styles.productImageWrapper}>
+                            <Image
+                                src={product.image}
+                                alt={product.title}
+                                fill
+                                className={styles.productImage}
+                                sizes="(max-width: 768px) 50vw, 25vw"
+                            />
+                        </div>
+                        <div className={styles.productContent}>
+                            <div className={styles.productInfo}>
+                                <h3 className={styles.productTitle}>{product.title}</h3>
+                                <p className={styles.productDesc}>{product.description}</p>
+                            </div>
+                            <div onClick={(event) => event.stopPropagation()}>
+                                <CartButton
+                                    onClick={() => handleAddToCart(product)}
+                                    className={styles.enquireBtn}
                                 />
                             </div>
-                            <div className={styles.productContent}>
-                                <div className={styles.productInfo}>
-                                    <h3 className={styles.productTitle}>{product.title}</h3>
-                                    <p className={styles.productDesc}>{product.description}</p>
-                                </div>
-                                <div onClick={(event) => event.stopPropagation()}>
-                                    <CartButton
-                                        onClick={() => handleAddToCart(product)}
-                                        className={styles.enquireBtn}
-                                    />
-                                </div>
-                            </div>
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
             </div>
-
-        </>
+        </div>
     );
 }
