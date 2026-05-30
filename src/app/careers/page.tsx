@@ -28,29 +28,9 @@ const COMPANY_REGEX = /^[A-Za-z0-9][A-Za-z0-9\s'&.,()-]{1,99}$/;
 const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 const WORK_REGEX = /^[A-Za-z0-9\s+\-\/]{1,30}$/;
 
-const fallbackPositions: CareerPosition[] = [
-  {
-    id: 'fallback-hr',
-    slug: 'hr-executive',
-    title: 'HR Executive',
-    location: 'Mumbai',
-    experience: '2-4 Years',
-    description: 'Join our team to build people systems and hiring pipelines that support craftsmanship excellence.',
-    isActive: true,
-  },
-  {
-    id: 'fallback-qa',
-    slug: 'quality-assurance-manager',
-    title: 'Quality Assurance Manager',
-    location: 'Mumbai',
-    experience: '1-4 Years',
-    description: 'Lead quality assurance processes and ensure every Zar product meets premium finishing standards.',
-    isActive: true,
-  },
-];
 
 export default function CareersPage() {
-  const [positions, setPositions] = useState<CareerPosition[]>(fallbackPositions);
+  const [positions, setPositions] = useState<CareerPosition[]>([]);
   const [submitMessage, setSubmitMessage] = useState('');
   const [submitError, setSubmitError] = useState(false);
   const formRef = useRef<HTMLDivElement>(null);
@@ -153,10 +133,12 @@ export default function CareersPage() {
             Be part of a team where craftsmanship meets innovation. At ZAR, we combine traditional artistry with modern precision to create jewellery defined by quality and design.
           </p>
           <div className={styles.btn_wrapper}>
-            <Button variant="primary" showArrow onClick={scrollToOpenings}>
-              View Open Positions
-            </Button>
-            <Button variant="secondary" showArrow onClick={() => formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
+            {positions.length > 0 && (
+              <Button variant="primary" showArrow onClick={scrollToOpenings}>
+                View Open Positions
+              </Button>
+            )}
+            <Button variant="primary" showArrow onClick={() => formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
               Apply Now
             </Button>
           </div>
@@ -257,50 +239,51 @@ export default function CareersPage() {
       <CareerSlider />
       
       {/* Current Openings Section */}
-      <section ref={openingsRef} className={`mt-100 ${styles.openingsSection}`}>
-        <div className="container">
-          <h2 className="fs_54 txt_center" style={{ marginBottom: '12px' }}>CURRENT OPENINGS</h2>
-          <p className='txt_center'>
-            Explore opportunities across teams and find a role aligned with your skills, experience, and growth.
-          </p>
-          
-          <div className={styles.openingsGrid}>
-            {positions.map((position, index) => (
-              <div key={index} className={styles.openingCard}>
-                {/* Part 1: Counter + Title */}
-                <div className={styles.openingPart1}>
-                  <span className={styles.positionNumber}>{String(index + 1).padStart(2, '0')}</span>
-                  <h3 className="fs_30">{position.title}</h3>
-                </div>
-                {/* Part 2: Experience | Location | Description */}
-                <div className={styles.openingPart2}>
-                  <div className={styles.openingMeta}>
-                    <span className={styles.metaLabel}>Experience:</span>
-                    <span className={styles.metaValue}>{position.experience}</span>
+      {positions.length > 0 && (
+        <section ref={openingsRef} className={`mt-100 ${styles.openingsSection}`}>
+          <div className="container">
+            <h2 className="fs_54 txt_center" style={{ marginBottom: '12px' }}>CURRENT OPENINGS</h2>
+            <p className='txt_center'>
+              Explore opportunities across teams and find a role aligned with your skills, experience, and growth.
+            </p>
+            <div className={styles.openingsGrid}>
+              {positions.map((position, index) => (
+                <div key={index} className={styles.openingCard}>
+                  {/* Part 1: Counter + Title */}
+                  <div className={styles.openingPart1}>
+                    <span className={styles.positionNumber}>{String(index + 1).padStart(2, '0')}</span>
+                    <h3 className="fs_30">{position.title}</h3>
                   </div>
-                  <div className={styles.openingMeta}>
-                    <span className={styles.metaLabel}>Location:</span>
-                    <span className={styles.metaValue}>{position.location}</span>
+                  {/* Part 2: Experience | Location | Description */}
+                  <div className={styles.openingPart2}>
+                    <div className={styles.openingMeta}>
+                      <span className={styles.metaLabel}>Experience:</span>
+                      <span className={styles.metaValue}>{position.experience}</span>
+                    </div>
+                    <div className={styles.openingMeta}>
+                      <span className={styles.metaLabel}>Location:</span>
+                      <span className={styles.metaValue}>{position.location}</span>
+                    </div>
+                    <div className={styles.openingDesc}>
+                      <p>{position.description}</p>
+                    </div>
                   </div>
-                  <div className={styles.openingDesc}>
-                    <p>{position.description}</p>
+                  {/* Part 3: Button */}
+                  <div className={styles.positionAction}>
+                    <Button
+                      variant="secondary"
+                      showArrow
+                      onClick={() => handleApplyNow(position.title)}
+                    >
+                      Apply Now
+                    </Button>
                   </div>
                 </div>
-                {/* Part 3: Button */}
-                <div className={styles.positionAction}>
-                  <Button
-                    variant="secondary"
-                    showArrow
-                    onClick={() => handleApplyNow(position.title)}
-                  >
-                    Apply Now
-                  </Button>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
       {/* cta section */}
       <section className={`mt-100 ${styles.ctaSection}`}>
         <div className={styles.ctaImageWrapper}>

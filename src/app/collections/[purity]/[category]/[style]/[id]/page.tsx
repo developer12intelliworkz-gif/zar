@@ -3,6 +3,14 @@ import ProductGallery from '@/components/ProductGallery/ProductGallery';
 import ProductInfo from '@/components/ProductInfo/ProductInfo';
 import RelatedProductsSlider from '@/components/RelatedProductsSlider/RelatedProductsSlider';
 import { fetchProductDetail } from '@/lib/api/catalog';
+// Fetch 18K product detail from external API
+async function fetch18KProductDetail() {
+  const res = await fetch('https://testintelliworkz.tech/Zar_backend/api/products/2', {
+    cache: 'no-store',
+  });
+  if (!res.ok) throw new Error('Failed to fetch 18K product detail');
+  return res.json();
+}
 import catalogData from '@/lib/data/catalog.json';
 import { notFound } from 'next/navigation';
 import styles from './page.module.css';
@@ -95,13 +103,45 @@ export default async function ProductDetailPage({ params }: Props) {
   const categoryName = formatName(category);
   const styleName = formatName(style);
 
-  const detail = await fetchProductDetail(purity, category, style, id).catch(() => null);
+  let detail: any = null;
+  let is18K = purity === '18k' || purity === '18K';
+  let product: any = null;
+  let related: any[] = [];
 
-  if (!detail) {
-    notFound();
+  if (is18K) {
+    // Fetch from external API for 18K
+    try {
+      const apiData = await fetch18KProductDetail();
+      // Adapt the API response to your product structure if needed
+      product = {
+        id: apiData.id,
+        name: apiData.name,
+        sku: apiData.sku,
+        description: apiData.description,
+        price: apiData.price,
+        image: apiData.image,
+        images: apiData.images || [apiData.image],
+        specifications: apiData.specifications || {},
+        purity: apiData.purity,
+        pcs: apiData.pcs,
+        finish: apiData.finish,
+        technicalSpecs: apiData.technicalSpecs,
+        manufacturing: apiData.manufacturing,
+        manufacturingHtml: apiData.manufacturingHtml,
+      };
+      // If related products are available in API, map them
+      related = apiData.related || [];
+    } catch {
+      notFound();
+    }
+  } else {
+    detail = await fetchProductDetail(purity, category, style, id).catch(() => null);
+    if (!detail) {
+      notFound();
+    }
+    product = detail.product;
+    related = detail.related;
   }
-
-  const { product, related } = detail;
 
   return (
     <div className={styles.page}>
@@ -172,19 +212,18 @@ export default async function ProductDetailPage({ params }: Props) {
       {/* Mobile Trade Highlights Slider (≤576px) */}
       <TradeHighlightsSlider highlights={TRADE_HIGHLIGHTS} />
 
-
-  <RelatedProductsSlider
-    title="You might also like"
-    products={related.map((item) => ({
-      id: item.id,
-      title: item.name,
-      description: item.description,
-      image: item.image,
-      purity: item.purity,
-      price: item.price,
-    }))}
-    basePath={`/collections/${purity}/${category}/${style}`}
-  />
+      <RelatedProductsSlider
+        title="You might also like"
+        products={related.map((item) => ({
+          id: item.id,
+          title: item.name,
+          description: item.description,
+          image: item.image,
+          purity: item.purity,
+          price: item.price,
+        }))}
+        basePath={`/collections/${purity}/${category}/${style}`}
+      />
     </div >
   );
 }
