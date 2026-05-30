@@ -59,7 +59,8 @@ const TRADE_HIGHLIGHTS: TradeHighlight[] = [
   {
     icon: '/images/za.svg',
     title: 'Zar App',
-    description: 'Get real-time updates to latest designs at your fingertips through the Zar app. Register now!',
+    description:
+      'Get real-time updates to latest designs at your fingertips through the Zar app. <a href="https://zarapp.link/register" target="_blank" rel="noopener noreferrer">Register now!</a>',
   },
 ];
 
@@ -158,7 +159,10 @@ export default async function ProductDetailPage({ params }: Props) {
                   <img src={item.icon} alt="" />
                 </div>
                 <h3 className={styles.highlightTitle}>{item.title}</h3>
-                <p className={styles.highlightDescription}>{item.description}</p>
+                <p
+                  className={styles.highlightDescription}
+                  dangerouslySetInnerHTML={{ __html: item.description }}
+                />
               </article>
             ))}
           </div>

@@ -34,6 +34,7 @@
   text-transform: uppercase;
 }
 
+
 @media (max-width: 1601px) {
   .heading {
     font-size: 52px;

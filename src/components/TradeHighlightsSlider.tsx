@@ -5,6 +5,7 @@ import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import styles from './TradeHighlightsSlider.module.css';
+import style from '../app/collections/[purity]/[category]/[style]/[id]/page.module.css';
 
 export type TradeHighlight = {
   icon: string;
@@ -30,12 +31,15 @@ export default function TradeHighlightsSlider({ highlights }: TradeHighlightsSli
           >
             {highlights.map((item) => (
               <SwiperSlide key={item.title}>
-                <article className={styles.highlightCard}>
-                  <div className={styles.highlightIcon} aria-hidden="true">
+                <article className={style.highlightCard}>
+                  <div className={style.highlightIcon} aria-hidden="true">
                     <img src={item.icon} alt="" />
                   </div>
-                  <h3 className={styles.highlightTitle}>{item.title}</h3>
-                  <p className={styles.highlightDescription}>{item.description}</p>
+                  <h3 className={style.highlightTitle}>{item.title}</h3>
+                  <p
+                  className={style.highlightDescription}
+                  dangerouslySetInnerHTML={{ __html: item.description }}
+                />
                 </article>
               </SwiperSlide>
             ))}

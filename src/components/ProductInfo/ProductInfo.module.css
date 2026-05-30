@@ -259,9 +259,9 @@
 } */
 
 @media (max-width: 600px) {
-  .metaRow {
+  /* .metaRow {
     grid-template-columns: 1fr;
-  }
+  } */
 
   .metaItem {
     border-right: none;
