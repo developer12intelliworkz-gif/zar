@@ -1,12 +1,13 @@
 'use client';
 
-import { useCallback, useState, type FormEvent } from 'react';
+import { useCallback, useState } from 'react';
 import Button from '@/components/ui/atoms/Button/Button';
 import InputField from '@/components/ui/atoms/InputField/InputField';
 import PhoneField from '@/components/ui/atoms/PhoneField/PhoneField';
 import SelectField from '@/components/ui/atoms/SelectField/SelectField';
 import TextareaField from '@/components/ui/atoms/TextareaField/TextareaField';
 import CustomCaptcha from '@/components/ui/molecules/CustomCaptcha/CustomCaptcha';
+import { submitBuildConnection } from '@/lib/api/partner';
 import styles from './page.module.css';
 
 export default function PartnerForm() {
@@ -15,6 +16,7 @@ export default function PartnerForm() {
   const [captchaValue, setCaptchaValue] = useState('');
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
   const [captchaRefreshKey, setCaptchaRefreshKey] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleCaptchaStatusChange = useCallback(
     ({ value, isValid }: { value: string; isValid: boolean }) => {
@@ -24,7 +26,7 @@ export default function PartnerForm() {
     []
   );
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = (event: { preventDefault: () => void; currentTarget: HTMLFormElement }) => {
     event.preventDefault();
     setSubmitMessage('');
     setSubmitError(false);
@@ -42,12 +44,55 @@ export default function PartnerForm() {
       return;
     }
 
-    form.reset();
-    setCaptchaValue('');
-    setIsCaptchaValid(false);
-    setCaptchaRefreshKey((current) => current + 1);
-    setSubmitError(false);
-    setSubmitMessage('Your request has been submitted successfully. Our team will contact you soon.');
+    const getValue = (key: string) => {
+      const formData = new FormData(form);
+      const value = formData.get(key);
+      return typeof value === 'string' ? value.trim() : '';
+    };
+
+    const payload = {
+      fullName: getValue('name'),
+      companyName: getValue('company'),
+      email: getValue('email'),
+      country: getValue('country'),
+      state: getValue('state'),
+      city: getValue('city'),
+      pincode: getValue('pincode'),
+      contact: getValue('phone'),
+      category: getValue('category'),
+      referredBy: getValue('referred_by'),
+      companyWebsite: getValue('website'),
+      message: getValue('message'),
+    };
+
+    const submitAsync = async () => {
+      try {
+        setIsSubmitting(true);
+        const result = await submitBuildConnection(payload);
+
+        if (!result.success) {
+          setSubmitError(true);
+          setSubmitMessage(result.message || 'Unable to submit your request. Please try again.');
+          return;
+        }
+
+        form.reset();
+        setCaptchaValue('');
+        setIsCaptchaValid(false);
+        setCaptchaRefreshKey((current) => current + 1);
+        setSubmitError(false);
+        setSubmitMessage(
+          result.message || 'Your request has been submitted successfully. Our team will contact you soon.'
+        );
+      } catch {
+        setSubmitError(true);
+        setSubmitMessage('Network error. Please try again in a moment.');
+      } finally {
+        setIsSubmitting(false);
+      }
+    };
+
+    void submitAsync();
   };
 
   return (
@@ -79,8 +124,8 @@ export default function PartnerForm() {
             label="Country"
             placeholder="Select your country"
             options={[
-              { label: 'India', value: 'india' },
-              { label: 'Other', value: 'other' },
+              { label: 'India', value: 'India' },
+              { label: 'Other', value: 'Other' },
             ]}
             wrapperClassName={styles.inputGroup}
             required
@@ -92,7 +137,7 @@ export default function PartnerForm() {
             label="State"
             placeholder="Select your state"
             options={[
-              { label: 'Maharashtra', value: 'maharashtra' },
+              { label: 'Maharashtra', value: 'Maharashtra' },
               { label: 'Gujarat', value: 'gujarat' },
               { label: 'Other', value: 'other' },
             ]}
@@ -108,7 +153,7 @@ export default function PartnerForm() {
             label="City"
             placeholder="Select your city"
             options={[
-              { label: 'Mumbai', value: 'mumbai' },
+              { label: 'Mumbai', value: 'Mumbai' },
               { label: 'Surat', value: 'surat' },
               { label: 'Other', value: 'other' },
             ]}
@@ -152,7 +197,7 @@ export default function PartnerForm() {
             placeholder="Select Category"
             options={[
               { label: 'Distributor', value: 'distributor' },
-              { label: 'Retailer', value: 'retailer' },
+              { label: 'Customer', value: 'customer' },
               { label: 'Wholesaler', value: 'wholesaler' },
             ]}
             wrapperClassName={styles.inputGroup}
@@ -165,9 +210,9 @@ export default function PartnerForm() {
             label="Referred By"
             placeholder="Select referred by"
             options={[
-              { label: 'ZAR Retail Partner', value: 'zar_retail_partner' },
-              { label: 'Distributor', value: 'distributor' },
-              { label: 'Social Media', value: 'social_media' },
+              { label: 'ZAR', value: 'zar' },
+              { label: 'Marketing', value: 'marketing' },
+              { label: 'Director', value: 'director' },
             ]}
             wrapperClassName={styles.inputGroup}
             required
@@ -197,8 +242,8 @@ export default function PartnerForm() {
 
         <CustomCaptcha key={captchaRefreshKey} onStatusChange={handleCaptchaStatusChange} />
 
-        <Button variant="primary" showArrow type="submit">
-          Submit
+        <Button variant="primary" showArrow type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Submitting...' : 'Submit'}
         </Button>
 
         {submitMessage && (
