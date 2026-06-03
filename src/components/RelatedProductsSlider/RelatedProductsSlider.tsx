@@ -50,7 +50,11 @@ export default function RelatedProductsSlider({
   }
 
   function goToProduct(productId: string) {
-    router.push(`${basePath}/${productId}`);
+    if (basePath.includes('?')) {
+      router.push(`${basePath}${productId}`);
+    } else {
+      router.push(`${basePath}/${productId}`);
+    }
   }
 
   function handleAddToCart(product: Product) {

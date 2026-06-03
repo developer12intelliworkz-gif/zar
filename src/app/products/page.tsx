@@ -96,10 +96,22 @@ function ProductsPageContent() {
         />
         <div style={{ container: 'contain' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px', padding: '60px 20px' }}>
-            <ProductGallery images={product.images || []} productName={product.name} />
-            <ProductInfo product={product} />
+            <ProductGallery images={product.images || []} />
+            <ProductInfo product={{ ...product, title: product.name }} />
           </div>
-          {related.length > 0 && <RelatedProductsSlider products={related} />}
+          {related.length > 0 && (
+            <RelatedProductsSlider
+              title="You might also like"
+              products={related.map((item) => ({
+                id: item.id,
+                title: item.name,
+                description: item.description,
+                image: item.image,
+                purity: item.purity,
+              }))}
+              basePath={`/products?gold_type_id=${goldTypeId || ''}&category_id=${categoryId || ''}&collection_type_id=${collectionTypeId || ''}&product_id=`}
+            />
+          )}
         </div>
       </>
     );
