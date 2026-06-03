@@ -3,7 +3,7 @@ import PageHeader from '@/components/ui/PageHeader/PageHeader';
 import ProductGallery from '@/components/ProductGallery/ProductGallery';
 import ProductInfo from '@/components/ProductInfo/ProductInfo';
 import RelatedProductsSlider from '@/components/RelatedProductsSlider/RelatedProductsSlider';
-import { fetchProductDetail, isCatalogRouteError } from '@/lib/api/catalog';
+import { fetchProductDetail, fetchGoldTypes, fetchCategories, fetchStyles, fetchProducts, isCatalogRouteError } from '@/lib/api/catalog';
 import { notFound } from 'next/navigation';
 import styles from './page.module.css';
 
@@ -12,6 +12,7 @@ import TradeHighlightsSlider from '@/components/TradeHighlightsSlider';
 type Props = {
   params: Promise<{ purity: string; category: string; style: string; id: string }>;
 };
+
 
 type TradeHighlight = {
   icon: string;
@@ -74,6 +75,57 @@ function renderTradeHighlight(item: TradeHighlight) {
       />
     </article>
   );
+}
+
+export async function generateStaticParams(): Promise<Array<{ purity: string; category: string; style: string; id: string }>> {
+  const params: Array<{ purity: string; category: string; style: string; id: string }> = [];
+
+  try {
+    const goldTypes = await fetchGoldTypes();
+
+    for (const goldType of goldTypes) {
+      const purity = goldType.purity;
+
+      try {
+        const categories = await fetchCategories(purity);
+
+        for (const cat of categories) {
+          const category = cat.slug;
+
+          try {
+            const styles = await fetchStyles(purity, cat.name);
+
+            for (const style of styles) {
+              const styleSlug = style.slug;
+
+              try {
+                const products = await fetchProducts(purity, cat.name, style.name);
+
+                for (const product of products) {
+                  params.push({
+                    purity,
+                    category,
+                    style: styleSlug,
+                    id: product.slug,
+                  });
+                }
+              } catch {
+                // Skip this style if products fail to load
+              }
+            }
+          } catch {
+            // Skip this category if styles fail to load
+          }
+        }
+      } catch {
+        // Skip this purity if categories fail to load
+      }
+    }
+  } catch {
+    // If fetchGoldTypes fails, return empty array (will use on-demand ISR)
+  }
+
+  return params;
 }
 
 export async function generateMetadata({ params }: Readonly<Props>) {

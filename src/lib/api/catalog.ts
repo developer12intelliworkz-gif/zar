@@ -57,10 +57,10 @@ type BackendProductItem = {
   id: number;
   category_id: number;
   category_name: string;
-  gold_type_id: number;
-  gold_type_name: string;
-  collection_type_id: number;
-  collection_type_name: string;
+  gold_type_id?: number;
+  gold_type_name?: string;
+  collection_type_id?: number;
+  collection_type_name?: string;
   sku: string | null;
   title: string;
   short_description: string | null;
@@ -222,8 +222,8 @@ function toProductCard(item: BackendProductItem): ProductCard {
     image: images[0] || '/images/about/about_banner.webp',
     images,
     category: item.category_name,
-    purity: toPuritySlug(item.gold_type_name),
-    style: slugify(item.collection_type_name),
+    purity: item.gold_type_name ? toPuritySlug(item.gold_type_name) : '',
+    style: item.collection_type_name ? slugify(item.collection_type_name) : '',
     sku: item.sku || undefined,
     categoryId: item.category_id,
     categoryName: item.category_name,
@@ -260,6 +260,31 @@ export async function fetchCategories(purity: string): Promise<Category[]> {
   const searchParams = new URLSearchParams({ gold_type: toGoldTypeQuery(purity) });
   const payload = await fetchCatalogEndpoint<BackendListResponse<BackendCategoryItem>>('/api/categories', searchParams);
   return (payload.items || []).map(toCategory);
+}
+
+type GoldType = {
+  id: number;
+  name: string;
+  purity: string;
+};
+
+export async function fetchGoldTypes(): Promise<GoldType[]> {
+  // Fallback to hardcoded gold types if API endpoint doesn't exist
+  // This is a common pattern since not all backends expose a dedicated gold-types endpoint
+  try {
+    const payload = await fetchCatalogEndpoint<BackendListResponse<{ id: number; name: string; created_at?: string }>>('/api/gold-types');
+    return (payload.items || []).map((item) => ({
+      id: item.id,
+      name: item.name,
+      purity: toPuritySlug(item.name),
+    }));
+  } catch {
+    // Fallback: return common gold types
+    return [
+      { id: 1, name: '22KT', purity: '22k' },
+      { id: 2, name: '18KT', purity: '18k' },
+    ];
+  }
 }
 
 export async function fetchStyles(purity: string, category: string): Promise<Style[]> {
@@ -299,25 +324,89 @@ export async function fetchProductDetail(
   }
 
   const product = toProductDetail(productItem);
-  const routePurity = toPuritySlug(purity);
-  const routeCategory = normalize(category);
-  const routeStyle = normalize(style);
-  const productCategory = normalize(productItem.category_name);
-  const productCategorySlug = normalize(slugify(productItem.category_name));
-  const productStyle = normalize(slugify(productItem.collection_type_name));
 
-  if (
-    routePurity !== product.purity ||
-    (routeCategory !== productCategory && routeCategory !== productCategorySlug) ||
-    routeStyle !== productStyle
-  ) {
+  // Use route params as fallbacks when the detail API doesn't return gold type / collection type
+  if (!product.purity && purity) {
+    product.purity = toPuritySlug(purity);
+  }
+  if (!product.goldTypeName && purity) {
+    product.goldTypeName = toGoldTypeQuery(purity);
+  }
+  if (!product.style && style) {
+    product.style = style;
+  }
+  if (!product.collectionTypeName && style) {
+    product.collectionTypeName = style.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  }
+
+  // Fetch related products if we have the necessary IDs
+  let related: ProductCard[] = [];
+  if (productItem.category_id) {
+    try {
+      const relatedSearchParams = new URLSearchParams({
+        category_id: String(productItem.category_id),
+      });
+      if (productItem.gold_type_id) {
+        relatedSearchParams.set('goldtype_id', String(productItem.gold_type_id));
+      }
+      if (productItem.collection_type_id) {
+        relatedSearchParams.set('collectiontype_id', String(productItem.collection_type_id));
+      }
+      const relatedPayload = await fetchCatalogEndpoint<BackendListResponse<BackendProductItem>>('/api/products', relatedSearchParams);
+      related = (relatedPayload.items || [])
+        .filter((item) => String(item.id) !== String(productItem.id))
+        .slice(0, 6)
+        .map(toProductCard);
+    } catch {
+      // If related products fail to load, continue with empty array
+    }
+  }
+
+  return {
+    product,
+    related,
+  };
+}
+
+export async function fetchProductsByIds(
+  goldTypeId?: number | string,
+  categoryId?: number | string,
+  collectionTypeId?: number | string
+): Promise<ProductCard[]> {
+  const searchParams = new URLSearchParams();
+
+  if (goldTypeId) searchParams.append('gold_type_id', String(goldTypeId));
+  if (categoryId) searchParams.append('category_id', String(categoryId));
+  if (collectionTypeId) searchParams.append('collection_type_id', String(collectionTypeId));
+
+  if (!searchParams.toString()) {
+    return [];
+  }
+
+  const payload = await fetchCatalogEndpoint<BackendListResponse<BackendProductItem>>('/api/products', searchParams);
+  return (payload.items || []).map(toProductCard);
+}
+
+export async function fetchProductDetailById(
+  productId: number | string,
+  goldTypeId?: number | string,
+  categoryId?: number | string,
+  collectionTypeId?: number | string
+): Promise<ProductDetailResponse> {
+  const payload = await fetchCatalogEndpoint<BackendDetailResponse<BackendProductItem>>(`/api/products/${productId}`);
+  const productItem = payload.product;
+
+  if (!productItem) {
     throw new CatalogApiError(404, 'Product not found');
   }
 
+  const product = toProductDetail(productItem);
+
+  // Fetch related products
   const relatedSearchParams = new URLSearchParams({
-    goldtype_id: String(productItem.gold_type_id),
+    gold_type_id: String(productItem.gold_type_id),
     category_id: String(productItem.category_id),
-    collectiontype_id: String(productItem.collection_type_id),
+    collection_type_id: String(productItem.collection_type_id),
   });
   const relatedPayload = await fetchCatalogEndpoint<BackendListResponse<BackendProductItem>>('/api/products', relatedSearchParams);
   const related = (relatedPayload.items || [])
