@@ -13,6 +13,7 @@ type Props = {
   params: Promise<{ purity: string; category: string; style: string; id: string }>;
 };
 
+export const dynamicParams = true; // Allow on-demand generation if needed (though limited with export)
 
 type TradeHighlight = {
   icon: string;
@@ -78,10 +79,10 @@ function renderTradeHighlight(item: TradeHighlight) {
 }
 
 export async function generateStaticParams(): Promise<Array<{ purity: string; category: string; style: string; id: string }>> {
-  const params: Array<{ purity: string; category: string; style: string; id: string }> = [];
-
   try {
     const goldTypes = await fetchGoldTypes();
+
+    const params: Array<{ purity: string; category: string; style: string; id: string }> = [];
 
     for (const goldType of goldTypes) {
       const purity = goldType.purity;
@@ -102,30 +103,54 @@ export async function generateStaticParams(): Promise<Array<{ purity: string; ca
                 const products = await fetchProducts(purity, cat.name, style.name);
 
                 for (const product of products) {
-                  params.push({
-                    purity,
-                    category,
-                    style: styleSlug,
-                    id: product.slug,
-                  });
+                  if (product.slug) {
+                    params.push({
+                      purity,
+                      category,
+                      style: styleSlug,
+                      id: product.slug,
+                    });
+                  }
                 }
-              } catch {
-                // Skip this style if products fail to load
+              } catch (e) {
+                console.warn(`Failed to fetch products for ${purity}/${cat.name}/${style.name}`, e);
+                // Continue with other styles
               }
             }
-          } catch {
-            // Skip this category if styles fail to load
+          } catch (e) {
+            console.warn(`Failed to fetch styles for ${purity}/${cat.name}`, e);
           }
         }
-      } catch {
-        // Skip this purity if categories fail to load
+      } catch (e) {
+        console.warn(`Failed to fetch categories for purity ${purity}`, e);
       }
     }
-  } catch {
-    // If fetchGoldTypes fails, return empty array (will use on-demand ISR)
-  }
 
-  return params;
+    console.log(`Generated ${params.length} static product paths`);
+
+    // IMPORTANT: Never return empty array with output: 'export'
+    if (params.length === 0) {
+      console.warn('No products found. Returning fallback params to avoid build error.');
+      return [{
+        purity: '18k',
+        category: 'necklaces',
+        style: 'modern',
+        id: 'sample-product',
+      }];
+    }
+
+    return params;
+  } catch (error) {
+    console.error('Failed to generate static params:', error);
+    
+    // Fallback to prevent build failure
+    return [{
+      purity: '18k',
+      category: 'necklaces',
+      style: 'modern',
+      id: 'sample-product',
+    }];
+  }
 }
 
 export async function generateMetadata({ params }: Readonly<Props>) {
