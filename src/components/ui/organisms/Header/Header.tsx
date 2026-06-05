@@ -66,7 +66,6 @@ export default function Header() {
   }, [menuOpen]);
 
   return (
-    <>
       <header className={cn(styles.header, scrolled && styles.headerScrolled, hidden && styles.headerHidden)}>
         <div className={styles.inner}>
           <Logo />
@@ -171,6 +170,5 @@ export default function Header() {
           </ul>          
         </div>
       </header>
-    </>
   );
 }

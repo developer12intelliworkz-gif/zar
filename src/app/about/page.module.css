@@ -513,12 +513,16 @@
   }
 
   .paraSection p:nth-child(1) {
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 26px;
   }
 
   .paraSection p:nth-child(2) {
     font-size: 24px;
+  }
+
+  .storyYear {
+    font-size: 32px;
   }
 }
 

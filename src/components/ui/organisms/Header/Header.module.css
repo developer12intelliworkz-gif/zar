@@ -7,7 +7,7 @@
   z-index: 100;
   background-color: var(--color-white);
   transition: box-shadow var(--transition-base), transform 0.35s ease;
-  padding: 15px 0 0 ;
+  padding: 15px 0 0;
 }
 
 .headerScrolled {
@@ -53,7 +53,7 @@
   position: relative;
 }
 
-.menuList > li > a {
+.menuList>li>a {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -234,7 +234,7 @@
   background: transparent;
   padding: 2px 0;
   font-family: var(--font-body);
-  font-size: 24px;
+  font-size: 18px;
   font-weight: var(--fw-regular);
   color: var(--color-gray-600);
   cursor: pointer;
@@ -275,8 +275,8 @@
 }
 
 .mobileCollectionsDropdown a {
-  font-size: 18px !important;
-  padding: 8px 0 6px 14px;
+  font-size: 14px !important;
+  padding: 8px 0 6px 14px !important;
   color: var(--color-gray-500);
 }
 
