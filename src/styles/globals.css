@@ -498,9 +498,9 @@ textarea::placeholder {
     height: 270px !important;
   }
 
-  .storyImageWrapper {
+  /* .storyImageWrapper {
     height: 500px;
-  }
+  } */
 
   .valuesSectionSubtitle {
     margin-bottom: 20px;

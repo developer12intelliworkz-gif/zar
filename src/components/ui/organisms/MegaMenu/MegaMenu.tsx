@@ -73,6 +73,7 @@ export default function MegaMenu({ open, onClose }: Readonly<MegaMenuProps>) {
 
   const activePurity = ktFilters.find((item) => item.value === activeKt)?.purity || '18k';
   const categories = categoriesByKt[activeKt] ?? [];
+  const visibleCategories = categories.slice(0, 6);
 
   const overlayClass = cn(styles.overlay, open && styles.overlayOpen);
 
@@ -133,7 +134,7 @@ export default function MegaMenu({ open, onClose }: Readonly<MegaMenuProps>) {
         <div className={styles.grid}>
           {loadingKt === activeKt && categories.length === 0 ? <p>Loading categories...</p> : null}
           {!loadingKt && categories.length === 0 ? <p>No categories available.</p> : null}
-          {categories.map((category) => (
+          {visibleCategories.map((category) => (
             <Link
               key={`${activePurity}-${category.id}`}
               href={`/collections/${activePurity}/${category.slug}`}

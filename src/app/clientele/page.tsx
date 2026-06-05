@@ -6,21 +6,62 @@ import RetailerSlider from '@/components/ui/organisms/RetailerSlider/RetailerSli
 import testimonials from '@/lib/data/text_testimonials';
 import Testimonials from '@/components/Testimonials';
 import clientLogos from '@/lib/data/client_logos';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import NavTabs from '@/components/ui/NavTabs/NavTabs';
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://testintelliworkz.tech/Zar_backend';
+const IMAGE_BASE_PATH = process.env.NEXT_PUBLIC_IMAGE_BASE_PATH || API_BASE_URL;
 
 type Nation = 'uae' | 'india';
 
-interface LogoGridProps {
-  selectedNation: Nation;
+interface ClientLogoItem {
+  name?: string;
+  clientele_title?: string;
+  nation?: string | null;
+  country?: string | null;
+  logo?: string | null;
+  image_url?: string | null;
 }
-function LogoGrid({ selectedNation }: LogoGridProps) {
-  const filtered = clientLogos.filter(l => l.nation === selectedNation);
+
+function getClientName(client: ClientLogoItem) {
+  return client.name || client.clientele_title || 'Client';
+}
+
+function getClientNation(client: ClientLogoItem): Nation | '' {
+  const raw = client.country || client.nation || '';
+  const normalized = raw.toLowerCase();
+  if (normalized.includes('uae')) {
+    return 'uae';
+  }
+  if (normalized.includes('india')) {
+    return 'india';
+  }
+  return '';
+}
+
+function getLogoSrc(client: ClientLogoItem) {
+  if (client.image_url) {
+    return client.image_url.startsWith('http')
+      ? client.image_url
+      : `${IMAGE_BASE_PATH}${client.image_url}`;
+  }
+
+  return client.logo || '/images/clients/placeholder.webp';
+}
+
+function LogoGrid({ selectedNation, logos }: { selectedNation: Nation; logos: ClientLogoItem[] }) {
+  const filtered = logos.filter((item) => getClientNation(item) === selectedNation);
+
   return (
     <div className={styles.flexBox}>
-      {filtered.map((client, i) => (
-        <div key={i} className={styles.logoItem}>
-          <Image src={client.logo} alt={client.name} width={160} height={60} />
+      {filtered.map((client, index) => (
+        <div key={`${client.name}-${index}`} className={styles.logoItem}>
+          <Image
+            src={getLogoSrc(client)}
+            alt={client.clientele_title || client.name || 'Client Logo'}
+            width={160}
+            height={60}
+          />
         </div>
       ))}
     </div>
@@ -28,7 +69,29 @@ function LogoGrid({ selectedNation }: LogoGridProps) {
 }
 
 export default function ClientelePage() {
-  const [selectedNation, setSelectedNation] = useState<'uae' | 'india'>('uae');
+  const [selectedNation, setSelectedNation] = useState<Nation>('uae');
+  const [logos, setLogos] = useState<ClientLogoItem[]>(clientLogos);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchClientele = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/clientele`);
+        const data = await response.json();
+
+        if (data.success && Array.isArray(data.items)) {
+          setLogos(data.items);
+        }
+      } catch (error) {
+        console.error('Failed to fetch clientele data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    void fetchClientele();
+  }, []);
+
   return (
     <main className={styles.page}>
       <PageHeader
@@ -49,10 +112,13 @@ export default function ClientelePage() {
         />
       </div>
 
-
       <section className={`container mt-100 ${styles.section2}`}>
         <NavTabs selectedNation={selectedNation} setSelectedNation={setSelectedNation} />
-        <LogoGrid selectedNation={selectedNation} />
+        {loading ? (
+          <p className={styles.staticText}>Loading clientele...</p>
+        ) : (
+          <LogoGrid selectedNation={selectedNation} logos={logos} />
+        )}
         <p className={styles.staticText}>
           ZAR has grown steadily over decades, building a strong network across India through consistent quality and reliable manufacturing. With over 30 distribution centres and a presence in more than 1,000 retail outlets, the brand continues to strengthen its reach and partnerships.
           <br /><br />

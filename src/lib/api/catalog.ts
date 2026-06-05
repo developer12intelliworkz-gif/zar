@@ -44,6 +44,10 @@ type BackendCollectionTypeItem = {
   name: string;
   image: string | null;
   image_url: string | null;
+  banner_image?: string | null;
+  banner_image_url?: string | null;
+  heading?: string;
+  description?: string;
   gold_type_id: number;
   gold_type_name: string;
   category_id: number;
@@ -110,6 +114,8 @@ function toGoldTypeQuery(purity: string): string {
   return purity;
 }
 
+const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_PATH || API_BASE_URL;
+
 function toImagePath(value?: string | null): string {
   if (!value) {
     return '/images/about/about_banner.webp';
@@ -119,7 +125,11 @@ function toImagePath(value?: string | null): string {
     return value;
   }
 
-  return value.startsWith('/') ? value : `/${value}`;
+  if (value.startsWith('/')) {
+    return value.startsWith('http') ? value : `${IMAGE_BASE_URL}${value}`;
+  }
+
+  return `${IMAGE_BASE_URL}/${value}`;
 }
 
 function escapeHtml(value: string): string {
@@ -294,6 +304,19 @@ export async function fetchStyles(purity: string, category: string): Promise<Sty
   });
   const payload = await fetchCatalogEndpoint<BackendListResponse<BackendCollectionTypeItem>>('/api/collection-types', searchParams);
   return (payload.items || []).map(toStyle);
+}
+
+export async function fetchCollectionTypeDetail(purity: string, category: string, collectionName: string): Promise<BackendCollectionTypeItem | null> {
+  const searchParams = new URLSearchParams({
+    gold_type: toGoldTypeQuery(purity),
+    category_name: category,
+  });
+  const payload = await fetchCatalogEndpoint<BackendListResponse<BackendCollectionTypeItem>>('/api/collection-types', searchParams);
+  const items = payload.items || [];
+  
+  // Find matching collection type by normalized name
+  const normalized = normalize(collectionName);
+  return items.find((item) => normalize(item.name) === normalized) || null;
 }
 
 export async function fetchProducts(

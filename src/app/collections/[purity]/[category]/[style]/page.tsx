@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import PageHeader from '@/components/ui/PageHeader/PageHeader';
-import { fetchProducts, fetchStyles, fetchCategories, isCatalogRouteError } from '@/lib/api/catalog';
+import { fetchProducts, fetchStyles, fetchCategories, isCatalogRouteError, fetchCollectionTypeDetail } from '@/lib/api/catalog';
 import { notFound } from 'next/navigation';
 import ProductListingClient from './ProductListingClient';
 import styles from './page.module.css';
@@ -60,9 +60,11 @@ export default async function ProductListingPage({ params }: Readonly<Props>) {
   const styleName = formatName(style);
 
   let products;
+  let collectionType;
 
   try {
     products = await fetchProducts(purity, category, style);
+    collectionType = await fetchCollectionTypeDetail(purity, category, style);
   } catch (error) {
     if (isCatalogRouteError(error)) {
       notFound();
@@ -79,6 +81,18 @@ export default async function ProductListingPage({ params }: Readonly<Props>) {
     price: item.price,
   }));
 
+  // Use API data if available, otherwise fallback to formatted values
+  const heading = collectionType?.heading || `${styleName} ${categoryName}`;
+  const description = collectionType?.description || `The ${styleName} collection brings together the sparkle of Cubic Zircon (CZ) stones with the radiance of gold. The resulting product is a beautiful amalgamation of signity handwork on a gold bangle, giving it a truly exquisite look.`;
+  const bannerImage = collectionType?.banner_image_url || collectionType?.banner_image || '/images/about/about_banner.webp';
+
+  // Ensure absolute URL for banner image
+  let bannerImageUrl = bannerImage;
+  if (bannerImage && !bannerImage.startsWith('http')) {
+    const imageBase = process.env.NEXT_PUBLIC_IMAGE_BASE_PATH || process.env.NEXT_PUBLIC_API_BASE_URL || 'https://testintelliworkz.tech/Zar_backend';
+    bannerImageUrl = bannerImage.startsWith('/') ? `${imageBase}${bannerImage}` : `${imageBase}/${bannerImage}`;
+  }
+
   return (
     <div className={styles.page}>
       <PageHeader
@@ -87,20 +101,20 @@ export default async function ProductListingPage({ params }: Readonly<Props>) {
           { label: `${purityLabel} Gold`, href: `/collections/${purity}` },
           { label: categoryName, href: `/collections/${purity}/${category}` },
           { label: styleName, isActive: true },
-        ]}
+        ]}        
       />
       <div className="bannerImage">
         <Image
-          src="/images/about/about_banner.webp"
-          alt="Crafting gold bangle"
+          src={bannerImageUrl}
+          alt={heading}
           fill
           style={{ objectFit: 'cover' }}
           priority
         />
       </div>
       <ProductListingClient
-        heading={`${styleName} ${categoryName}`}
-        description={`The ${styleName} collection brings together the sparkle of Cubic Zircon (CZ) stones with the radiance of gold. The resulting product is a beautiful amalgamation of signity handwork on a gold bangle, giving it a truly exquisite look.`}
+        heading={heading}
+        description={description}
         products={productCards}
       />
     </div>

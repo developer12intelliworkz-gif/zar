@@ -1,18 +1,69 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import styles from '@/app/about/page.module.css';
+import { motion, useInView } from 'framer-motion';
 
 interface StoryItem {
   id: number;
   year: number;
+  title: string;
   description: string;
   image: string;
   image_url: string;
 }
-    
+
+const childVariants = {
+  hidden: { opacity: 0, y: 60 },
+  visible: { opacity: 1, y: 0 },
+};
+
 const BACKEND_PREFIX = 'https://testintelliworkz.tech/Zar_backend';
+
+function StoryCard({ item }: { item: StoryItem }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
+
+  const imageSrc = item.image_url.startsWith('http')
+    ? item.image_url
+    : `${BACKEND_PREFIX}${item.image_url}`;
+
+  return (
+    <div ref={ref} className={styles.storyBox}>
+      <motion.div
+        className={styles.storyChild1}
+        variants={childVariants}
+        initial="hidden"
+        animate={isInView ? 'visible' : 'hidden'}
+        transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
+      >
+        <h3 className={styles.storyYear}>{item.year}</h3>
+        <h4 className={styles.storyTitle}>{item.title}</h4>
+        <div className={styles.storyDescription}>
+          <div dangerouslySetInnerHTML={{ __html: item.description }} />
+        </div>
+      </motion.div>
+
+      <motion.div
+        className={styles.storyChild2}
+        variants={childVariants}
+        initial="hidden"
+        animate={isInView ? 'visible' : 'hidden'}
+        transition={{ duration: 0.6, ease: 'easeOut', delay: 0.25 }}
+      >
+        <div className="storyImageWrapper">
+          <Image
+            src={imageSrc}
+            alt={`Story from ${item.year}`}
+            fill
+            className={styles.ourImage}
+          />
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 export default function OurStory() {
   const [storyItems, setStoryItems] = useState<StoryItem[]>([]);
@@ -40,7 +91,7 @@ export default function OurStory() {
   return (
     <section className={styles.ourStory}>
       <div className="container">
-        <h2 className="fs_54 txt_center">OUR STORY</h2>
+        <h2 className={styles.storyHead}>OUR STORY</h2>
         <div className={styles.storyGrid}>
           {loading && (
             <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px' }}>
@@ -49,32 +100,9 @@ export default function OurStory() {
           )}
 
           {!loading && storyItems.length > 0 &&
-            storyItems.map((item) => {
-              const imageSrc = item.image_url.startsWith('http')
-                ? item.image_url
-                : `${BACKEND_PREFIX}${item.image_url}`;
-
-              return (
-                <div key={item.id} className={styles.storyBox}>
-                  <div className={styles.storyChild1}>
-                    <h3 className={styles.storyYear}>{item.year}</h3>
-                    <div className={styles.storyDescription}>
-                      <div dangerouslySetInnerHTML={{ __html: item.description }} />
-                    </div>
-                  </div>
-                  <div className={styles.storyChild2}>
-                    <div className="storyImageWrapper">
-                      <Image
-                        src={imageSrc}
-                        alt={`Story from ${item.year}`}
-                        fill
-                        className={styles.ourImage}
-                      />
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            storyItems.map((item) => (
+              <StoryCard key={item.id} item={item} />
+            ))}
 
           {!loading && storyItems.length === 0 && (
             <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px' }}>

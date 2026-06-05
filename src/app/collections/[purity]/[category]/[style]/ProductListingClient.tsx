@@ -8,6 +8,7 @@ import CartButton from '@/components/ui/atoms/CartButton/CartButton';
 import styles from './ProductListingClient.module.css';
 import { useAppDispatch } from '@/store/hooks';
 import { addItem, toggleCart } from '@/features/cart/cartSlice';
+import parse from 'html-react-parser';
 
 interface Product {
     id: string;
@@ -71,7 +72,7 @@ export default function ProductListingClient({
                     {heading}
                     <span className={styles.resultCount}>({products.length} Results)</span>
                 </h1>
-                <p className="">{description}</p>
+                <div className="">{parse(description)}</div>
             </div>
 
             {/* Filter & Sort Bar */}

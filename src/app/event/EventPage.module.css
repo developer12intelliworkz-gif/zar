@@ -50,7 +50,7 @@
 .cardImageWrapper {
   position: relative;
   width: 100%;
-  padding-top: 66.66%; /* 3:2 aspect ratio */
+  /* padding-top: 66.66%; */
 }
 
 .cardContent {
