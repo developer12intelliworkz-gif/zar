@@ -3,7 +3,6 @@ import Image from 'next/image';
 import styles from './page.module.css';
 import PageHeader from '@/components/ui/PageHeader/PageHeader';
 import RetailerSlider from '@/components/ui/organisms/RetailerSlider/RetailerSlider';
-import testimonials from '@/lib/data/text_testimonials';
 import Testimonials from '@/components/Testimonials';
 import clientLogos from '@/lib/data/client_logos';
 import { useState, useEffect } from 'react';
@@ -199,7 +198,7 @@ export default function ClientelePage() {
       </section>
 
       <RetailerSlider />
-      <Testimonials testimonials={testimonials} />
+      <Testimonials />
     </main>
   );
 }

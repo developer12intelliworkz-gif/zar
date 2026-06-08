@@ -1,11 +1,33 @@
 "use client";
 
+import { useEffect, useState } from 'react';
 import ClientLogo from '@/components/ui/molecules/ClientLogo/ClientLogo';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { motion } from 'framer-motion';
 import { Autoplay } from 'swiper/modules';
+import { getImageUrl } from '@/lib/utils';
 import styles from './TrustedBrandsSection.module.css';
-const brands = [
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://testintelliworkz.tech/Zar_backend';
+
+interface TrustedBrand {
+  name: string;
+  logo: string;
+}
+
+interface ClientApiItem {
+  name?: string;
+  clientele_title?: string;
+  logo?: string | null;
+  image_url?: string | null;
+}
+
+interface ClienteleApiResponse {
+  success?: boolean;
+  items?: ClientApiItem[];
+}
+
+const defaultBrands: TrustedBrand[] = [
   { name: 'anjali', logo: '/images/clients/anjali.webp' },
   { name: 'b.c.sen', logo: '/images/clients/b.c.sen.webp' },
   { name: 'bhima', logo: '/images/clients/bhima.webp' },
@@ -23,7 +45,41 @@ const brands = [
   { name: 'tanishq', logo: '/images/clients/tanishq.webp' },
 ];
 
+function resolveLogo(item: ClientApiItem): TrustedBrand {
+  const name = item.name || item.clientele_title || 'Client';
+  const rawLogo = item.image_url || item.logo || '/images/clients/placeholder.webp';
+  return {
+    name,
+    logo: getImageUrl(rawLogo ?? ''),
+  };
+}
+
 export default function TrustedBrandsSection() {
+  const [brands, setBrands] = useState<TrustedBrand[]>(defaultBrands);
+
+  useEffect(() => {
+    async function fetchTrustedBrands() {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/clientele`);
+        const data = (await response.json()) as ClienteleApiResponse;
+
+        if (data?.success && Array.isArray(data.items) && data.items.length > 0) {
+          const remoteBrands = data.items
+            .map((item: ClientApiItem) => resolveLogo(item))
+            .filter((item: TrustedBrand) => Boolean(item.logo));
+
+          if (remoteBrands.length > 0) {
+            setBrands(remoteBrands);
+          }
+        }
+      } catch (error) {
+        console.error('TrustedBrandsSection fetch failed:', error);
+      }
+    }
+
+    void fetchTrustedBrands();
+  }, []);
+
   return (
     <section className="mt-100 mb-100">
       <div className={styles.inner}>
@@ -60,7 +116,7 @@ export default function TrustedBrandsSection() {
           }}
         >
           {brands.map((brand, index) => (
-            <SwiperSlide key={index} className={styles.swiperSlide}>
+            <SwiperSlide key={`${brand.name}-${index}`} className={styles.swiperSlide}>
               <ClientLogo name={brand.name} logo={brand.logo} />
             </SwiperSlide>
           ))}
