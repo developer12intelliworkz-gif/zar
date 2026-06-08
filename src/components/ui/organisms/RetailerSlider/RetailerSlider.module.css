@@ -159,6 +159,7 @@
 
 .vwrap.playing .poster {
   opacity: 0;
+  display: none;
   transition: opacity 0.3s ease;
 }
 
