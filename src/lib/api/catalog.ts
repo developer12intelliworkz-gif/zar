@@ -67,6 +67,8 @@ type BackendProductItem = {
   collection_type_name?: string;
   sku: string | null;
   title: string;
+  design_no?: string | null;
+  enamel?: boolean | null;
   short_description: string | null;
   number_of_pcs: number | null;
   display_finish: string | null;
@@ -159,6 +161,18 @@ function toTechnicalSpecifications(items: BackendProductItem['technical_specific
     return [];
   }
 
+  const firstItem = items[0];
+  if (typeof firstItem === 'object' && 'feature' in firstItem && 'details' in firstItem) {
+    return items
+      .filter((item): item is { feature: string; details: string } =>
+        item != null && typeof item.feature === 'string' && typeof item.details === 'string'
+      )
+      .map((item) => ({
+        feature: item.feature,
+        details: item.details,
+      }));
+  }
+
   return items.flatMap((item) =>
     Object.entries(item)
       .filter(([, value]) => value != null && `${value}`.trim() !== '')
@@ -235,6 +249,8 @@ function toProductCard(item: BackendProductItem): ProductCard {
     purity: item.gold_type_name ? toPuritySlug(item.gold_type_name) : '',
     style: item.collection_type_name ? slugify(item.collection_type_name) : '',
     sku: item.sku || undefined,
+    designNo: item.design_no || undefined,
+    enamel: item.enamel ?? undefined,
     categoryId: item.category_id,
     categoryName: item.category_name,
     goldTypeId: item.gold_type_id,
@@ -253,14 +269,14 @@ function toProductDetail(item: BackendProductItem): ProductDetail {
   return {
     ...card,
     sku: item.sku || `ZAR-${item.id}`,
+    designNo: item.design_no || undefined,
+    enamel: item.enamel ?? undefined,
     images: card.images?.length ? card.images : [card.image],
     pcs: item.number_of_pcs ? String(item.number_of_pcs) : undefined,
     finish: item.display_finish || undefined,
     specifications: toWeightSpecifications(item.weight_specifications),
     technicalSpecs: toTechnicalSpecifications(item.technical_specifications),
-    manufacturingHtml: item.manufacturing_support
-      ? `<p>${escapeHtml(item.manufacturing_support)}</p>`
-      : undefined,
+    manufacturingHtml: item.manufacturing_support || undefined,
     createdAt: item.created_at,
     updatedAt: item.updated_at,
   };

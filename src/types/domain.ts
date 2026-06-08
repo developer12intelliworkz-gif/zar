@@ -35,6 +35,8 @@ export interface ProductCard {
   style: string;
   images?: string[];
   sku?: string;
+  designNo?: string;
+  enamel?: boolean;
   categoryId?: number;
   categoryName?: string;
   goldTypeId?: number;

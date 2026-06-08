@@ -9,7 +9,7 @@ import { addItem, toggleCart } from '@/features/cart/cartSlice';
 
 interface ProductDetails extends Pick<
   ProductDetail,
-  'id' | 'sku' | 'description' | 'price' | 'image' | 'pcs' | 'finish' | 'technicalSpecs' | 'manufacturing' | 'manufacturingHtml'
+  'id' | 'sku' | 'description' | 'price' | 'image' | 'pcs' | 'finish' | 'technicalSpecs' | 'manufacturing' | 'manufacturingHtml' | 'designNo' | 'enamel'
 > {
   title: string;
   specifications?: Record<string, string>;
@@ -17,7 +17,7 @@ interface ProductDetails extends Pick<
 }
 
 interface ProductInfoProps {
-  product: ProductDetails;
+  readonly product: ProductDetails;
 }
 
 function renderManufacturingContent(manufacturing: ProductDetails['manufacturing'], manufacturingHtml: ProductDetails['manufacturingHtml']) {
@@ -79,7 +79,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         </div>
 
         <div className={styles.description}>
-          <p>{product.description}</p>
+          {product.description && parse(product.description)}
         </div>
 
         {/* Inline meta: purity, pcs, finish */}
@@ -108,6 +108,22 @@ export default function ProductInfo({ product }: ProductInfoProps) {
                   </g>
                 </svg>
                 <span>{product.purity}</span>
+              </div>
+            )}
+
+            {product.designNo && (
+              <div className={styles.metaItem}>
+                <div>
+                  <span className={styles.metaText}>Design No:</span> {product.designNo}
+                </div>
+              </div>
+            )}
+
+            {product.enamel != null && (
+              <div className={styles.metaItem}>
+                <div>
+                  <span className={styles.metaText}>Enamel:</span> {product.enamel ? 'Yes' : 'No'}
+                </div>
               </div>
             )}
 
