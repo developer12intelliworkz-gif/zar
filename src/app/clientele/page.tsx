@@ -1,4 +1,5 @@
 "use client";
+import { apiGet, IMAGE_BASE_PATH } from '@/lib/api/axios';
 import Image from 'next/image';
 import styles from './page.module.css';
 import PageHeader from '@/components/ui/PageHeader/PageHeader';
@@ -7,9 +8,6 @@ import Testimonials from '@/components/Testimonials';
 import clientLogos from '@/lib/data/client_logos';
 import { useState, useEffect } from 'react';
 import NavTabs from '@/components/ui/NavTabs/NavTabs';
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://testintelliworkz.tech/Zar_backend';
-const IMAGE_BASE_PATH = process.env.NEXT_PUBLIC_IMAGE_BASE_PATH || API_BASE_URL;
 
 type Nation = 'uae' | 'india';
 
@@ -20,10 +18,6 @@ interface ClientLogoItem {
   country?: string | null;
   logo?: string | null;
   image_url?: string | null;
-}
-
-function getClientName(client: ClientLogoItem) {
-  return client.name || client.clientele_title || 'Client';
 }
 
 function getClientNation(client: ClientLogoItem): Nation | '' {
@@ -75,10 +69,9 @@ export default function ClientelePage() {
   useEffect(() => {
     const fetchClientele = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/clientele`);
-        const data = await response.json();
+        const data = await apiGet<{ success?: boolean; items?: ClientLogoItem[] }>('/api/clientele');
 
-        if (data.success && Array.isArray(data.items)) {
+        if (data?.success && Array.isArray(data.items)) {
           setLogos(data.items);
         }
       } catch (error) {

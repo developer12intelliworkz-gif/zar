@@ -1,9 +1,8 @@
+import { apiGet } from '@/lib/api/axios';
 import React from 'react';
 import styles from './Testimonials.module.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://testintelliworkz.tech/Zar_backend';
 
 interface Testimonial {
   message: string;
@@ -48,8 +47,7 @@ const Testimonials: React.FC = () => {
   React.useEffect(() => {
     async function fetchTestimonials() {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/testimonials`);
-        const json = (await response.json()) as TestimonialsApiResponse;
+        const json = await apiGet<TestimonialsApiResponse>('/api/testimonials');
 
         if (json?.success && Array.isArray(json.items) && json.items.length > 0) {
           const apiTestimonials = json.items

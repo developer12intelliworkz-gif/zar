@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://testintelliworkz.tech/Zar_backend';
+import { apiClient } from './axios';
 
 export type ContactInquiryPayload = {
   fullName: string;
@@ -17,13 +15,9 @@ type ContactInquiryResponse = {
 };
 
 export async function submitContactInquiry(payload: ContactInquiryPayload): Promise<ContactInquiryResponse> {
-  const response = await axios.post<ContactInquiryResponse>(
-    `${API_BASE_URL}/api/contact-inquiry`,
-    payload,
-    {
-      headers: { 'Content-Type': 'application/json' },
-      timeout: 10000,
-    }
-  );
+  const response = await apiClient.post<ContactInquiryResponse>('/api/contact-inquiry', payload, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+
   return response.data;
 }

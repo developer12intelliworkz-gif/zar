@@ -334,7 +334,21 @@
   line-height: 20px;
   display: block;
 }
+@keyframes retailerSkeletonShimmer {
+  0% {
+    transform: translateX(-100%);
+  }
 
+  100% {
+    transform: translateX(100%);
+  }
+}
+/* responsive */
+@media (max-width: 1441px) {
+.slide {
+  transform: scale(0.78);
+}
+}
 @media (max-width: 1199px) {
   .slide {
     transform: scale(0.94);
@@ -428,15 +442,5 @@
 
   .designation {
     font-size: 16px;
-  }
-}
-
-@keyframes retailerSkeletonShimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-
-  100% {
-    transform: translateX(100%);
   }
 }

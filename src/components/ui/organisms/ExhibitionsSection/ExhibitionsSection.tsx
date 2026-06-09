@@ -20,6 +20,7 @@ export default function ExhibitionsSection({ title = "Upcoming Exhibitions", id,
           src="/images/homepage/event_bg.webp"
           alt=""
           fill
+          loading="eager"
           sizes="100vw"
           aria-hidden="true"
         />

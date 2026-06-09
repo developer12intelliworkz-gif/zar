@@ -1,5 +1,6 @@
 "use client";
 
+import { apiGet } from '@/lib/api/axios';
 import { useEffect, useState } from 'react';
 import ClientLogo from '@/components/ui/molecules/ClientLogo/ClientLogo';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -7,8 +8,6 @@ import { motion } from 'framer-motion';
 import { Autoplay } from 'swiper/modules';
 import { getImageUrl } from '@/lib/utils';
 import styles from './TrustedBrandsSection.module.css';
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://testintelliworkz.tech/Zar_backend';
 
 interface TrustedBrand {
   name: string;
@@ -60,8 +59,7 @@ export default function TrustedBrandsSection() {
   useEffect(() => {
     async function fetchTrustedBrands() {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/clientele`);
-        const data = (await response.json()) as ClienteleApiResponse;
+        const data = await apiGet<ClienteleApiResponse>('/api/clientele');
 
         if (data?.success && Array.isArray(data.items) && data.items.length > 0) {
           const remoteBrands = data.items

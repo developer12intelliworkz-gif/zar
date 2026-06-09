@@ -1,6 +1,6 @@
 import type { CareerPosition } from '@/types/domain';
 import type { ApiResponse } from './client';
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://testintelliworkz.tech/Zar_backend';
+import { apiClient } from './axios';
 
 
 type CareerApplyResult = {
@@ -19,20 +19,22 @@ export type CareerApplicationPayload = {
 };
 
 export async function fetchCareerPositions(): Promise<CareerPosition[]> {
-  const response = await fetch(`${API_BASE_URL}/api/careers/`);
-  const payload = await response.json();
+  const response = await apiClient.get<{ success?: boolean; items?: unknown[] }>('/api/careers/');
+  const payload = response.data;
 
-  if (!response.ok || !payload.success || !Array.isArray(payload.items)) {
-    throw new Error(payload.error || 'Failed to fetch career positions');
+  if (!payload.success || !Array.isArray(payload.items)) {
+    throw new Error((payload as { error?: string })?.error || 'Failed to fetch career positions');
   }
 
-  return payload.items.map((item: {
+  const items = payload.items as Array<{
     id: number | string;
     position: string;
     experience: string;
     location: string;
     jobDescription: string;
-  }) => ({
+  }>;
+
+  return items.map((item) => ({
     id: item.id,
     title: item.position,
     slug: item.position
@@ -49,32 +51,17 @@ export async function fetchCareerPositions(): Promise<CareerPosition[]> {
 export async function submitCareerApplication(
   payload: CareerApplicationPayload | FormData
 ): Promise<CareerApplyResult> {
-  const init: RequestInit = {};
-  let body: BodyInit;
+  const response = await apiClient.post<ApiResponse<CareerApplyResult> & { message?: string; id?: number }>(
+    '/api/career-application',
+    payload,
+    {
+      headers: payload instanceof FormData ? undefined : {
+        'Content-Type': 'application/json',
+      },
+    }
+  );
 
-  if (payload instanceof FormData) {
-    body = payload;
-  } else {
-    body = JSON.stringify(payload);
-    init.headers = {
-      'Content-Type': 'application/json',
-    };
-  }
-
-  const response = await fetch(`${API_BASE_URL}/api/career-application`, {
-    method: 'POST',
-    ...init,
-    body,
-  });
-
-  const payloadResponse = (await response.json()) as ApiResponse<CareerApplyResult> & {
-    message?: string;
-    id?: number;
-  };
-
-  if (!response.ok) {
-    throw new Error(payloadResponse.error || payloadResponse.message || 'API request failed');
-  }
+  const payloadResponse = response.data;
 
   if (!payloadResponse.success) {
     throw new Error(payloadResponse.error || payloadResponse.message || 'API request failed');

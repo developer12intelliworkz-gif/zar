@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { apiGet, IMAGE_BASE_PATH } from '@/lib/api/axios';
 import Image from 'next/image';
 import styles from '@/app/about/page.module.css';
 import { motion, useInView } from 'framer-motion';
@@ -19,15 +20,13 @@ const childVariants = {
   visible: { opacity: 1, y: 0 },
 };
 
-const BACKEND_PREFIX = 'https://testintelliworkz.tech/Zar_backend';
-
 function StoryCard({ item }: { item: StoryItem }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   const imageSrc = item.image_url.startsWith('http')
     ? item.image_url
-    : `${BACKEND_PREFIX}${item.image_url}`;
+    : `${IMAGE_BASE_PATH}${item.image_url}`;
 
   return (
     <div ref={ref} className={styles.storyBox}>
@@ -72,11 +71,10 @@ export default function OurStory() {
   useEffect(() => {
     const fetchStoryData = async () => {
       try {
-        const response = await fetch(`${BACKEND_PREFIX}/api/zar-journey`);
-        const data = await response.json();
+        const response = await apiGet<{ success?: boolean; items?: StoryItem[] }>('/api/zar-journey');
 
-        if (data.success && data.items) {
-          setStoryItems(data.items);
+        if (response?.success && Array.isArray(response.items)) {
+          setStoryItems(response.items);
         }
       } catch (error) {
         console.error('Failed to fetch story data:', error);

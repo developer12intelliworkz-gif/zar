@@ -2,7 +2,8 @@ export function cn(...classes: (string | undefined | false | null)[]): string {
   return classes.filter(Boolean).join(' ');
 }
 
-export const API_IMAGE_BASE = 'https://testintelliworkz.tech/Zar_backend/';
+const rawImageBase = process.env.NEXT_PUBLIC_IMAGE_BASE_PATH || process.env.NEXT_PUBLIC_API_BASE_URL || 'https://testintelliworkz.tech/Zar_backend';
+export const API_IMAGE_BASE = `${rawImageBase.replace(/\/+$/, '')}/`;
 
 export function getImageUrl(url?: string | null): string {
   if (!url) return '';

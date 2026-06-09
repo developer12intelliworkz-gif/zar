@@ -5,6 +5,7 @@ import type { Swiper as SwiperType } from 'swiper';
 import { Autoplay } from 'swiper/modules';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
+import { apiGet } from '@/lib/api/axios';
 import { getImageUrl } from '@/lib/utils';
 import styles from './RetailerSlider.module.css';
 
@@ -69,79 +70,6 @@ function isPlayableVideo(url: string): boolean {
   return /mp4|webm|ogg/i.test(url);
 }
 
-// ---------------------------------------------------------------------------
-// Static fallback data
-// ---------------------------------------------------------------------------
-const baseTestimonials: Testimonial[] = [
-  {
-    poster: '/images/homepage/video_1.webp',
-    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    quote:
-      "The bangles I found at the expo were exactly what I'd been searching for. The craftsmanship is truly world-class.",
-    name: 'Priya Sharma',
-    designation: 'Bridal Client, Mumbai',
-  },
-  {
-    poster: '/images/homepage/video_2.webp',
-    video: 'https://www.w3schools.com/html/movie.mp4',
-    quote:
-      'Every piece feels curated with intention. Our customers keep coming back for the exclusivity this platform provides.',
-    name: 'Ananya Mehta',
-    designation: 'Boutique Director, Delhi',
-  },
-  {
-    poster: '/images/homepage/video_3.webp',
-    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    quote:
-      'Partnering with them transformed our store. The quality of their jewellery collection is simply unmatched in the market.',
-    name: 'Rekha Nair',
-    designation: 'Jewellery Store Owner, Kochi',
-  },
-  {
-    poster: '/images/homepage/video_1.webp',
-    video: 'https://www.w3schools.com/html/movie.mp4',
-    quote:
-      'The designs speak to our heritage beautifully. I have never seen my clients so excited about a new collection.',
-    name: 'Sunita Joshi',
-    designation: 'Heritage Curator, Jaipur',
-  },
-  {
-    poster: '/images/homepage/video_2.webp',
-    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    quote:
-      "The bangles I found at the expo were exactly what I'd been searching for. The craftsmanship is truly world-class.",
-    name: 'Priya Sharma',
-    designation: 'Bridal Client, Mumbai',
-  },
-  {
-    poster: '/images/homepage/video_3.webp',
-    video: 'https://www.w3schools.com/html/movie.mp4',
-    quote:
-      'Every piece feels curated with intention. Our customers keep coming back for the exclusivity this platform provides.',
-    name: 'Ananya Mehta',
-    designation: 'Boutique Director, Delhi',
-  },
-  {
-    poster: '/images/homepage/video_1.webp',
-    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    quote:
-      'Partnering with them transformed our store. The quality of their jewellery collection is simply unmatched in the market.',
-    name: 'Rekha Nair',
-    designation: 'Jewellery Store Owner, Kochi',
-  },
-  {
-    poster: '/images/homepage/video_2.webp',
-    video: 'https://www.w3schools.com/html/movie.mp4',
-    quote:
-      'The designs speak to our heritage beautifully. I have never seen my clients so excited about a new collection.',
-    name: 'Sunita Joshi',
-    designation: 'Heritage Curator, Jaipur',
-  },
-];
-
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || 'https://testintelliworkz.tech/Zar_backend';
-
 const skeletonCards = Array.from({ length: 3 });
 
 // ---------------------------------------------------------------------------
@@ -156,13 +84,12 @@ export default function RetailerSlider() {
   const activeIndexRef = useRef<number>(0);
 
   // FIX #5 — initialise skeleton state as false (not loaded) and sync with data
-  const [sliderTestimonials, setSliderTestimonials] = useState<Testimonial[]>(baseTestimonials);
-  const [loadedVideos, setLoadedVideos] = useState<boolean[]>(() =>
-    baseTestimonials.map(() => false),
-  );
+  const [sliderTestimonials, setSliderTestimonials] = useState<Testimonial[]>([]);
+  const [loadedVideos, setLoadedVideos] = useState<boolean[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [skeletonTarget, setSkeletonTarget] = useState(3);
 
-  const showSkeleton = loadedVideos.slice(0, skeletonTarget).some((loaded) => !loaded);
+  const showSkeleton = isLoading || loadedVideos.slice(0, skeletonTarget).some((loaded) => !loaded);
 
   // FIX #5 — sync loadedVideos length whenever sliderTestimonials changes
   useEffect(() => {
@@ -187,8 +114,7 @@ export default function RetailerSlider() {
 
     async function fetchRetailerTestimonials() {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/retailer-testimonials`);
-        const json = (await response.json()) as RetailerApiResponse;
+        const json = await apiGet<RetailerApiResponse>('/api/retailer-testimonials');
 
         if (json?.success && Array.isArray(json.data) && json.data.length > 0) {
           const remoteTestimonials = json.data
@@ -201,6 +127,8 @@ export default function RetailerSlider() {
         }
       } catch (error) {
         console.error('RetailerSlider fetch failed:', error);
+      } finally {
+        setIsLoading(false);
       }
     }
 

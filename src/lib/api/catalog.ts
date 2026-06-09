@@ -1,4 +1,6 @@
 import type { Category, ProductCard, ProductDetail, Style, TechnicalSpec } from '@/types/domain';
+import axios from 'axios';
+import { apiClient, IMAGE_BASE_PATH } from './axios';
 
 type ProductDetailResponse = {
   product: ProductDetail;
@@ -81,7 +83,7 @@ type BackendProductItem = {
   updated_at: string;
 };
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://testintelliworkz.tech/Zar_backend';
+const IMAGE_BASE_URL = IMAGE_BASE_PATH;
 
 function normalize(value: string): string {
   return value.trim().toLowerCase();
@@ -115,8 +117,6 @@ function toGoldTypeQuery(purity: string): string {
   }
   return purity;
 }
-
-const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_PATH || API_BASE_URL;
 
 function toImagePath(value?: string | null): string {
   if (!value) {
@@ -184,22 +184,24 @@ function toTechnicalSpecifications(items: BackendProductItem['technical_specific
 }
 
 async function fetchCatalogEndpoint<T>(path: string, searchParams?: URLSearchParams): Promise<T> {
-  const query = searchParams?.toString();
-  const requestUrl = `${API_BASE_URL}${path}${query ? '?' + query : ''}`;
-  const response = await fetch(requestUrl, {
-    headers: {
-      Accept: 'application/json',
-    },
-    next: { revalidate: 60 },
-  });
+  try {
+    const params = searchParams ? Object.fromEntries(searchParams.entries()) : undefined;
+    const response = await apiClient.get<T>(path, { params });
+    const payload = response.data as T & { error?: string; success?: boolean };
 
-  const payload = (await response.json()) as T & { error?: string; success?: boolean };
+    if ('error' in payload && payload.error) {
+      throw new CatalogApiError(response.status, payload.error);
+    }
 
-  if (!response.ok) {
-    throw new CatalogApiError(response.status, payload.error || 'Catalog API request failed');
+    return payload;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      const payload = error.response.data as { error?: string } | undefined;
+      throw new CatalogApiError(error.response.status, payload?.error || 'Catalog API request failed');
+    }
+
+    throw error;
   }
-
-  return payload;
 }
 
 export function isCatalogRouteError(error: unknown): boolean {
