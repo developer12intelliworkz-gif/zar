@@ -5,7 +5,7 @@ import type { Swiper as SwiperType } from 'swiper';
 import { Autoplay } from 'swiper/modules';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
-import { apiGet } from '@/lib/api/axios';
+import { apiGet, API_BASE_URL } from '@/lib/api/axios';
 import { getImageUrl } from '@/lib/utils';
 import styles from './RetailerSlider.module.css';
 
@@ -53,9 +53,14 @@ interface RetailerApiResponse {
 // Helpers
 // ---------------------------------------------------------------------------
 function resolveRetailerTestimonial(item: ApiRetailerTestimonial): Testimonial {
+  const rawVideo = item.video_link?.trim() || '';
+  const normalizedVideo = rawVideo && !/^https?:\/\//i.test(rawVideo)
+    ? `${API_BASE_URL.replace(/\/+$/, '')}/${rawVideo.replace(/^\/+/, '')}`
+    : rawVideo;
+
   return {
     poster: getImageUrl(item.fallback_image || ''),
-    video: item.video_link?.trim() || '',
+    video: normalizedVideo,
     quote: item.description?.trim() || '',
     name: item.title?.trim() || 'Retailer',
     designation: '',
@@ -93,7 +98,7 @@ export default function RetailerSlider() {
 
   // FIX #5 — sync loadedVideos length whenever sliderTestimonials changes
   useEffect(() => {
-    setLoadedVideos(sliderTestimonials.map(() => false));
+    setLoadedVideos(sliderTestimonials.map((testimonial) => !isPlayableVideo(testimonial.video)));
     // FIX #8 — reset refs so stale indices don't persist
     videoRefs.current = sliderTestimonials.map(() => null);
     wrapRefs.current  = sliderTestimonials.map(() => null);
@@ -175,8 +180,8 @@ export default function RetailerSlider() {
     const testimonial = sliderTestimonials[idx];
     if (!testimonial) return;
 
-    // Fallback: open in new tab if no playable src
-    if (!v || !v.src) {
+    const hasPlayableSource = isPlayableVideo(testimonial.video);
+    if (!v || !hasPlayableSource) {
       if (testimonial.video) window.open(testimonial.video, '_blank');
       return;
     }
@@ -191,7 +196,17 @@ export default function RetailerSlider() {
         wrapRefs.current[i]?.classList.remove(styles.playing);
       });
 
-      v.play();
+      const playPromise = v.play();
+      if (playPromise instanceof Promise) {
+        playPromise.catch((error) => {
+          console.warn('RetailerSlider video play failed:', error);
+          v.removeAttribute('controls');
+          wrapRefs.current[idx]?.classList.remove(styles.playing);
+          swiperRef.current?.autoplay?.start();
+          if (testimonial.video) window.open(testimonial.video, '_blank');
+        });
+      }
+
       v.setAttribute('controls', '');
       w?.classList.add(styles.playing);
 
@@ -320,7 +335,9 @@ export default function RetailerSlider() {
                   playsInline
                   preload="metadata"
                   onLoadedMetadata={() => markVideoLoaded(idx)}
+                  onLoadedData={() => markVideoLoaded(idx)}
                   onCanPlay={() => markVideoLoaded(idx)}
+                  onError={() => markVideoLoaded(idx)}
                   onPause={(e) => {
                     // Don't remove playing class if the video simply ended
                     if (!e.currentTarget.ended) {
