@@ -87,10 +87,7 @@ export default function PartnerForm() {
     const requiredFields: Array<{ name: string; label: string }> = [
       { name: 'name', label: 'Full Name' },
       { name: 'company', label: 'Company Name' },
-      { name: 'country', label: 'Country' },
-      { name: 'state', label: 'State' },
-      { name: 'city', label: 'City' },
-      { name: 'pincode', label: 'Pincode' },
+      // country, state, city, pincode are optional per request
       { name: 'email', label: 'Email ID' },
       { name: 'phone', label: 'Contact No.' },
       { name: 'category', label: 'Category' },
@@ -247,7 +244,6 @@ export default function PartnerForm() {
               value: country.isoCode,
             }))}
             wrapperClassName={styles.inputGroup}
-            required
             value={selectedCountryCode}
             onChange={(event) => {
               const code = event.target.value;
@@ -255,7 +251,7 @@ export default function PartnerForm() {
               const selectedCountry = countries.find((country) => country.isoCode === code);
               setSelectedCountryName(selectedCountry?.name ?? '');
             }}
-            errorMessage={fieldErrors.country}
+            
           />
           <SelectField
             id="state"
@@ -267,7 +263,6 @@ export default function PartnerForm() {
               value: state.isoCode,
             }))}
             wrapperClassName={styles.inputGroup}
-            required
             value={selectedStateCode}
             onChange={(event) => {
               const code = event.target.value;
@@ -276,7 +271,7 @@ export default function PartnerForm() {
               setSelectedStateName(selectedState?.name ?? '');
             }}
             disabled={!selectedCountryCode || statesList.length === 0}
-            errorMessage={fieldErrors.state}
+            
           />
         </div>
         <div className={styles.formRow}>
@@ -290,11 +285,10 @@ export default function PartnerForm() {
               value: city.name,
             }))}
             wrapperClassName={styles.inputGroup}
-            required
             value={selectedCityName}
             onChange={(event) => setSelectedCityName(event.target.value)}
             disabled={!selectedStateCode || citiesList.length === 0}
-            errorMessage={fieldErrors.city}
+            
           />
           <InputField
             id="pincode"
@@ -302,8 +296,7 @@ export default function PartnerForm() {
             label="Pincode"
             placeholder="Enter your pincode"
             wrapperClassName={styles.inputGroup}
-            required
-            errorMessage={fieldErrors.pincode}
+            
           />
         </div>
         <div className={styles.formRow}>
