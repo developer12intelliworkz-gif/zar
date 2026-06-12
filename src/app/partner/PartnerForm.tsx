@@ -26,6 +26,7 @@ export default function PartnerForm() {
   const [selectedStateCode, setSelectedStateCode] = useState('');
   const [selectedStateName, setSelectedStateName] = useState('');
   const [selectedCityName, setSelectedCityName] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   const handleCaptchaStatusChange = useCallback(
     ({ value, isValid }: { value: string; isValid: boolean }) => {
@@ -79,15 +80,56 @@ export default function PartnerForm() {
     setSelectedCityName('');
   }, [selectedCountryCode, selectedStateCode]);
 
+  const validateForm = (form: HTMLFormElement) => {
+    const errors: Record<string, string> = {};
+    const formData = new FormData(form);
+
+    const requiredFields: Array<{ name: string; label: string }> = [
+      { name: 'name', label: 'Full Name' },
+      { name: 'company', label: 'Company Name' },
+      { name: 'country', label: 'Country' },
+      { name: 'state', label: 'State' },
+      { name: 'city', label: 'City' },
+      { name: 'pincode', label: 'Pincode' },
+      { name: 'email', label: 'Email ID' },
+      { name: 'phone', label: 'Contact No.' },
+      { name: 'category', label: 'Category' },
+      { name: 'referred_by', label: 'Referred By' },
+      { name: 'website', label: 'Company Website' },
+      { name: 'message', label: 'Message' },
+    ];
+
+    requiredFields.forEach(({ name, label }) => {
+      const value = formData.get(name);
+      const val = typeof value === 'string' ? value.trim() : '';
+      if (!val) {
+        errors[name] = `${label} is required`;
+      }
+    });
+
+    const email = formData.get('email');
+    if (email && typeof email === 'string') {
+      const trimmed = email.trim();
+      if (trimmed && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+        errors.email = 'Please enter a valid email address';
+      }
+    }
+
+    setFieldErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const onSubmit = (event: { preventDefault: () => void; currentTarget: HTMLFormElement }) => {
     event.preventDefault();
     setSubmitMessage('');
     setSubmitError(false);
+    setFieldErrors({});
 
     const form = event.currentTarget;
 
-    if (!form.checkValidity()) {
-      form.reportValidity();
+    if (!validateForm(form)) {
+      setSubmitError(true);
+      setSubmitMessage('Please fill in all required fields correctly.');
       return;
     }
 
@@ -151,6 +193,7 @@ export default function PartnerForm() {
         setCaptchaValue('');
         setIsCaptchaValid(false);
         setSubmitError(false);
+        setFieldErrors({});
         setSubmitMessage(
           result.message || 'Your request has been submitted successfully. Our team will contact you soon.'
         );
@@ -180,7 +223,9 @@ export default function PartnerForm() {
             placeholder="Type full name here"
             wrapperClassName={styles.inputGroup}
             required
+            errorMessage={fieldErrors.name}
           />
+
           <InputField
             id="company"
             name="company"
@@ -188,6 +233,7 @@ export default function PartnerForm() {
             placeholder="Type your company name here"
             wrapperClassName={styles.inputGroup}
             required
+            errorMessage={fieldErrors.company}
           />
         </div>
         <div className={styles.formRow}>
@@ -209,6 +255,7 @@ export default function PartnerForm() {
               const selectedCountry = countries.find((country) => country.isoCode === code);
               setSelectedCountryName(selectedCountry?.name ?? '');
             }}
+            errorMessage={fieldErrors.country}
           />
           <SelectField
             id="state"
@@ -229,6 +276,7 @@ export default function PartnerForm() {
               setSelectedStateName(selectedState?.name ?? '');
             }}
             disabled={!selectedCountryCode || statesList.length === 0}
+            errorMessage={fieldErrors.state}
           />
         </div>
         <div className={styles.formRow}>
@@ -246,6 +294,7 @@ export default function PartnerForm() {
             value={selectedCityName}
             onChange={(event) => setSelectedCityName(event.target.value)}
             disabled={!selectedStateCode || citiesList.length === 0}
+            errorMessage={fieldErrors.city}
           />
           <InputField
             id="pincode"
@@ -254,6 +303,7 @@ export default function PartnerForm() {
             placeholder="Enter your pincode"
             wrapperClassName={styles.inputGroup}
             required
+            errorMessage={fieldErrors.pincode}
           />
         </div>
         <div className={styles.formRow}>
@@ -265,6 +315,7 @@ export default function PartnerForm() {
             placeholder="Enter your email ID"
             wrapperClassName={styles.inputGroup}
             required
+            errorMessage={fieldErrors.email}
           />
           <PhoneField
             id="phone"
@@ -273,6 +324,7 @@ export default function PartnerForm() {
             placeholder="Enter your contact number"
             wrapperClassName={styles.inputGroup}
             required
+            errorMessage={fieldErrors.phone}
           />
         </div>
         <div className={styles.formRow}>
@@ -289,6 +341,7 @@ export default function PartnerForm() {
             wrapperClassName={styles.inputGroup}
             required
             defaultValue=""
+            errorMessage={fieldErrors.category}
           />
           <SelectField
             id="referred_by"
@@ -303,6 +356,7 @@ export default function PartnerForm() {
             wrapperClassName={styles.inputGroup}
             required
             defaultValue=""
+            errorMessage={fieldErrors.referred_by}
           />
         </div>
         <div className={styles.formRow}>
@@ -313,6 +367,7 @@ export default function PartnerForm() {
             placeholder="Type your company website URL here"
             wrapperClassName={styles.inputGroup}
             required
+            errorMessage={fieldErrors.website}
           />
         </div>
         <div className={styles.formRow}>
@@ -323,6 +378,7 @@ export default function PartnerForm() {
             placeholder="Type here..."
             wrapperClassName={styles.inputGroup}
             required
+            errorMessage={fieldErrors.message}
           />
         </div>
 

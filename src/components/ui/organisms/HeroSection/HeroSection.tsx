@@ -283,12 +283,12 @@ export default function HeroSection() {
               height="70.5"
               rx="35.25"
               transform="matrix(-1 0 0 1 70.5 0)"
-              stroke="#A38274"
+              stroke="#fff"
               strokeWidth="1.5"
             />
             <path
               d="M42.258 48.1166L29.742 35.6006L42.258 23.8828"
-              stroke="#A38274"
+              stroke="#fff"
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -308,12 +308,12 @@ export default function HeroSection() {
               height="70.5"
               rx="35.25"
               fill="none"
-              stroke="#A38274"
+              stroke="#fff"
               strokeWidth="1.5"
             />
             <path
               d="M29.7419 48.1166L42.2579 35.6006L29.7419 23.8828"
-              stroke="#A38274"
+              stroke="#fff"
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"

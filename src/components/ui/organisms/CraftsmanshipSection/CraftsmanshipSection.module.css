@@ -1,4 +1,3 @@
-
 .inner {
   max-width: var(--max-width);
   margin: 0 auto;
@@ -21,15 +20,15 @@
   gap: 50px;
 }
 
-/* @media (min-width: 1024px) {
 
+@media (max-width: 1367px) {
   .grid {
-    grid-template-columns: repeat(4, 1fr);
+    gap: 50px;
   }
-} */
+}
+
 @media (max-width: 769px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-

@@ -53,6 +53,12 @@
   }
 }
 
+@media (max-width: 1367px) {
+  .textBlock {
+    max-width: 500px;
+  }
+}
+
 @media (max-width: 768px) {
   .heading {
     font-size: 36px;
