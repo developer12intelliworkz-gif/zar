@@ -179,6 +179,12 @@
   display: none;
 }
 
+@media (max-width: 1367px) {
+  .navBtn svg {
+    height:40px;
+    width:40px;
+}
+}
 @media (max-width: 1199px) {
 
   .viewer,

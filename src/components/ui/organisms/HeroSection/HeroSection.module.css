@@ -5,7 +5,7 @@
 
   position: relative;
   width: 100%;
-  height: 825px;
+  height: calc(100vh - 80px);
   overflow: hidden;
   background: #191919;
 }
@@ -479,6 +479,23 @@
 
   .heroNav {
     bottom: 15%;
+  }
+}
+
+@media (max-width: 1367px) {
+
+  .heroNav {
+    bottom: 15%;
+    left: 9%;
+  }
+}
+@media (max-width: 1281px) {
+  .content {
+     padding: 0 0px;
+  }
+
+  .heroNav {
+    left: 9%;
   }
 }
 
