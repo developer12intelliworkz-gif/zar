@@ -8,6 +8,14 @@
   height: calc(100vh - 80px);
   overflow: hidden;
   background: #191919;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+
+.hero:active {
+  cursor: grabbing;
 }
 
 .stage {
@@ -520,9 +528,9 @@
 }
 
 @media (max-width: 767px) {
-  .hero {
+  /* .hero {
     height: 560px;
-  }
+  } */
 
   .content {
     padding: 0 20px;

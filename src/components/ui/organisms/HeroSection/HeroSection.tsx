@@ -50,6 +50,38 @@ export default function HeroSection() {
   const reducedMotionRef = useRef(false);
   const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const dragStartRef = useRef<number | null>(null);
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    dragStartRef.current = e.clientX;
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch (err) {}
+  };
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (dragStartRef.current === null) return;
+    const diffX = e.clientX - dragStartRef.current;
+    const threshold = 50;
+    if (diffX > threshold) {
+      navigate('prev');
+    } else if (diffX < -threshold) {
+      navigate('next');
+    }
+    dragStartRef.current = null;
+    try {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    } catch (err) {}
+  };
+
+  const handlePointerCancel = (e: React.PointerEvent) => {
+    dragStartRef.current = null;
+    try {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    } catch (err) {}
+  };
+
   const activeSlide = HERO_SLIDES[currentIndex];
 
   const contentStyle = useMemo(
@@ -208,7 +240,13 @@ export default function HeroSection() {
   }, [transition]);
 
   return (
-    <section className={styles.hero} aria-label="Homepage hero slider">
+    <section
+      className={styles.hero}
+      aria-label="Homepage hero slider"
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerCancel}
+    >
       <div className={styles.stage}>
         <div className={styles.slide}>
           <div className={styles.backgroundImage}>
@@ -218,6 +256,7 @@ export default function HeroSection() {
               fill
               sizes="100vw"
               priority={currentIndex === 0}
+              draggable={false}
             />
             <div className={styles.overlay} />
           </div>
@@ -250,7 +289,7 @@ export default function HeroSection() {
         {transitionData ? (
           <div className={styles.transitionLayer} style={transitionData.style} aria-hidden="true">
             <div className={styles.nextSlide}>
-              <Image src={getImageUrl(getResponsiveImage(transitionData.toSlide, isMobile))} alt="" fill sizes="100vw" />
+              <Image src={getImageUrl(getResponsiveImage(transitionData.toSlide, isMobile))} alt="" fill sizes="100vw" draggable={false} />
               <div className={styles.overlay} />
             </div>
 
@@ -263,12 +302,12 @@ export default function HeroSection() {
             >
               <div className={`${styles.slice} ${styles.sliceOne}`}>
                 <div className={styles.sliceMedia}>
-                  <Image src={getImageUrl(getResponsiveImage(transitionData.fromSlide, isMobile))} alt="" fill sizes="100vw" />
+                  <Image src={getImageUrl(getResponsiveImage(transitionData.fromSlide, isMobile))} alt="" fill sizes="100vw" draggable={false} />
                 </div>
               </div>
               <div className={`${styles.slice} ${styles.sliceTwo}`}>
                 <div className={styles.sliceMedia}>
-                  <Image src={getImageUrl(getResponsiveImage(transitionData.fromSlide, isMobile))} alt="" fill sizes="100vw" />
+                  <Image src={getImageUrl(getResponsiveImage(transitionData.fromSlide, isMobile))} alt="" fill sizes="100vw" draggable={false} />
                 </div>
               </div>
             </div>
@@ -288,7 +327,7 @@ export default function HeroSection() {
         ))}
       </div> */}
 
-      <div className={styles.heroNav}>
+      <div className={styles.heroNav} onPointerDown={(e) => e.stopPropagation()}>
         <button
           className={styles.heroNavBtn}
           onClick={() => navigate('prev')}

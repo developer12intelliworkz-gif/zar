@@ -61,3 +61,17 @@
     line-height: 70px;
   }
 }
+@media (max-width: 576px) {
+  .value {
+    font-size: 34px;
+    line-height: 40px;
+  }
+  .label{
+    font-size: 16px;
+    line-height: 20px;
+  }
+  .statCard {
+    width: 180px;
+    padding: 10px;
+  }
+}
