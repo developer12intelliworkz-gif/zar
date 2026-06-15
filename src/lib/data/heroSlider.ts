@@ -12,6 +12,7 @@ export interface HeroSlideContentTiming {
 export interface HeroSlide {
   id: string;
   image: string;
+  imageMobile: string;
   alt: string;
   heading: string;
   subtitle: string;
@@ -27,6 +28,7 @@ export const HERO_SLIDES: HeroSlide[] = [
   {
     id: 'Banner_04',
     image: '/images/homepage/Banner_04.webp',
+    imageMobile: '/images/homepage/Banner_04_m.webp',
     alt: 'Precision gold jewellery craftsmanship – ZAR Jewellery',
     heading: 'CRAFTED WITH\nPRECISION & PASSION',
     subtitle:
@@ -46,7 +48,30 @@ export const HERO_SLIDES: HeroSlide[] = [
     },
   },
   {
-    id: 'Banner_05',
+    id: 'Banner_03',
+    image: '/images/homepage/banner-2.webp',
+    imageMobile: '/images/homepage/Banner_02_m.webp',
+    alt: 'Timeless gold bangle collections – ZAR Jewellery',
+    heading: 'TIMELESS ELEGANCE\nREDEFINED',
+    subtitle:
+      'Discover our signature collections that blend centuries of tradition with bold contemporary design.',
+    orientation: 'horizontal',
+    slice1Rotation: 3,
+    slice2Rotation: 3,
+    slice1Scale: 2,
+    slice2Scale: 1,
+    contentTiming: {
+      titleDelay: 160,
+      titleDuration: 700,
+      subtitleDelay: 300,
+      subtitleDuration: 660,
+      buttonDelay: 460,
+      buttonDuration: 600,
+    },
+  },
+  {
+    id: 'Banner_02',
+    imageMobile: '/images/homepage/Banner_05_m.webp',
     image: '/images/homepage/Banner_05.webp',
     alt: 'Timeless gold bangle collections – ZAR Jewellery',
     heading: 'TIMELESS ELEGANCE\nREDEFINED',

@@ -19,6 +19,7 @@ interface TransitionState {
 
 const AUTOPLAY_DELAY = 5000;
 const TRANSITION_MS = 900;
+const MOBILE_BREAKPOINT = 992;
 
 function getTranslateFactor(direction: Direction): number {
   if (typeof window !== 'undefined' && window.innerWidth <= 767) {
@@ -26,6 +27,10 @@ function getTranslateFactor(direction: Direction): number {
   }
 
   return direction === 'next' ? 230 : 170;
+}
+
+function getResponsiveImage(slide: typeof HERO_SLIDES[0], isMobile: boolean | null): string {
+  return isMobile === true ? slide.imageMobile : slide.image;
 }
 
 function getNextIndex(current: number, direction: Direction): number {
@@ -40,6 +45,7 @@ export default function HeroSection() {
   const [enquiryOpen, setEnquiryOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [transition, setTransition] = useState<TransitionState | null>(null);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const isAnimatingRef = useRef(false);
   const reducedMotionRef = useRef(false);
   const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -124,6 +130,19 @@ export default function HeroSection() {
   }, []);
 
   useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'ArrowLeft') {
         navigate('prev');
@@ -194,7 +213,7 @@ export default function HeroSection() {
         <div className={styles.slide}>
           <div className={styles.backgroundImage}>
             <Image
-              src={getImageUrl(activeSlide.image)}
+              src={getImageUrl(getResponsiveImage(activeSlide, isMobile))}
               alt={activeSlide.alt}
               fill
               sizes="100vw"
@@ -231,7 +250,7 @@ export default function HeroSection() {
         {transitionData ? (
           <div className={styles.transitionLayer} style={transitionData.style} aria-hidden="true">
             <div className={styles.nextSlide}>
-              <Image src={getImageUrl(transitionData.toSlide.image)} alt="" fill sizes="100vw" />
+              <Image src={getImageUrl(getResponsiveImage(transitionData.toSlide, isMobile))} alt="" fill sizes="100vw" />
               <div className={styles.overlay} />
             </div>
 
@@ -244,12 +263,12 @@ export default function HeroSection() {
             >
               <div className={`${styles.slice} ${styles.sliceOne}`}>
                 <div className={styles.sliceMedia}>
-                  <Image src={getImageUrl(transitionData.fromSlide.image)} alt="" fill sizes="100vw" />
+                  <Image src={getImageUrl(getResponsiveImage(transitionData.fromSlide, isMobile))} alt="" fill sizes="100vw" />
                 </div>
               </div>
               <div className={`${styles.slice} ${styles.sliceTwo}`}>
                 <div className={styles.sliceMedia}>
-                  <Image src={getImageUrl(transitionData.fromSlide.image)} alt="" fill sizes="100vw" />
+                  <Image src={getImageUrl(getResponsiveImage(transitionData.fromSlide, isMobile))} alt="" fill sizes="100vw" />
                 </div>
               </div>
             </div>
