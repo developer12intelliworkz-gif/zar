@@ -2,6 +2,7 @@ import { apiGet } from '@/lib/api/axios';
 import React from 'react';
 import styles from './Testimonials.module.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 
 interface Testimonial {
@@ -71,7 +72,17 @@ const Testimonials: React.FC = () => {
       <div className="container">
         <h4 className="fs_54 txt_center">What Our Customers Say</h4>
         {isMobile ? (
-          <Swiper slidesPerView={1} spaceBetween={24} className={styles.text_testi_slider}>
+          <Swiper
+            modules={[Autoplay]}
+            slidesPerView={1}
+            spaceBetween={24}
+            loop={true}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            className={styles.text_testi_slider}
+          >
             {testimonials.map((testi, idx) => (
               <SwiperSlide key={`${testi.name}-${idx}`}>
                 <div className={styles.testimonialCard}>

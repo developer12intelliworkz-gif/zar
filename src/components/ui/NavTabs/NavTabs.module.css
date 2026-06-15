@@ -22,7 +22,8 @@
 /*------------------------ RESPONSIVE ------------------------*/
 @media (max-width: 992px) {
   .tabWrapper {
-    display: grid;
+    display: static;
     grid-template-columns: 1fr 1fr;
+    margin-inline: auto;
   }
 }

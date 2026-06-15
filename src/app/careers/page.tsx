@@ -13,6 +13,7 @@ import PhoneField from '@/components/ui/atoms/PhoneField/PhoneField';
 import CustomCaptcha from '@/components/ui/molecules/CustomCaptcha/CustomCaptcha';
 import { fetchCareerPositions, submitCareerApplication } from '@/lib/api/careers';
 import type { CareerPosition } from '@/types/domain';
+import { useToast } from '@/components/ui/Toast/ToastContext';
 
 type CareerFormValues = {
   fullName: string;
@@ -31,9 +32,8 @@ const WORK_REGEX = /^[A-Za-z0-9\s+-]{1,30}$/;
 
 
 export default function CareersPage() {
+  const { showToast } = useToast();
   const [positions, setPositions] = useState<CareerPosition[]>([]);
-  const [submitMessage, setSubmitMessage] = useState('');
-  const [submitError, setSubmitError] = useState(false);
   const [captchaValue, setCaptchaValue] = useState('');
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
   const [captchaRefreshKey, setCaptchaRefreshKey] = useState(0);
@@ -99,12 +99,8 @@ export default function CareersPage() {
   };
 
   const onCareerSubmit = handleSubmit(async (values) => {
-    setSubmitMessage('');
-    setSubmitError(false);
-
     if (!captchaValue || !isCaptchaValid) {
-      setSubmitError(true);
-      setSubmitMessage('Please complete the 4-digit captcha correctly before submitting.');
+      showToast('Please complete the 4-digit captcha correctly before submitting.', 'error');
       return;
     }
 
@@ -125,14 +121,13 @@ export default function CareersPage() {
       setResumeFileName('');
       setCaptchaValue('');
       setIsCaptchaValid(false);
-      setSubmitError(false);
-      setSubmitMessage('Your application has been submitted successfully. We will be in touch!');
+      showToast('Your application has been submitted successfully. We will be in touch!', 'success');
     } catch (error: unknown) {
-      setSubmitError(true);
-      setSubmitMessage(
+      showToast(
         error instanceof Error
           ? error.message
-          : 'Network error. Please try again in a moment.'
+          : 'Network error. Please try again in a moment.',
+        'error'
       );
     } finally {
       setCaptchaRefreshKey((current) => current + 1);
@@ -525,15 +520,7 @@ export default function CareersPage() {
                 <Button variant="primary" showArrow type="submit" disabled={isSubmitting}>
                   {isSubmitting ? 'Submitting...' : 'Submit'}
                 </Button>
-                {submitMessage && (
-                  <p
-                    style={{ marginTop: '12px', color: submitError ? '#c00' : '#2a7a2a', fontSize: '14px' }}
-                    role="status"
-                    aria-live="polite"
-                  >
-                    {submitMessage}
-                  </p>
-                )}
+                {/* Submit Toast feedback is handled globally */}
               </form>
             </div>
           </div>

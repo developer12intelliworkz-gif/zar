@@ -5,6 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { createPortal } from 'react-dom';
 import styles from './EnquiryModal.module.css';
 import { cn } from '@/lib/utils';
+import { useToast } from '@/components/ui/Toast/ToastContext';
 
 interface EnquiryModalProps {
   open: boolean;
@@ -35,6 +36,7 @@ const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 const MESSAGE_REGEX = /^[A-Za-z0-9\s.,'"?!@#$%&*()\-:+;[\]{}]{10,1000}$/;
 
 export default function EnquiryModal({ open, onClose, productName }: EnquiryModalProps) {
+  const { showToast } = useToast();
   const [isMounted, setIsMounted] = useState(false);
 
   const {
@@ -99,9 +101,12 @@ export default function EnquiryModal({ open, onClose, productName }: EnquiryModa
       if (response.ok) {
         reset();
         onClose();
+        showToast('Your enquiry has been submitted successfully.', 'success');
+      } else {
+        showToast('Failed to submit enquiry. Please try again.', 'error');
       }
     } catch {
-      // Silent fail - modal stays open so user can retry.
+      showToast('Network error. Please check your connection and try again.', 'error');
     }
   });
 

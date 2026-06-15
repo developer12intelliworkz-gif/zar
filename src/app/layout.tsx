@@ -7,6 +7,7 @@ import Footer from "@/components/ui/organisms/Footer/Footer";
 import PageTransitionProvider from "@/components/ui/organisms/PageTransitionProvider/PageTransitionProvider";
 import FirstVisitLoader from "@/components/ui/organisms/FirstVisitLoader/FirstVisitLoader";
 import CartDrawer from "@/components/ui/organisms/CartDrawer/CartDrawer";
+import { ToastProvider } from "@/components/ui/Toast/ToastContext";
 
 export const metadata: Metadata = {
   title: "Zar Jewels — India's Trusted Gold Bangle Manufacturer",
@@ -23,15 +24,17 @@ export default function RootLayout({
     <html lang="en">
       <body suppressHydrationWarning={true}>
         <ReduxProvider>
-          <CartDrawer />
-          {/* <FirstVisitLoader /> */}
-          <Header />
-          <main className="main">
-            {/* <PageTransitionProvider> */}
-              {children}
-              {/* </PageTransitionProvider> */}
-          </main>
-          <Footer />
+          <ToastProvider>
+            <CartDrawer />
+            {/* <FirstVisitLoader /> */}
+            <Header />
+            <main className="main">
+              {/* <PageTransitionProvider> */}
+                {children}
+                {/* </PageTransitionProvider> */}
+            </main>
+            <Footer />
+          </ToastProvider>
         </ReduxProvider>
       </body>
     </html>

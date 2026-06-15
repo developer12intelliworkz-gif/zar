@@ -50,36 +50,53 @@ export default function HeroSection() {
   const reducedMotionRef = useRef(false);
   const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
   const dragStartRef = useRef<number | null>(null);
 
-  const handlePointerDown = (e: React.PointerEvent) => {
-    if (e.pointerType === 'mouse' && e.button !== 0) return;
-    dragStartRef.current = e.clientX;
-    try {
-      e.currentTarget.setPointerCapture(e.pointerId);
-    } catch (err) {}
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
   };
 
-  const handlePointerUp = (e: React.PointerEvent) => {
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStartRef.current) return;
+    const touch = e.changedTouches[0];
+    const diffX = touch.clientX - touchStartRef.current.x;
+    const diffY = touch.clientY - touchStartRef.current.y;
+    const threshold = 50;
+
+    if (Math.abs(diffX) > threshold && Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX > 0) {
+        navigate('prev');
+      } else {
+        navigate('next');
+      }
+    }
+    touchStartRef.current = null;
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (e.button !== 0) return;
+    dragStartRef.current = e.clientX;
+  };
+
+  const handleMouseUp = (e: React.MouseEvent) => {
     if (dragStartRef.current === null) return;
     const diffX = e.clientX - dragStartRef.current;
     const threshold = 50;
-    if (diffX > threshold) {
-      navigate('prev');
-    } else if (diffX < -threshold) {
-      navigate('next');
+
+    if (Math.abs(diffX) > threshold) {
+      if (diffX > 0) {
+        navigate('prev');
+      } else {
+        navigate('next');
+      }
     }
     dragStartRef.current = null;
-    try {
-      e.currentTarget.releasePointerCapture(e.pointerId);
-    } catch (err) {}
   };
 
-  const handlePointerCancel = (e: React.PointerEvent) => {
+  const handleMouseLeave = () => {
     dragStartRef.current = null;
-    try {
-      e.currentTarget.releasePointerCapture(e.pointerId);
-    } catch (err) {}
   };
 
   const activeSlide = HERO_SLIDES[currentIndex];
@@ -243,9 +260,11 @@ export default function HeroSection() {
     <section
       className={styles.hero}
       aria-label="Homepage hero slider"
-      onPointerDown={handlePointerDown}
-      onPointerUp={handlePointerUp}
-      onPointerCancel={handlePointerCancel}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseLeave}
     >
       <div className={styles.stage}>
         <div className={styles.slide}>
@@ -327,7 +346,11 @@ export default function HeroSection() {
         ))}
       </div> */}
 
-      <div className={styles.heroNav} onPointerDown={(e) => e.stopPropagation()}>
+      <div
+        className={styles.heroNav}
+        onMouseDown={(e) => e.stopPropagation()}
+        onTouchStart={(e) => e.stopPropagation()}
+      >
         <button
           className={styles.heroNavBtn}
           onClick={() => navigate('prev')}

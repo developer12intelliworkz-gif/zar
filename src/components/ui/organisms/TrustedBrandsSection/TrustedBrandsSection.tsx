@@ -112,6 +112,12 @@ export default function TrustedBrandsSection() {
             disableOnInteraction: false,
             pauseOnMouseEnter: true,
           }}
+          breakpoints={{
+              992: {
+                slidesPerView: 2,
+                spaceBetween:20
+              },              
+            }}
         >
           {brands.map((brand, index) => (
             <SwiperSlide key={`${brand.name}-${index}`} className={styles.swiperSlide}>

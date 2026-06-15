@@ -9,6 +9,7 @@ import PhoneField from '@/components/ui/atoms/PhoneField/PhoneField';
 import SelectField from '@/components/ui/atoms/SelectField/SelectField';
 import TextareaField from '@/components/ui/atoms/TextareaField/TextareaField';
 import { submitContactInquiry } from '@/lib/api/contact';
+import { useToast } from '@/components/ui/Toast/ToastContext';
 import styles from './page.module.css';
 
 type ContactFormValues = {
@@ -26,8 +27,7 @@ const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 const MESSAGE_REGEX = /^[A-Za-z0-9\s.,'"?!@#$%&*()\-:+;[\]{}]{10,1000}$/;
 
 export default function ContactForm() {
-  const [submitMessage, setSubmitMessage] = useState('');
-  const [submitError, setSubmitError] = useState(false);
+  const { showToast } = useToast();
   const [captchaValue, setCaptchaValue] = useState('');
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
   const [captchaRefreshKey, setCaptchaRefreshKey] = useState(0);
@@ -59,12 +59,8 @@ export default function ContactForm() {
   });
 
   const onSubmit = handleSubmit(async (values) => {
-    setSubmitMessage('');
-    setSubmitError(false);
-
     if (!captchaValue || !isCaptchaValid) {
-      setSubmitError(true);
-      setSubmitMessage('Please complete the 4-digit captcha correctly before submitting.');
+      showToast('Please complete the 4-digit captcha correctly before submitting.', 'error');
       return;
     }
 
@@ -79,19 +75,16 @@ export default function ContactForm() {
       });
 
       if (!result.success) {
-        setSubmitError(true);
-        setSubmitMessage(result.message || 'Unable to submit your message. Please try again.');
+        showToast(result.message || 'Unable to submit your message. Please try again.', 'error');
         return;
       }
 
       reset();
       setCaptchaValue('');
       setIsCaptchaValid(false);
-      setSubmitError(false);
-      setSubmitMessage(result.message || 'Your message has been submitted successfully.');
+      showToast(result.message || 'Your message has been submitted successfully.', 'success');
     } catch {
-      setSubmitError(true);
-      setSubmitMessage('Network error. Please try again in a moment.');
+      showToast('Network error. Please try again in a moment.', 'error');
     } finally {
       setCaptchaRefreshKey((current) => current + 1);
     }
@@ -254,15 +247,6 @@ export default function ContactForm() {
           )}
         </Button>
 
-        {submitMessage && (
-          <p
-            className={submitError ? styles.submitStatusError : styles.submitStatusSuccess}
-            role="status"
-            aria-live="polite"
-          >
-            {submitMessage}
-          </p>
-        )}
       </form>
     </div>
   );

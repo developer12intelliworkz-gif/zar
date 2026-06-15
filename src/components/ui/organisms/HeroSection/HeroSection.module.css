@@ -528,10 +528,13 @@
 }
 
 @media (max-width: 767px) {
-  /* .hero {
-    height: 560px;
-  } */
-
+  .hero {
+    height: calc(100vh -  75px);
+  }
+.backgroundImage img,
+  .nextSlide img {
+    object-fit: cover;
+  }
   .content {
     padding: 0 20px;
   }
