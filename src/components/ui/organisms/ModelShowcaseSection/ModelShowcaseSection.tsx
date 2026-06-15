@@ -65,8 +65,8 @@ export default function ModelShowcaseSection() {
               swiperRef.current = swiper;
             }}
             breakpoints={{
-              768: {
-                slidesPerView: 2,
+              992: {
+                slidesPerView: 1,
               },
               1024: {
                 slidesPerView: 3,

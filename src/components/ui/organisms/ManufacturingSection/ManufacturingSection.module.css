@@ -61,8 +61,65 @@
   text-align: center;
 }
 
+.textBlock p {
+  color: #fff;
+}
+
 .textBlock button {
   margin-inline: auto;
+}
+
+.btn1 {
+  display: block;
+}
+
+.btn2 {
+  display: none;
+}
+
+@media (max-width: 1367px) {
+  .backgroundVideo {
+    height: 100vh;
+  }
+
+  .content {
+    min-height: 100%;
+  }
+}
+
+@media (max-width: 992px) {
+  .section {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .backgroundVideo {
+    position: relative;
+    height: 100%;
+  }
+
+  .card {
+    background: none;
+    backdrop-filter: none;
+    padding: 0 0;
+    max-width: 100%;
+  }
+
+  .heading {
+    color: var(--color-brown);
+  }
+
+  .textBlock p {
+    color: var(--color-gray-600) !important;
+  }
+
+  .btn1 {
+    display: none;
+  }
+
+  .btn2 {
+    display: block;
+  }
 }
 
 @media (max-width: 768px) {

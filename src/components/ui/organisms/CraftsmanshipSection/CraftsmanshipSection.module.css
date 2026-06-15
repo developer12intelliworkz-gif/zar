@@ -27,8 +27,15 @@
   }
 }
 
-@media (max-width: 769px) {
+@media (max-width: 992px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
+    gap:30px;
+  }
+}
+
+@media (max-width: 578px) {
+  .grid {
+    grid-template-columns: repeat(1, 1fr);
   }
 }

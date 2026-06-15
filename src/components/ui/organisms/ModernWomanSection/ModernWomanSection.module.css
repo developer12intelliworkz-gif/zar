@@ -59,9 +59,28 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
+  .backgroundImage {
+    position: relative;
+  }
+
+  .section {
+    padding: 0px 00px 00px;
+  }
+
   .heading {
     font-size: 36px;
     line-height: 44px;
+  }
+
+  .textBlock {
+    max-width: 100%;
+    margin: 0px 0 50px;
+    gap: 20px;
+  }
+
+  .bullets {
+    margin-top: 20px;
+    gap: 5px;
   }
 }

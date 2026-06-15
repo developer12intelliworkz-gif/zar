@@ -16,9 +16,9 @@
 }
 
 .mainImage {
+  aspect-ratio: 800 / 767;
   position: relative;
   width: 100%;
-  aspect-ratio: 800 / 767;
   overflow: hidden;
 }
 
@@ -29,9 +29,9 @@
 }
 
 .statOverlay {
+  right: -5%;
   position: absolute;
   bottom: 10%;
-  right: -5%;
   z-index: 2;
 }
 
@@ -90,8 +90,20 @@
   .statOverlay {
     right: -20%;
   }
+
 }
 
-@media (min-width: 1440px) {
+@media (max-width: 992px) {
+  .mainImage {
+    width: 80%;
+    aspect-ratio: 1/1;
+  }
 
+  .textBlock {
+    order: -1;
+  }
+
+  .statOverlay {
+    right: 0%;
+  }
 }

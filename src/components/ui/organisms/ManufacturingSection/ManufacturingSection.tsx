@@ -13,13 +13,13 @@ export default function ManufacturingSection() {
         muted
         loop
         playsInline
-        poster="/images/homepage/video.webp"        
+        poster="/images/homepage/video.webp"
       >
         <source src="/images/homepage/manufacturing-video.mp4" type="video/mp4" />
       </motion.video>
       <div className={styles.overlay} />
       <div className={styles.content}>
-        <motion.div 
+        <motion.div
           className={styles.card}
           initial={{ opacity: 0, x: 80 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -28,11 +28,14 @@ export default function ManufacturingSection() {
         >
           <h2 className={styles.heading}>Craftsmanship at Scale</h2>
           <div className={styles.textBlock}>
-            <p className="txt_white">
-              Rooted in tradition and refined through modern manufacturing, ZAR delivers gold bangles with precision, consistency, and quality at scale.<br/>
+            <p>
+              Rooted in tradition and refined through modern manufacturing, ZAR delivers gold bangles with precision, consistency, and quality at scale.<br />
               As a leading <strong>gold bangle manufacturer</strong>, we combine design expertise with advanced processes to ensure uniformity, finish, and reliability, making us a trusted partner for retailers.
             </p>
-            <Button href="/partner" variant="outline" showArrow>
+            <Button href="/partner" variant="outline" showArrow className={styles.btn1}>
+              Become a Partner
+            </Button>
+            <Button href="/partner" variant="primary" showArrow className={styles.btn2}>
               Become a Partner
             </Button>
           </div>

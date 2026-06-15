@@ -293,10 +293,11 @@ export default function PartnerForm() {
           <InputField
             id="pincode"
             name="pincode"
+            type="number"
             label="Pincode"
             placeholder="Enter your pincode"
             wrapperClassName={styles.inputGroup}
-            
+            inputMode="numeric"
           />
         </div>
         <div className={styles.formRow}>

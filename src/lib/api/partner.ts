@@ -23,7 +23,7 @@ type BuildConnectionResponse = {
 export async function submitBuildConnection(
   payload: BuildConnectionPayload
 ): Promise<BuildConnectionResponse> {
-  const response = await apiClient.post<BuildConnectionResponse>('/api/build-connections', payload, {
+  const response = await apiClient.post<BuildConnectionResponse>('/api/build-connection', payload, {
     headers: { 'Content-Type': 'application/json' },
   });
 
