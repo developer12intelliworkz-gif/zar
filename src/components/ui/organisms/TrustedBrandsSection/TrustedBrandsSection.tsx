@@ -94,17 +94,11 @@ export default function TrustedBrandsSection() {
           </p>
         </motion.div>
       </div>
-      <motion.div 
-        className={styles.marquee}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-        viewport={{ once: true, amount: 0.2 }}
-      >
+      <div className={styles.marquee}>
         <Swiper
           modules={[Autoplay]}
           spaceBetween={40}
-          slidesPerView="auto"
+          slidesPerView={5}
           loop={true}
           speed={3000}
           autoplay={{
@@ -113,11 +107,12 @@ export default function TrustedBrandsSection() {
             pauseOnMouseEnter: true,
           }}
           breakpoints={{
-              992: {
-                slidesPerView: 2,
-                spaceBetween:20
-              },              
-            }}
+            0:    { slidesPerView: 2, spaceBetween: 20 },
+            480:  { slidesPerView: 3, spaceBetween: 24 },
+            768:  { slidesPerView: 4, spaceBetween: 30 },
+            992:  { slidesPerView: 5, spaceBetween: 40 },
+            1280: { slidesPerView: 6, spaceBetween: 40 },
+          }}
         >
           {brands.map((brand, index) => (
             <SwiperSlide key={`${brand.name}-${index}`} className={styles.swiperSlide}>
@@ -125,7 +120,7 @@ export default function TrustedBrandsSection() {
             </SwiperSlide>
           ))}
         </Swiper>
-      </motion.div>
+      </div>
     </section>
   );
 }
