@@ -293,7 +293,11 @@ export default function PartnerForm() {
                 value={field.value}
                 onChange={(event) => {
                   field.onChange(event.target.value);
-
+                }}
+                onBlur={field.onBlur}
+                disabled={!selectedStateCode || citiesList.length === 0}
+              />
+            )}
           />
         </div>
 
@@ -404,21 +408,7 @@ export default function PartnerForm() {
             label="Message"
             placeholder="Type here..."
             wrapperClassName={styles.inputGroup}
-            errorMessage={errors.message?.message}
-            {...register('message', {
-              validate: (value) => {
-                if (!value) return true;
-                return MESSAGE_REGEX.test(value) || 'Message contains invalid characters.';
-              },
-              minLength: {
-                value: 10,
-                message: 'Message must be at least 10 characters.',
-              },
-              maxLength: {
-                value: 1000,
-                message: 'Message cannot exceed 1000 characters.',
-              },
-            })}
+            {...register('message')}
           />
         </div>
 
