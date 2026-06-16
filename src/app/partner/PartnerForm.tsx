@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { Country, State, City } from 'country-state-city';
+import { Controller, useForm } from 'react-hook-form';
 import Button from '@/components/ui/atoms/Button/Button';
 import InputField from '@/components/ui/atoms/InputField/InputField';
 import PhoneField from '@/components/ui/atoms/PhoneField/PhoneField';
@@ -9,15 +10,34 @@ import SelectField from '@/components/ui/atoms/SelectField/SelectField';
 import TextareaField from '@/components/ui/atoms/TextareaField/TextareaField';
 import CustomCaptcha from '@/components/ui/molecules/CustomCaptcha/CustomCaptcha';
 import { submitBuildConnection } from '@/lib/api/partner';
+import { useToast } from '@/components/ui/Toast/ToastContext';
 import styles from './page.module.css';
 
+type PartnerFormValues = {
+  name: string;
+  company: string;
+  country: string;
+  state: string;
+  city: string;
+  pincode: string;
+  email: string;
+  phone: string;
+  category: string;
+  referred_by: string;
+  website: string;
+  message: string;
+};
+
+const NAME_REGEX = /^[A-Za-z][A-Za-z\s'.-]{1,79}$/;
+const COMPANY_REGEX = /^[A-Za-z0-9][A-Za-z0-9\s'&.,()-]{1,99}$/;
+const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+const MESSAGE_REGEX = /^[A-Za-z0-9\s.,'"?!@#$%&*()\-:+;[\]{}]{10,1000}$/;
+
 export default function PartnerForm() {
-  const [submitMessage, setSubmitMessage] = useState('');
-  const [submitError, setSubmitError] = useState(false);
+  const { showToast } = useToast();
   const [captchaValue, setCaptchaValue] = useState('');
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
   const [captchaRefreshKey, setCaptchaRefreshKey] = useState(0);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [countries, setCountries] = useState<{ name: string; isoCode: string }[]>([]);
   const [statesList, setStatesList] = useState<{ name: string; isoCode: string }[]>([]);
   const [citiesList, setCitiesList] = useState<{ name: string }[]>([]);
@@ -26,7 +46,31 @@ export default function PartnerForm() {
   const [selectedStateCode, setSelectedStateCode] = useState('');
   const [selectedStateName, setSelectedStateName] = useState('');
   const [selectedCityName, setSelectedCityName] = useState('');
-  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { errors, isSubmitting },
+  } = useForm<PartnerFormValues>({
+    defaultValues: {
+      name: '',
+      company: '',
+      country: '',
+      state: '',
+      city: '',
+      pincode: '',
+      email: '',
+      phone: '',
+      category: '',
+      referred_by: '',
+      website: '',
+      message: '',
+    },
+    mode: 'onBlur',
+  });
 
   const handleCaptchaStatusChange = useCallback(
     ({ value, isValid }: { value: string; isValid: boolean }) => {
@@ -37,10 +81,12 @@ export default function PartnerForm() {
   );
 
   useEffect(() => {
-    setCountries(Country.getAllCountries().map((country) => ({
-      name: country.name,
-      isoCode: country.isoCode,
-    })));
+    setCountries(
+      Country.getAllCountries().map((country) => ({
+        name: country.name,
+        isoCode: country.isoCode,
+      }))
+    );
   }, []);
 
   useEffect(() => {
@@ -80,251 +126,251 @@ export default function PartnerForm() {
     setSelectedCityName('');
   }, [selectedCountryCode, selectedStateCode]);
 
-  const validateForm = (form: HTMLFormElement) => {
-    const errors: Record<string, string> = {};
-    const formData = new FormData(form);
-
-    const requiredFields: Array<{ name: string; label: string }> = [
-      { name: 'name', label: 'Full Name' },
-      { name: 'company', label: 'Company Name' },
-      // country, state, city, pincode are optional per request
-      { name: 'email', label: 'Email ID' },
-      { name: 'phone', label: 'Contact No.' },
-      { name: 'category', label: 'Category' },
-      { name: 'referred_by', label: 'Referred By' },
-      { name: 'website', label: 'Company Website' },
-      { name: 'message', label: 'Message' },
-    ];
-
-    requiredFields.forEach(({ name, label }) => {
-      const value = formData.get(name);
-      const val = typeof value === 'string' ? value.trim() : '';
-      if (!val) {
-        errors[name] = `${label} is required`;
-      }
-    });
-
-    const email = formData.get('email');
-    if (email && typeof email === 'string') {
-      const trimmed = email.trim();
-      if (trimmed && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
-        errors.email = 'Please enter a valid email address';
-      }
-    }
-
-    setFieldErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-
-  const onSubmit = (event: { preventDefault: () => void; currentTarget: HTMLFormElement }) => {
-    event.preventDefault();
-    setSubmitMessage('');
-    setSubmitError(false);
-    setFieldErrors({});
-
-    const form = event.currentTarget;
-
-    if (!validateForm(form)) {
-      setSubmitError(true);
-      setSubmitMessage('Please fill in all required fields correctly.');
-      return;
-    }
-
+  const onPartnerSubmit = handleSubmit(async (values) => {
     if (!captchaValue || !isCaptchaValid) {
-      setSubmitError(true);
-      setSubmitMessage('Please complete the 4-digit captcha correctly before submitting.');
+      showToast('Please complete the 4-digit captcha correctly before submitting.', 'error');
       return;
     }
-
-    const getValue = (key: string) => {
-      const formData = new FormData(form);
-      const value = formData.get(key);
-
-      if (key === 'country') {
-        return selectedCountryName || (typeof value === 'string' ? value.trim() : '');
-      }
-
-      if (key === 'state') {
-        return selectedStateName || (typeof value === 'string' ? value.trim() : '');
-      }
-
-      if (key === 'city') {
-        return selectedCityName || (typeof value === 'string' ? value.trim() : '');
-      }
-
-      return typeof value === 'string' ? value.trim() : '';
-    };
 
     const payload = {
-      fullName: getValue('name'),
-      companyName: getValue('company'),
-      email: getValue('email'),
-      country: getValue('country'),
-      state: getValue('state'),
-      city: getValue('city'),
-      pincode: getValue('pincode'),
-      contact: getValue('phone'),
-      category: getValue('category'),
-      referredBy: getValue('referred_by'),
-      companyWebsite: getValue('website'),
-      message: getValue('message'),
+      fullName: values.name,
+      companyName: values.company,
+      email: values.email,
+      country: selectedCountryName,
+      state: selectedStateName,
+      city: values.city,
+      pincode: values.pincode,
+      contact: values.phone,
+      category: values.category,
+      referredBy: values.referred_by,
+      companyWebsite: values.website,
+      message: values.message,
     };
 
-    const submitAsync = async () => {
-      try {
-        setIsSubmitting(true);
-        const result = await submitBuildConnection(payload);
+    try {
+      const result = await submitBuildConnection(payload);
 
-        if (!result.success) {
-          setSubmitError(true);
-          setSubmitMessage(result.message || 'Unable to submit your request. Please try again.');
-          return;
-        }
-
-        form.reset();
-        setSelectedCountryCode('');
-        setSelectedCountryName('');
-        setSelectedStateCode('');
-        setSelectedStateName('');
-        setSelectedCityName('');
-        setCaptchaValue('');
-        setIsCaptchaValid(false);
-        setSubmitError(false);
-        setFieldErrors({});
-        setSubmitMessage(
-          result.message || 'Your request has been submitted successfully. Our team will contact you soon.'
-        );
-      } catch {
-        setSubmitError(true);
-        setSubmitMessage('Network error. Please try again in a moment.');
-      } finally {
-        setCaptchaValue('');
-        setIsCaptchaValid(false);
-        setCaptchaRefreshKey((current) => current + 1);
-        setIsSubmitting(false);
+      if (!result.success) {
+        showToast(result.message || 'Unable to submit your request. Please try again.', 'error');
+        return;
       }
-    };
 
-    void submitAsync();
-  };
+      reset();
+      setSelectedCountryCode('');
+      setSelectedCountryName('');
+      setSelectedStateCode('');
+      setSelectedStateName('');
+      setSelectedCityName('');
+      setCaptchaValue('');
+      setIsCaptchaValid(false);
+      showToast(
+        result.message || 'Your request has been submitted successfully. Our team will contact you soon.',
+        'success'
+      );
+    } catch {
+      showToast('Network error. Please try again in a moment.', 'error');
+    } finally {
+      setCaptchaRefreshKey((current) => current + 1);
+    }
+  });
 
   return (
     <div className={styles.formSection}>
       <h2 className="formHeading">Build A Connection With Zar</h2>
-      <form className={styles.form} onSubmit={onSubmit} noValidate>
+      <form className={styles.form} onSubmit={onPartnerSubmit} noValidate>
         <div className={styles.formRow}>
           <InputField
             id="name"
-            name="name"
             label="Full Name"
             placeholder="Type full name here"
             wrapperClassName={styles.inputGroup}
             required
-            errorMessage={fieldErrors.name}
+            errorMessage={errors.name?.message}
+            {...register('name', {
+              required: 'Full name is required.',
+              pattern: {
+                value: NAME_REGEX,
+                message: 'Enter a valid full name.',
+              },
+              minLength: {
+                value: 2,
+                message: 'Full name must be at least 2 characters.',
+              },
+              maxLength: {
+                value: 80,
+                message: 'Full name cannot exceed 80 characters.',
+              },
+            })}
           />
 
           <InputField
             id="company"
-            name="company"
             label="Company Name"
             placeholder="Type your company name here"
             wrapperClassName={styles.inputGroup}
             required
-            errorMessage={fieldErrors.company}
+            errorMessage={errors.company?.message}
+            {...register('company', {
+              required: 'Company name is required.',
+              pattern: {
+                value: COMPANY_REGEX,
+                message: 'Enter a valid company name.',
+              },
+              maxLength: {
+                value: 100,
+                message: 'Company name cannot exceed 100 characters.',
+              },
+            })}
           />
         </div>
+
         <div className={styles.formRow}>
-          <SelectField
-            id="country"
+          <Controller
             name="country"
-            label="Country"
-            placeholder="Select your country"
-            options={countries.map((country) => ({
-              label: country.name,
-              value: country.isoCode,
-            }))}
-            wrapperClassName={styles.inputGroup}
-            value={selectedCountryCode}
-            onChange={(event) => {
-              const code = event.target.value;
-              setSelectedCountryCode(code);
-              const selectedCountry = countries.find((country) => country.isoCode === code);
-              setSelectedCountryName(selectedCountry?.name ?? '');
-            }}
-            
+            control={control}
+            render={({ field }) => (
+              <SelectField
+                id="country"
+                label="Country"
+                placeholder="Select your country"
+                options={countries.map((country) => ({
+                  label: country.name,
+                  value: country.isoCode,
+                }))}
+                wrapperClassName={styles.inputGroup}
+                value={field.value}
+                onChange={(event) => {
+                  const code = event.target.value;
+                  field.onChange(code);
+                  setSelectedCountryCode(code);
+                  const selectedCountry = countries.find((country) => country.isoCode === code);
+                  setSelectedCountryName(selectedCountry?.name ?? '');
+                  setValue('state', '');
+                  setValue('city', '');
+                }}
+                onBlur={field.onBlur}
+              />
+            )}
           />
-          <SelectField
-            id="state"
+
+          <Controller
             name="state"
-            label="State"
-            placeholder="Select your state"
-            options={statesList.map((state) => ({
-              label: state.name,
-              value: state.isoCode,
-            }))}
-            wrapperClassName={styles.inputGroup}
-            value={selectedStateCode}
-            onChange={(event) => {
-              const code = event.target.value;
-              setSelectedStateCode(code);
-              const selectedState = statesList.find((state) => state.isoCode === code);
-              setSelectedStateName(selectedState?.name ?? '');
-            }}
-            disabled={!selectedCountryCode || statesList.length === 0}
-            
+            control={control}
+            render={({ field }) => (
+              <SelectField
+                id="state"
+                label="State"
+                placeholder="Select your state"
+                options={statesList.map((state) => ({
+                  label: state.name,
+                  value: state.isoCode,
+                }))}
+                wrapperClassName={styles.inputGroup}
+                value={field.value}
+                onChange={(event) => {
+                  const code = event.target.value;
+                  field.onChange(code);
+                  setSelectedStateCode(code);
+                  const selectedState = statesList.find((state) => state.isoCode === code);
+                  setSelectedStateName(selectedState?.name ?? '');
+                  setValue('city', '');
+                }}
+                onBlur={field.onBlur}
+                disabled={!selectedCountryCode || statesList.length === 0}
+              />
+            )}
           />
         </div>
+
         <div className={styles.formRow}>
-          <SelectField
-            id="city"
+          <Controller
             name="city"
-            label="City"
-            placeholder="Select your city"
-            options={citiesList.map((city) => ({
-              label: city.name,
-              value: city.name,
-            }))}
-            wrapperClassName={styles.inputGroup}
-            value={selectedCityName}
-            onChange={(event) => setSelectedCityName(event.target.value)}
-            disabled={!selectedStateCode || citiesList.length === 0}
-            
+            control={control}
+            render={({ field }) => (
+              <SelectField
+                id="city"
+                label="City"
+                placeholder="Select your city"
+                options={citiesList.map((city) => ({
+                  label: city.name,
+                  value: city.name,
+                }))}
+                wrapperClassName={styles.inputGroup}
+                value={field.value}
+                onChange={(event) => {
+                  field.onChange(event.target.value);
+                  setSelectedCityName(event.target.value);
+                }}
+                onBlur={field.onBlur}
+                disabled={!selectedStateCode || citiesList.length === 0}
+              />
+            )}
           />
+
           <InputField
             id="pincode"
-            name="pincode"
             type="number"
             label="Pincode"
             placeholder="Enter your pincode"
             wrapperClassName={styles.inputGroup}
             inputMode="numeric"
+            errorMessage={errors.pincode?.message}
+            {...register('pincode')}
           />
         </div>
+
         <div className={styles.formRow}>
           <InputField
             id="email"
-            name="email"
             type="email"
             label="Email ID"
             placeholder="Enter your email ID"
             wrapperClassName={styles.inputGroup}
             required
-            errorMessage={fieldErrors.email}
+            errorMessage={errors.email?.message}
+            {...register('email', {
+              required: 'Email is required.',
+              pattern: {
+                value: EMAIL_REGEX,
+                message: 'Enter a valid email address.',
+              },
+            })}
           />
-          <PhoneField
-            id="phone"
+
+          <Controller
             name="phone"
-            label="Contact No."
-            placeholder="Enter your contact number"
-            wrapperClassName={styles.inputGroup}
-            required
-            errorMessage={fieldErrors.phone}
+            control={control}
+            rules={{
+              required: 'Contact number is required.',
+              validate: (value) => {
+                if (!value) return 'Contact number is required.';
+                const digits = value.replace(/\D/g, '');
+                return (
+                  (digits.length >= 7 && digits.length <= 15) ||
+                  'Enter a valid contact number.'
+                );
+              },
+            }}
+            render={({ field }) => (
+              <PhoneField
+                id="phone"
+                name={field.name}
+                label="Contact No."
+                placeholder="Enter your contact number"
+                wrapperClassName={styles.inputGroup}
+                required
+                value={field.value}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                errorMessage={errors.phone?.message}
+              />
+            )}
           />
         </div>
+
         <div className={styles.formRow}>
           <SelectField
             id="category"
-            name="category"
             label="Category"
             placeholder="Select Category"
             options={[
@@ -335,11 +381,14 @@ export default function PartnerForm() {
             wrapperClassName={styles.inputGroup}
             required
             defaultValue=""
-            errorMessage={fieldErrors.category}
+            errorMessage={errors.category?.message}
+            {...register('category', {
+              required: 'Please select a category.',
+            })}
           />
+
           <SelectField
             id="referred_by"
-            name="referred_by"
             label="Referred By"
             placeholder="Select referred by"
             options={[
@@ -350,29 +399,48 @@ export default function PartnerForm() {
             wrapperClassName={styles.inputGroup}
             required
             defaultValue=""
-            errorMessage={fieldErrors.referred_by}
+            errorMessage={errors.referred_by?.message}
+            {...register('referred_by', {
+              required: 'Please select referred by.',
+            })}
           />
         </div>
+
         <div className={styles.formRow}>
           <InputField
             id="website"
-            name="website"
             label="Company Website"
             placeholder="Type your company website URL here"
             wrapperClassName={styles.inputGroup}
             required
-            errorMessage={fieldErrors.website}
+            errorMessage={errors.website?.message}
+            {...register('website', {
+              required: 'Company website is required.',
+            })}
           />
         </div>
+
         <div className={styles.formRow}>
           <TextareaField
             id="message"
-            name="message"
             label="Message"
             placeholder="Type here..."
             wrapperClassName={styles.inputGroup}
-            required
-            errorMessage={fieldErrors.message}
+            errorMessage={errors.message?.message}
+            {...register('message', {
+              validate: (value) => {
+                if (!value) return true;
+                return MESSAGE_REGEX.test(value) || 'Message contains invalid characters.';
+              },
+              minLength: {
+                value: 10,
+                message: 'Message must be at least 10 characters.',
+              },
+              maxLength: {
+                value: 1000,
+                message: 'Message cannot exceed 1000 characters.',
+              },
+            })}
           />
         </div>
 
@@ -381,16 +449,6 @@ export default function PartnerForm() {
         <Button variant="primary" showArrow type="submit" disabled={isSubmitting}>
           {isSubmitting ? 'Submitting...' : 'Submit'}
         </Button>
-
-        {submitMessage && (
-          <p
-            className={submitError ? styles.submitStatusError : styles.submitStatusSuccess}
-            role="status"
-            aria-live="polite"
-          >
-            {submitMessage}
-          </p>
-        )}
       </form>
     </div>
   );

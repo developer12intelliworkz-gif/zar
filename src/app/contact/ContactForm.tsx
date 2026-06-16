@@ -214,13 +214,13 @@ export default function ContactForm() {
             label="Message"
             placeholder="Your message..."
             wrapperClassName={styles.inputGroup}
-            required
             errorMessage={errors.message?.message}
             {...register('message', {
-              required: 'Message is required.',
-              pattern: {
-                value: MESSAGE_REGEX,
-                message: 'Message contains invalid characters.',
+              validate: (value) => {
+                if (!value) {
+                  return true;
+                }
+                return MESSAGE_REGEX.test(value) || 'Message contains invalid characters.';
               },
               minLength: {
                 value: 10,
