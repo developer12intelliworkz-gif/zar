@@ -38,6 +38,7 @@ export default function CareersPage() {
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
   const [captchaRefreshKey, setCaptchaRefreshKey] = useState(0);
   const [resumeFileName, setResumeFileName] = useState('');
+  const [isDragging, setIsDragging] = useState(false);
   const formRef = useRef<HTMLDivElement>(null);
   const openingsRef = useRef<HTMLElement>(null);
 
@@ -45,6 +46,29 @@ export default function CareersPage() {
     ({ value, isValid }: { value: string; isValid: boolean }) => {
       setCaptchaValue(value);
       setIsCaptchaValid(isValid);
+    },
+    []
+  );
+
+  const handleDrop = useCallback(
+    (event: React.DragEvent<HTMLDivElement>, onChange: (v: FileList | undefined) => void) => {
+      event.preventDefault();
+      setIsDragging(false);
+      const files = event.dataTransfer.files;
+      if (!files?.[0]) return;
+
+      const allowed = [
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      ];
+      if (!allowed.includes(files[0].type)) return;
+      if (files[0].size > 5 * 1024 * 1024) return;
+
+      const dt = new DataTransfer();
+      dt.items.add(files[0]);
+      onChange(dt.files);
+      setResumeFileName(files[0].name);
     },
     []
   );
@@ -448,33 +472,39 @@ export default function CareersPage() {
                   />
                 </div>
                 <div className="formRow">
-                  <div className="inputfile">
-                    <label htmlFor="uploadResume" className="custom-file-upload">
-                      <Controller
-                        name="resume"
-                        control={control}
-                        rules={{
-                          required: 'Please attach your resume.',
-                          validate: {
-                            acceptedFormats: (files) => {
-                              const fileList = files as FileList | undefined;
-                              if (!fileList?.[0]) return true;
-                              const allowed = [
-                                'application/pdf',
-                                'application/msword',
-                                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                              ];
-                              return allowed.includes(fileList[0].type) || 'Only PDF, DOC, DOCX files are accepted.';
-                            },
-                            fileSize: (files) => {
-                              const fileList = files as FileList | undefined;
-                              if (!fileList?.[0]) return true;
-                              return fileList[0].size <= 5 * 1024 * 1024 || 'File size must not exceed 5 MB.';
-                            },
-                          },
-                        }}
-                        defaultValue={undefined}
-                        render={({ field }) => (
+                  <Controller
+                    name="resume"
+                    control={control}
+                    rules={{
+                      required: 'Please attach your resume.',
+                      validate: {
+                        acceptedFormats: (files) => {
+                          const fileList = files as FileList | undefined;
+                          if (!fileList?.[0]) return true;
+                          const allowed = [
+                            'application/pdf',
+                            'application/msword',
+                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                          ];
+                          return allowed.includes(fileList[0].type) || 'Only PDF, DOC, DOCX files are accepted.';
+                        },
+                        fileSize: (files) => {
+                          const fileList = files as FileList | undefined;
+                          if (!fileList?.[0]) return true;
+                          return fileList[0].size <= 5 * 1024 * 1024 || 'File size must not exceed 5 MB.';
+                        },
+                      },
+                    }}
+                    defaultValue={undefined}
+                    render={({ field }) => (
+                      <div
+                        className={`inputfile${isDragging ? ' inputfile--dragging' : ''}`}
+                        onDragEnter={(e) => { e.preventDefault(); setIsDragging(true); }}
+                        onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                        onDragLeave={() => setIsDragging(false)}
+                        onDrop={(e) => handleDrop(e, field.onChange)}
+                      >
+                        <label htmlFor="uploadResume" className="custom-file-upload">
                           <input
                             type="file"
                             id="uploadResume"
@@ -493,26 +523,27 @@ export default function CareersPage() {
                               }
                             }}
                           />
+                          <p>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="#666666" strokeLinecap="round" strokeLinejoin="round" />
+                              <path d="M17 8L12 3L7 8" stroke="#666666" strokeLinecap="round" strokeLinejoin="round" />
+                              <path d="M12 3V15" stroke="#666666" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                            {isDragging ? 'Drop your file here' : 'Attach Your Resume In PDF, Word Format'}
+                          </p>
+                          <p><small>Max Size: 5 Mb</small></p>
+                        </label>
+                        {errors.resume && (
+                          <p style={{ color: '#c00', fontSize: '12px', marginTop: '4px', textAlign: 'center' }}>{errors.resume.message}</p>
                         )}
-                      />
-                      <p>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="#666666" strokeLinecap="round" strokeLinejoin="round" />
-                          <path d="M17 8L12 3L7 8" stroke="#666666" strokeLinecap="round" strokeLinejoin="round" />
-                          <path d="M12 3V15" stroke="#666666" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                        Attach Your Resume In PDF, Word Format</p>
-                      <p><small>Max Size: 5 Mb</small></p>
-                    </label>
-                    {errors.resume && (
-                      <p style={{ color: '#c00', fontSize: '12px', marginTop: '4px' }}>{errors.resume.message}</p>
+                        {resumeFileName && (
+                          <p style={{ marginTop: '12px', fontSize: '14px', color: '#111', textAlign: 'center', paddingBottom: '12px' }}>
+                            <strong>Selected file:</strong> {resumeFileName}
+                          </p>
+                        )}
+                      </div>
                     )}
-                    {resumeFileName && (
-                      <p style={{ marginTop: '12px', fontSize: '14px', color: '#111' }}>
-                        <strong>Selected file:</strong> {resumeFileName}
-                      </p>
-                    )}
-                  </div>
+                  />
                 </div>
 
                 <CustomCaptcha key={captchaRefreshKey} onStatusChange={handleCaptchaStatusChange} />

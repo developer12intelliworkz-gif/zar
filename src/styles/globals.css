@@ -237,6 +237,12 @@ textarea::placeholder {
   border: 1px dashed #c7c7c7;
   border-radius: 2px;
   background: #fff;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.inputfile--dragging {
+  border-color: var(--color-brown);
+  background: #fdf8f0;
 }
 
 .inputfile label {
