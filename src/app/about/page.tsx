@@ -1,10 +1,13 @@
-
-'use client';
-
+import type { Metadata } from 'next';
 import styles from './page.module.css';
 import Image from 'next/image';
 import PageHeader from '@/components/ui/PageHeader/PageHeader';
 import OurStory from '@/components/ui/OurStory/OurStory';
+
+export const metadata: Metadata = {
+  title: 'About ZAR Jewels | 60+ Years of Gold Jewellery Excellence',
+  description: 'Learn the story of ZAR Jewels, a leading gold jewellery manufacturer known for exceptional craftsmanship, innovative designs, quality, and trusted partnerships worldwide.',
+};
 
 export default function AboutPage() {
 

@@ -41,6 +41,8 @@ interface ApiRetailerTestimonial {
   video_link?: string;
   fallback_image?: string;
   title?: string;
+  name?: string;
+  designation?: string;
   description?: string;
 }
 
@@ -62,8 +64,8 @@ function resolveRetailerTestimonial(item: ApiRetailerTestimonial): Testimonial {
     poster: getImageUrl(item.fallback_image || ''),
     video: normalizedVideo,
     quote: item.description?.trim() || '',
-    name: item.title?.trim() || 'Retailer',
-    designation: '',
+    name: item.name?.trim() || item.title?.trim() || 'Retailer',
+    designation: item.designation?.trim() || '',
   };
 }
 
@@ -94,7 +96,7 @@ export default function RetailerSlider() {
   const [isLoading, setIsLoading] = useState(true);
   const [skeletonTarget, setSkeletonTarget] = useState(3);
 
-  const showSkeleton = isLoading || loadedVideos.slice(0, skeletonTarget).some((loaded) => !loaded);
+  const showSkeleton = isLoading;
 
   // FIX #5 — sync loadedVideos length whenever sliderTestimonials changes
   useEffect(() => {

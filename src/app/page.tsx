@@ -1,6 +1,6 @@
+import type { Metadata } from 'next';
 import HeroSection from '@/components/ui/organisms/HeroSection/HeroSection';
 import LegacySection from '@/components/ui/organisms/LegacySection/LegacySection';
-import CollectionShowcase from '@/components/ui/organisms/CollectionShowcase/CollectionShowcase';
 import ModelShowcaseSection from '@/components/ui/organisms/ModelShowcaseSection/ModelShowcaseSection';
 import ManufacturingSection from '@/components/ui/organisms/ManufacturingSection/ManufacturingSection';
 import CraftsmanshipSection from '@/components/ui/organisms/CraftsmanshipSection/CraftsmanshipSection';
@@ -9,6 +9,11 @@ import ExhibitionsSection from '@/components/ui/organisms/ExhibitionsSection/Exh
 import RetailerSlider from '@/components/ui/organisms/RetailerSlider/RetailerSlider';
 import TrustedBrandsSection from '@/components/ui/organisms/TrustedBrandsSection/TrustedBrandsSection';
 import InstagramSection from '@/components/ui/organisms/InstagramSection/InstagramSection';
+
+export const metadata: Metadata = {
+  title: 'ZAR Jewels | Premium Gold Bangles & Jewellery Manufacturer',
+  description: "Discover ZAR Jewels, India's trusted gold bangle manufacturer with 60+ years of craftsmanship. Explore premium gold jewellery, innovative designs & timeless elegance.",
+};
 
 export default function Home() {
   return (

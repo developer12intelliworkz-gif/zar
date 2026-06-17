@@ -2,10 +2,9 @@ import PageHeader from '@/components/ui/PageHeader/PageHeader';
 import Image from 'next/image';
 import PartnerForm from './PartnerForm';
 import styles from './page.module.css';
-
 export const metadata = {
-  title: 'Become a Partner — Zar Jewels',
-  description: 'Partner with India\'s leading gold bangle manufacturer. Join the Zar network of trusted retailers.',
+  title: 'Become a Partner | Partner with ZAR Jewels Today',
+  description: 'Partner with ZAR Jewels and grow your jewellery business with premium gold collections, reliable manufacturing, nationwide distribution, and trusted expertise.',
 };
 
 export default function PartnerPage() {

@@ -2,10 +2,9 @@ import PageHeader from '@/components/ui/PageHeader/PageHeader';
 import Image from 'next/image';
 import ContactForm from './ContactForm';
 import styles from './page.module.css';
-
 export const metadata = {
-  title: 'Contact — Zar Jewels',
-  description: 'Get in touch with Zar Jewels. Enquire about our gold bangle collections or partnership opportunities.',
+  title: 'Contact ZAR Jewels | Get in Touch with Our Team',
+  description: 'Contact ZAR Jewels for product inquiries, partnerships, customer support, or business opportunities. Our team is ready to assist you with your jewellery needs.',
 };
 
 export default function ContactPage() {
