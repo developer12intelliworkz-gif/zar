@@ -157,7 +157,6 @@ export default function PartnerForm() {
       setSelectedCountryName('');
       setSelectedStateCode('');
       setSelectedStateName('');
-      setSelectedCityName('');
       setCaptchaValue('');
       setIsCaptchaValid(false);
       router.push('/thank-you');
