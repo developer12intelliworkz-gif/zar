@@ -39,6 +39,8 @@ type BackendCategoryItem = {
   gold_type_name: string;
   created_at: string;
   updated_at: string;
+  meta_title?: string | null;
+  meta_description?: string | null;
 };
 
 type BackendCollectionTypeItem = {
@@ -57,6 +59,8 @@ type BackendCollectionTypeItem = {
   category_slug: string;
   created_at: string;
   updated_at: string;
+  meta_title?: string | null;
+  meta_description?: string | null;
 };
 
 type BackendProductItem = {
@@ -81,6 +85,8 @@ type BackendProductItem = {
   product_images: string[] | null;
   created_at: string;
   updated_at: string;
+  meta_title?: string | null;
+  meta_description?: string | null;
 };
 
 const IMAGE_BASE_URL = IMAGE_BASE_PATH;
@@ -218,6 +224,8 @@ function toCategory(item: BackendCategoryItem): Category {
     imageUrl: item.image_url || undefined,
     goldTypeId: item.gold_type_id,
     goldTypeName: item.gold_type_name,
+    metaTitle: item.meta_title || undefined,
+    metaDescription: item.meta_description || undefined,
   };
 }
 
@@ -234,6 +242,8 @@ function toStyle(item: BackendCollectionTypeItem): Style {
     goldTypeName: item.gold_type_name,
     categoryId: item.category_id,
     categoryName: item.category_name,
+    metaTitle: item.meta_title || undefined,
+    metaDescription: item.meta_description || undefined,
   };
 }
 
@@ -262,6 +272,8 @@ function toProductCard(item: BackendProductItem): ProductCard {
     numberOfPcs: item.number_of_pcs || undefined,
     finish: item.display_finish || undefined,
     productUrl: item.product_url || undefined,
+    metaTitle: item.meta_title || undefined,
+    metaDescription: item.meta_description || undefined,
   };
 }
 

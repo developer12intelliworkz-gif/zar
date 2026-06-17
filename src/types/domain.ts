@@ -7,6 +7,8 @@ export interface Category {
   imageUrl?: string;
   goldTypeId?: number;
   goldTypeName?: string;
+  metaTitle?: string;
+  metaDescription?: string;
 }
 
 export interface Style {
@@ -21,6 +23,8 @@ export interface Style {
   goldTypeName?: string;
   categoryId?: number;
   categoryName?: string;
+  metaTitle?: string;
+  metaDescription?: string;
 }
 
 export interface ProductCard {
@@ -46,6 +50,8 @@ export interface ProductCard {
   numberOfPcs?: number;
   finish?: string;
   productUrl?: string;
+  metaTitle?: string;
+  metaDescription?: string;
 }
 
 export interface TechnicalSpec {

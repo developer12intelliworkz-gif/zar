@@ -89,7 +89,7 @@
   }
 
   .mainImageContainer {
-    min-height: 400px;
+    min-height: 350px;
   }
 
   /* Disable zoom on mobile for better touch experience, or handle touch specifically */

@@ -158,13 +158,19 @@ export async function generateMetadata({ params }: Readonly<Props>) {
   try {
     const { product } = await fetchProductDetail(purity, category, style, id);
     return {
-      title: `${product.name} — Zar Jewels`,
-      description: product.description,
+      title: product.metaTitle || `${product.name} — Zar Jewels`,
+      description: product.metaDescription || product.description,
+      openGraph: {
+        images: ['https://zar-one.vercel.app/images/zar-logo.svg'],
+      },
     };
   } catch {
     return {
       title: 'Product Not Found — Zar Jewels',
       description: 'The requested product could not be found.',
+      openGraph: {
+        images: ['https://zar-one.vercel.app/images/zar-logo.svg'],
+      },
     };
   }
 }
@@ -219,7 +225,7 @@ export default async function ProductDetailPage({ params }: Readonly<Props>) {
                 product={{
                   id: product.id,
                   title: product.name,
-                  sku: product.sku,
+                  sku: product.style,
                   description: product.description,
                   price: product.price,
                   image: product.image,

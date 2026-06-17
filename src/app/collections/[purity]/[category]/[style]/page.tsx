@@ -22,9 +22,29 @@ export async function generateMetadata({ params }: Readonly<Props>) {
   const categoryName = formatName(category);
   const styleName = formatName(style);
 
+  let metaTitle = `${styleName} ${categoryName} in ${purityLabel} Gold — Zar Jewels`;
+  let metaDescription = `Shop our exclusive ${styleName} ${categoryName} collection crafted in ${purityLabel} gold.`;
+
+  try {
+    const collectionType = await fetchCollectionTypeDetail(purity, category, style);
+    if (collectionType) {
+      if (collectionType.meta_title) {
+        metaTitle = collectionType.meta_title;
+      }
+      if (collectionType.meta_description) {
+        metaDescription = collectionType.meta_description;
+      }
+    }
+  } catch (error) {
+    // Fail silently and use defaults
+  }
+
   return {
-    title: `${styleName} ${categoryName} in ${purityLabel} Gold — Zar Jewels`,
-    description: `Shop our exclusive ${styleName} ${categoryName} collection crafted in ${purityLabel} gold.`,
+    title: metaTitle,
+    description: metaDescription,
+    openGraph: {
+      images: ['https://zar-one.vercel.app/images/zar-logo.svg'],
+    },
   };
 }
 

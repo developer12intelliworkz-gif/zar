@@ -22,7 +22,7 @@
 
 .description {
   margin-top: 30px;
-  padding-top: 50px;
+  padding-top: 30px;
   border-top: 1px solid #8D7547;
 }
 
@@ -171,6 +171,7 @@
 
 .manufacturingContainer h6 {
   font-size: 18px;
+  line-height: 1.5;
   font-family: var(--font-body, 'Helvetica Neue', sans-serif);
   font-weight: 400;
   color: #000;
@@ -195,6 +196,7 @@
 
 .manufacturingContainer li {
   font-size: 18px;
+  line-height: 1.3;
   color: #666666;
   padding-left: 22px;
   position: relative;
@@ -268,16 +270,20 @@
     padding-right: 0;
   }
 
+  .specificationsTitle {
+    font-size: 18px;
+  }
+
   .metaText,
   .finishLine,
-  .specificationsTitle,
   .weightLabel,
   .weightValue,
   .techSpecTable,
   .manufacturingHeading,
   .manufacturingSubtitle,
-  .manufacturingItem {
-    font-size: 18px;
+  .manufacturingItem,
+  .manufacturingContainer li{
+    font-size: 16px;
   }
 
 }

@@ -538,7 +538,6 @@ textarea::placeholder {
 
 /*------------------------ resposnive css ends --------------------------------------------- */
 
-
 model-viewer::part(progress-bar) {
-    display: none;
+  display: none;
 }

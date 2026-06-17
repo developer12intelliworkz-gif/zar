@@ -20,9 +20,30 @@ export async function generateMetadata({ params }: Readonly<Props>) {
   const purityLabel = purity.toUpperCase();
   const categoryName = formatName(category);
 
+  let metaTitle = `${categoryName} Styles in ${purityLabel} Gold — Zar Jewels`;
+  let metaDescription = `Explore our various styles of ${categoryName} in ${purityLabel} gold, from plain and handmade to fancy and enamel.`;
+
+  try {
+    const categories = await fetchCategories(purity);
+    const matchedCategory = categories.find((cat) => cat.slug === category);
+    if (matchedCategory) {
+      if (matchedCategory.metaTitle) {
+        metaTitle = matchedCategory.metaTitle;
+      }
+      if (matchedCategory.metaDescription) {
+        metaDescription = matchedCategory.metaDescription;
+      }
+    }
+  } catch (error) {
+    // Fail silently and use defaults
+  }
+
   return {
-    title: `${categoryName} Styles in ${purityLabel} Gold — Zar Jewels`,
-    description: `Explore our various styles of ${categoryName} in ${purityLabel} gold, from plain and handmade to fancy and enamel.`,
+    title: metaTitle,
+    description: metaDescription,
+    openGraph: {
+      images: ['https://zar-one.vercel.app/images/zar-logo.svg'],
+    },
   };
 }
 
