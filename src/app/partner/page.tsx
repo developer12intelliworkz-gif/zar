@@ -5,6 +5,9 @@ import styles from './page.module.css';
 export const metadata = {
   title: 'Become a Partner | Partner with ZAR Jewels Today',
   description: 'Partner with ZAR Jewels and grow your jewellery business with premium gold collections, reliable manufacturing, nationwide distribution, and trusted expertise.',
+  openGraph: {
+    images: ['https://zar-one.vercel.app/images/zar-logo.svg'],
+  },
 };
 
 export default function PartnerPage() {

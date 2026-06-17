@@ -7,6 +7,9 @@ import OurStory from '@/components/ui/OurStory/OurStory';
 export const metadata: Metadata = {
   title: 'About ZAR Jewels | 60+ Years of Gold Jewellery Excellence',
   description: 'Learn the story of ZAR Jewels, a leading gold jewellery manufacturer known for exceptional craftsmanship, innovative designs, quality, and trusted partnerships worldwide.',
+  openGraph: {
+    images: ['https://zar-one.vercel.app/images/zar-logo.svg'],
+  },
 };
 
 export default function AboutPage() {

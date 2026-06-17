@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   title: "Zar Jewels — India's Trusted Gold Bangle Manufacturer",
   description:
     "Crafting lightweight, elegant gold bangles through innovation, precision, and timeless craftsmanship. 60+ years of excellence.",
+  openGraph: {
+    images: ['https://zar-one.vercel.app/images/zar-logo.svg'],
+  },
 };
 
 export default function RootLayout({

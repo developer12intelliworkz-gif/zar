@@ -5,6 +5,9 @@ import styles from './page.module.css';
 export const metadata = {
   title: 'Contact ZAR Jewels | Get in Touch with Our Team',
   description: 'Contact ZAR Jewels for product inquiries, partnerships, customer support, or business opportunities. Our team is ready to assist you with your jewellery needs.',
+  openGraph: {
+    images: ['https://zar-one.vercel.app/images/zar-logo.svg'],
+  },
 };
 
 export default function ContactPage() {

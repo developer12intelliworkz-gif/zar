@@ -19,10 +19,8 @@
 }
 
 .skeletonOverlay {
-  position: absolute;
-  inset: 0;
+  position: relative;
   z-index: 8;
-  pointer-events: none;
 }
 
 .skeletonGrid {

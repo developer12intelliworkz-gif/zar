@@ -252,8 +252,7 @@ export default function RetailerSlider() {
         onMouseEnter={() => swiperRef.current?.autoplay?.pause()}
         onMouseLeave={() => swiperRef.current?.autoplay?.resume()}
       >
-        {/* Skeleton overlay */}
-        {showSkeleton && (
+        {showSkeleton ? (
           <div className={styles.skeletonOverlay} aria-hidden="true">
             <div className={styles.skeletonGrid}>
               {skeletonCards.map((_, idx) => (
@@ -273,118 +272,118 @@ export default function RetailerSlider() {
               ))}
             </div>
           </div>
-        )}
-
-        <Swiper
-          modules={[Autoplay]}
-          loop={true}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-            // FIX #1 — removed pauseOnMouseEnter here; outer div handles it
-            pauseOnMouseEnter: false,
-            reverseDirection: false,
-          }}
-          centeredSlides={true}
-          centeredSlidesBounds={true}
-          // FIX #4 — keep slideToClickedSlide; Swiper handles navigation natively
-          slideToClickedSlide={true}
-          slidesPerView={3}
-          spaceBetween={50}
-          speed={600}
-          grabCursor
-          breakpoints={{
-            0:    { slidesPerView: 1, spaceBetween: 20 },
-            768:  { slidesPerView: 2, spaceBetween: 24 },
-            1280: { slidesPerView: 3, spaceBetween: 30 },
-            1441: { slidesPerView: 3, spaceBetween: 30 },
-          }}
-          onSwiper={(s) => {
-            swiperRef.current = s;
-          }}
-          // FIX #7 — track real active index from Swiper
-          onActiveIndexChange={(s) => {
-            activeIndexRef.current = s.realIndex;
-          }}
-          // FIX #3 — stopAll (which also resumes autoplay) on every slide change
-          onSlideChange={stopAll}
-          className={`${styles.swiper} ${showSkeleton ? styles.swiperLoading : ''}`}
-        >
-          {sliderTestimonials.map((t, idx) => (
-            <SwiperSlide
-              key={idx}
-              className={styles.slide}
-              // FIX #4 — simplified: just call stopAll for non-active slides
-              onClick={() => handleSlideClick(idx)}
-            >
-              {/* Video wrapper */}
-              <div
-                className={styles.vwrap}
-                ref={(el) => { wrapRefs.current[idx] = el; }}
+        ) : (
+          <Swiper
+            modules={[Autoplay]}
+            loop={true}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+              // FIX #1 — removed pauseOnMouseEnter here; outer div handles it
+              pauseOnMouseEnter: false,
+              reverseDirection: false,
+            }}
+            centeredSlides={true}
+            centeredSlidesBounds={true}
+            // FIX #4 — keep slideToClickedSlide; Swiper handles navigation natively
+            slideToClickedSlide={true}
+            slidesPerView={3}
+            spaceBetween={50}
+            speed={600}
+            grabCursor
+            breakpoints={{
+              0:    { slidesPerView: 1, spaceBetween: 20 },
+              768:  { slidesPerView: 2, spaceBetween: 24 },
+              1280: { slidesPerView: 3, spaceBetween: 30 },
+              1441: { slidesPerView: 3, spaceBetween: 30 },
+            }}
+            onSwiper={(s) => {
+              swiperRef.current = s;
+            }}
+            // FIX #7 — track real active index from Swiper
+            onActiveIndexChange={(s) => {
+              activeIndexRef.current = s.realIndex;
+            }}
+            // FIX #3 — stopAll (which also resumes autoplay) on every slide change
+            onSlideChange={stopAll}
+            className={styles.swiper}
+          >
+            {sliderTestimonials.map((t, idx) => (
+              <SwiperSlide
+                key={idx}
+                className={styles.slide}
+                // FIX #4 — simplified: just call stopAll for non-active slides
+                onClick={() => handleSlideClick(idx)}
               >
-                <img
-                  src={t.poster}
-                  alt={`${t.name} testimonial poster`}
-                  className={styles.poster}
-                  draggable="false"
-                />
-                <video
-                  ref={(el) => { videoRefs.current[idx] = el; }}
-                  // FIX #6 — broadened isPlayableVideo catches more URL formats
-                  src={isPlayableVideo(t.video) ? t.video : undefined}
-                  poster={t.poster}
-                  loop
-                  playsInline
-                  preload="metadata"
-                  onLoadedMetadata={() => markVideoLoaded(idx)}
-                  onLoadedData={() => markVideoLoaded(idx)}
-                  onCanPlay={() => markVideoLoaded(idx)}
-                  onError={() => markVideoLoaded(idx)}
-                  onPause={(e) => {
-                    // Don't remove playing class if the video simply ended
-                    if (!e.currentTarget.ended) {
-                      wrapRefs.current[idx]?.classList.remove(styles.playing);
-                    }
-                  }}
-                  onPlay={() => wrapRefs.current[idx]?.classList.add(styles.playing)}
-                  onEnded={() => {
-                    videoRefs.current[idx]?.removeAttribute('controls');
-                    wrapRefs.current[idx]?.classList.remove(styles.playing);
-                    // FIX #2 — resume autoplay when video finishes
-                    swiperRef.current?.autoplay?.start();
-                  }}
-                />
-
-                {/* Play button */}
+                {/* Video wrapper */}
                 <div
-                  className={styles.pbtn}
-                  onClick={(e) => {
-                    e.stopPropagation(); // prevent slide-click from firing
-                    handlePlay(idx);
-                  }}
+                  className={styles.vwrap}
+                  ref={(el) => { wrapRefs.current[idx] = el; }}
                 >
-                  <PlayIcon />
-                </div>
-              </div>
-
-              {/* Content panel */}
-              <div className={styles.slideBody}>
-                <div className={styles.slideBodyInner}>
-                  <Image
-                    src="/images/quote_2.svg"
-                    alt="quote"
-                    width={54}
-                    height={40}
-                    className={styles.quoteImg}
+                  <img
+                    src={t.poster}
+                    alt={`${t.name} testimonial poster`}
+                    className={styles.poster}
+                    draggable="false"
                   />
-                  <p className={styles.message}>{t.quote}</p>
-                  <span className={styles.name}>{t.name}</span>
-                  <span className={styles.designation}>{t.designation}</span>
+                  <video
+                    ref={(el) => { videoRefs.current[idx] = el; }}
+                    // FIX #6 — broadened isPlayableVideo catches more URL formats
+                    src={isPlayableVideo(t.video) ? t.video : undefined}
+                    poster={t.poster}
+                    loop
+                    playsInline
+                    preload="metadata"
+                    onLoadedMetadata={() => markVideoLoaded(idx)}
+                    onLoadedData={() => markVideoLoaded(idx)}
+                    onCanPlay={() => markVideoLoaded(idx)}
+                    onError={() => markVideoLoaded(idx)}
+                    onPause={(e) => {
+                      // Don't remove playing class if the video simply ended
+                      if (!e.currentTarget.ended) {
+                        wrapRefs.current[idx]?.classList.remove(styles.playing);
+                      }
+                    }}
+                    onPlay={() => wrapRefs.current[idx]?.classList.add(styles.playing)}
+                    onEnded={() => {
+                      videoRefs.current[idx]?.removeAttribute('controls');
+                      wrapRefs.current[idx]?.classList.remove(styles.playing);
+                      // FIX #2 — resume autoplay when video finishes
+                      swiperRef.current?.autoplay?.start();
+                    }}
+                  />
+
+                  {/* Play button */}
+                  <div
+                    className={styles.pbtn}
+                    onClick={(e) => {
+                      e.stopPropagation(); // prevent slide-click from firing
+                      handlePlay(idx);
+                    }}
+                  >
+                    <PlayIcon />
+                  </div>
                 </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+
+                {/* Content panel */}
+                <div className={styles.slideBody}>
+                  <div className={styles.slideBodyInner}>
+                    <Image
+                      src="/images/quote_2.svg"
+                      alt="quote"
+                      width={54}
+                      height={40}
+                      className={styles.quoteImg}
+                    />
+                    <p className={styles.message}>{t.quote}</p>
+                    <span className={styles.name}>{t.name}</span>
+                    <span className={styles.designation}>{t.designation}</span>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
       </div>
     </section>
   );

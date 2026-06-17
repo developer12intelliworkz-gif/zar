@@ -13,6 +13,9 @@ import InstagramSection from '@/components/ui/organisms/InstagramSection/Instagr
 export const metadata: Metadata = {
   title: 'ZAR Jewels | Premium Gold Bangles & Jewellery Manufacturer',
   description: "Discover ZAR Jewels, India's trusted gold bangle manufacturer with 60+ years of craftsmanship. Explore premium gold jewellery, innovative designs & timeless elegance.",
+  openGraph: {
+    images: ['https://zar-one.vercel.app/images/zar-logo.svg'],
+  },
 };
 
 export default function Home() {
