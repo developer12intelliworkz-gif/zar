@@ -3,7 +3,8 @@ import PageHeader from '@/components/ui/PageHeader/PageHeader';
 import ProductGallery from '@/components/ProductGallery/ProductGallery';
 import ProductInfo from '@/components/ProductInfo/ProductInfo';
 import RelatedProductsSlider from '@/components/RelatedProductsSlider/RelatedProductsSlider';
-import { fetchProductDetail, fetchGoldTypes, fetchCategories, fetchStyles, fetchProducts, isCatalogRouteError } from '@/lib/api/catalog';
+import { fetchGoldTypes, fetchStyles, fetchProducts, isCatalogRouteError } from '@/lib/api/catalog';
+import { fetchProductDetail, fetchCategories } from '@/lib/api/catalog.server';
 import { notFound } from 'next/navigation';
 import styles from './page.module.css';
 

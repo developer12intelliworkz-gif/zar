@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import PageHeader from '@/components/ui/PageHeader/PageHeader';
-import { fetchProducts, fetchStyles, fetchCategories, isCatalogRouteError, fetchCollectionTypeDetail } from '@/lib/api/catalog';
+import { fetchProducts, fetchStyles, isCatalogRouteError } from '@/lib/api/catalog';
+import { fetchCategories, fetchCollectionTypeDetail } from '@/lib/api/catalog.server';
 import { notFound } from 'next/navigation';
 import ProductListingClient from './ProductListingClient';
 import styles from './page.module.css';

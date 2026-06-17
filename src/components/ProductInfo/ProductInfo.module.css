@@ -28,8 +28,8 @@
 
 /* ── Meta row: purity badge, weight badge, finish line ── */
 .metaRow {
-  display: grid;
   grid-template-columns: auto auto 1fr;
+  display: grid;
   align-items: center;
   column-gap: 20px;
   row-gap: 8px;
@@ -261,9 +261,11 @@
 } */
 
 @media (max-width: 600px) {
-  /* .metaRow {
-    grid-template-columns: 1fr;
-  } */
+  .metaRow {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 15px;
+    padding-bottom: 0;
+  }
 
   .metaItem {
     border-right: none;

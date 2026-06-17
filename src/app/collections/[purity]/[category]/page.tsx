@@ -1,6 +1,7 @@
 import PageHeader from '@/components/ui/PageHeader/PageHeader';
 import CollectionGrid from '@/components/ui/organisms/CollectionGrid/CollectionGrid';
-import { fetchStyles, fetchCategories, isCatalogRouteError } from '@/lib/api/catalog';
+import { fetchStyles, isCatalogRouteError } from '@/lib/api/catalog';
+import { fetchCategories } from '@/lib/api/catalog.server';
 import { notFound } from 'next/navigation';
 import styles from './page.module.css';
 

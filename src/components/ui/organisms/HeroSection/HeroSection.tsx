@@ -21,6 +21,21 @@ const AUTOPLAY_DELAY = 5000;
 const TRANSITION_MS = 900;
 const MOBILE_BREAKPOINT = 992;
 
+function debounce<T extends (...args: unknown[]) => void>(func: T, wait: number) {
+  let timeout: ReturnType<typeof setTimeout> | null = null;
+  
+  const debounced = (...args: Parameters<T>) => {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+  
+  debounced.cancel = () => {
+    if (timeout) clearTimeout(timeout);
+  };
+  
+  return debounced;
+}
+
 function getTranslateFactor(direction: Direction): number {
   if (typeof window !== 'undefined' && window.innerWidth <= 767) {
     return direction === 'next' ? 160 : 120;
@@ -179,15 +194,16 @@ export default function HeroSection() {
   }, []);
 
   useEffect(() => {
-    const handleResize = () => {
+    const handleResize = debounce(() => {
       setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
-    };
+    }, 150);
 
-    handleResize();
+    setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
     window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      handleResize.cancel();
     };
   }, []);
 

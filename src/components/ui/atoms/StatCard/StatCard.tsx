@@ -19,19 +19,26 @@ export default function StatCard({ value, label, animate = false }: StatCardProp
   const { num: target, suffix } = parseNumericValue(value);
   const [count, setCount] = useState(animate ? 0 : target);
   const ref = useRef<HTMLDivElement>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const runCounter = useCallback(() => {
     if (!animate) return;
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
     setCount(0);
     const duration = 1500;
     const steps = 60;
     const increment = target / steps;
     let current = 0;
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       current += increment;
       if (current >= target) {
         setCount(target);
-        clearInterval(interval);
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+        }
+        intervalRef.current = null;
       } else {
         setCount(Math.floor(current));
       }
@@ -50,7 +57,12 @@ export default function StatCard({ value, label, animate = false }: StatCardProp
       { threshold: 0.5 }
     );
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
   }, [animate, runCounter]);
 
   return (

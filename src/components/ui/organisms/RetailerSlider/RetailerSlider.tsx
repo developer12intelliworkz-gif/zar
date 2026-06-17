@@ -79,6 +79,21 @@ function isPlayableVideo(url: string): boolean {
 
 const skeletonCards = Array.from({ length: 3 });
 
+function debounce<T extends (...args: unknown[]) => void>(func: T, wait: number) {
+  let timeout: ReturnType<typeof setTimeout> | null = null;
+  
+  const debounced = (...args: Parameters<T>) => {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+  
+  debounced.cancel = () => {
+    if (timeout) clearTimeout(timeout);
+  };
+  
+  return debounced;
+}
+
 // ---------------------------------------------------------------------------
 // Component
 // ---------------------------------------------------------------------------
@@ -107,7 +122,7 @@ export default function RetailerSlider() {
   }, [sliderTestimonials]);
 
   useEffect(() => {
-    function updateSkeletonTarget() {
+    const updateSkeletonTarget = debounce(() => {
       if (window.innerWidth <= 767) {
         setSkeletonTarget(1);
         return;
@@ -117,7 +132,7 @@ export default function RetailerSlider() {
         return;
       }
       setSkeletonTarget(3);
-    }
+    }, 150);
 
     async function fetchRetailerTestimonials() {
       try {
@@ -125,8 +140,8 @@ export default function RetailerSlider() {
 
         if (json?.success && Array.isArray(json.data) && json.data.length > 0) {
           const remoteTestimonials = json.data
-            .map(resolveRetailerTestimonial)
-            .filter((item) => item.name && item.quote);
+             .map(resolveRetailerTestimonial)
+             .filter((item) => item.name && item.quote);
 
           if (remoteTestimonials.length > 0) {
             setSliderTestimonials(remoteTestimonials);
@@ -139,10 +154,21 @@ export default function RetailerSlider() {
       }
     }
 
-    updateSkeletonTarget();
+    // Initial check (immediate)
+    if (window.innerWidth <= 767) {
+      setSkeletonTarget(1);
+    } else if (window.innerWidth <= 1199) {
+      setSkeletonTarget(2);
+    } else {
+      setSkeletonTarget(3);
+    }
+
     void fetchRetailerTestimonials();
     window.addEventListener('resize', updateSkeletonTarget);
-    return () => window.removeEventListener('resize', updateSkeletonTarget);
+    return () => {
+      window.removeEventListener('resize', updateSkeletonTarget);
+      updateSkeletonTarget.cancel();
+    };
   }, []);
 
   // -------------------------------------------------------------------------

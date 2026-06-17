@@ -22,13 +22,31 @@ interface TestimonialsApiResponse {
   items?: ApiTestimonial[];
 }
 
+function debounce<T extends (...args: unknown[]) => void>(func: T, wait: number) {
+  let timeout: ReturnType<typeof setTimeout> | null = null;
+  
+  const debounced = (...args: Parameters<T>) => {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+  
+  debounced.cancel = () => {
+    if (timeout) clearTimeout(timeout);
+  };
+  
+  return debounced;
+}
+
 function useIsMobile(breakpoint = 768) {
   const [isMobile, setIsMobile] = React.useState(false);
   React.useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < breakpoint);
-    check();
+    const check = debounce(() => setIsMobile(window.innerWidth < breakpoint), 150);
+    setIsMobile(window.innerWidth < breakpoint);
     window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
+    return () => {
+      window.removeEventListener('resize', check);
+      check.cancel();
+    };
   }, [breakpoint]);
   return isMobile;
 }

@@ -6,6 +6,21 @@ import { motion } from 'framer-motion';
 import InstagramCard from '@/components/ui/molecules/InstagramCard/InstagramCard';
 import styles from './InstagramSection.module.css';
 
+function debounce<T extends (...args: unknown[]) => void>(func: T, wait: number) {
+  let timeout: ReturnType<typeof setTimeout> | null = null;
+  
+  const debounced = (...args: Parameters<T>) => {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+  
+  debounced.cancel = () => {
+    if (timeout) clearTimeout(timeout);
+  };
+  
+  return debounced;
+}
+
 const INSTAGRAM_URL = 'https://www.instagram.com/zarjewels/';
 
 const posts = [
@@ -21,15 +36,24 @@ function useVisibleCount() {
   const [count, setCount] = useState(4);
 
   useEffect(() => {
-    function update() {
+    const update = debounce(() => {
       const w = window.innerWidth;
       if (w >= 1280) setCount(4);
       else if (w >= 765) setCount(3);
       else setCount(2);
-    }
-    update();
+    }, 150);
+
+    // Initial check (immediate)
+    const w = window.innerWidth;
+    if (w >= 1280) setCount(4);
+    else if (w >= 765) setCount(3);
+    else setCount(2);
+
     window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
+    return () => {
+      window.removeEventListener('resize', update);
+      update.cancel();
+    };
   }, []);
 
   return count;
