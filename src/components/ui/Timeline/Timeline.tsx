@@ -68,7 +68,7 @@ export default function Timeline() {
   const activeItem = timelineData[activeIndex];
 
   return (
-    <section className={styles.timelineSection}>
+    <section className={styles.timelineSection} style={{ backgroundImage: `url(${imagePath('/images/homepage/event_bg.webp')})` }}>
       <div className="container">
         <h2 className={styles.title}>THE ZAR JOURNEY</h2>
         <p className={styles.subtitle}>A journey shaped by craftsmanship, innovation, and growth.</p>

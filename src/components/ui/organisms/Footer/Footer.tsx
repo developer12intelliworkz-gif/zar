@@ -27,7 +27,7 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       {/* ── Quote + Footer Top Wrapper ── */}
-      <div className={styles.footerBgWrapper}>
+      <div className={styles.footerBgWrapper} style={{ backgroundImage: `url(${imagePath('/images/homepage/footer.webp')})` }}>
         <div className="container">
           {/* ── Quote ── */}
           <div className={styles.quoteSection}>

@@ -32,8 +32,9 @@ export type JewelFlowUserPayload = {
 };
 
 export async function createUserInJewelFlow(payload: JewelFlowUserPayload): Promise<any> {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
   const response = await axios.post(
-    '/zar/api/create-user-jewelflow',
+    `${basePath}/api/create-user-jewelflow`,
     payload,
     {
       headers: {

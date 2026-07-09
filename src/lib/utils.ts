@@ -59,7 +59,7 @@ export function getImageUrl(url?: string | null): string {
   const trimmed = String(url).trim();
   if (!trimmed) return "";
 
-  const BASE_PATH = "/zar";
+  const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
   // Absolute URL
   try {
