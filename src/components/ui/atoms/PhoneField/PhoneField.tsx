@@ -55,8 +55,17 @@ const PhoneField = forwardRef<HTMLInputElement, PhoneFieldProps>(function PhoneF
       loadUtils: () => import('intl-tel-input/utils'),
     });
 
+    const updateAttributes = () => {
+      const countryData = itiRef.current?.getSelectedCountryData();
+      if (inputRef.current && countryData) {
+        inputRef.current.setAttribute('data-dial-code', countryData.dialCode || '');
+        inputRef.current.setAttribute('data-country-code', countryData.iso2 || '');
+      }
+    };
+
     const emitValue = () => {
       const phoneValue = itiRef.current?.getNumber() || inputRef.current?.value || '';
+      updateAttributes();
       onChangeRef.current?.(phoneValue);
     };
 
@@ -66,6 +75,7 @@ const PhoneField = forwardRef<HTMLInputElement, PhoneFieldProps>(function PhoneF
     if (value) {
       itiRef.current.setNumber(value);
     }
+    updateAttributes();
 
     return () => {
       inputRef.current?.removeEventListener('input', emitValue);
@@ -82,6 +92,8 @@ const PhoneField = forwardRef<HTMLInputElement, PhoneFieldProps>(function PhoneF
     if (!value) {
       if (inputRef.current) {
         inputRef.current.value = '';
+        inputRef.current.removeAttribute('data-dial-code');
+        inputRef.current.removeAttribute('data-country-code');
       }
       return;
     }
@@ -89,6 +101,11 @@ const PhoneField = forwardRef<HTMLInputElement, PhoneFieldProps>(function PhoneF
     const currentNumber = itiRef.current.getNumber();
     if (currentNumber !== value) {
       itiRef.current.setNumber(value);
+      const countryData = itiRef.current.getSelectedCountryData();
+      if (inputRef.current && countryData) {
+        inputRef.current.setAttribute('data-dial-code', countryData.dialCode || '');
+        inputRef.current.setAttribute('data-country-code', countryData.iso2 || '');
+      }
     }
   }, [value]);
 

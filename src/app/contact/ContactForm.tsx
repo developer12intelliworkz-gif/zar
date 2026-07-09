@@ -9,7 +9,7 @@ import InputField from '@/components/ui/atoms/InputField/InputField';
 import PhoneField from '@/components/ui/atoms/PhoneField/PhoneField';
 import SelectField from '@/components/ui/atoms/SelectField/SelectField';
 import TextareaField from '@/components/ui/atoms/TextareaField/TextareaField';
-import { submitContactInquiry } from '@/lib/api/contact';
+import { submitContactInquiry, createUserInJewelFlow } from '@/lib/api/contact';
 import { useToast } from '@/components/ui/Toast/ToastContext';
 import styles from './page.module.css';
 
@@ -81,6 +81,35 @@ export default function ContactForm() {
         return;
       }
 
+      // Sync with JewelFlow CRM (Second API)
+      try {
+        const phoneInput = document.getElementById('phone') as HTMLInputElement | null;
+        const dialCode = phoneInput?.getAttribute('data-dial-code') || '';
+
+        const cleanDialCode = dialCode.replace(/\D/g, '');
+        const cleanFullNumber = values.phone.replace(/\D/g, '');
+        let mobile_no = cleanFullNumber;
+        if (cleanDialCode && cleanFullNumber.startsWith(cleanDialCode)) {
+          mobile_no = cleanFullNumber.slice(cleanDialCode.length);
+        }
+
+        const country_code = dialCode ? `+${dialCode}` : '';
+
+        const payload = {
+          user_name: values.name,
+          email: values.email,
+          mobile_no,
+          company_name: values.company || '',
+          country_code,
+        };
+        console.log('JewelFlow API request payload:', payload);
+
+        const response = await createUserInJewelFlow(payload);
+        console.log('JewelFlow API response:', response);
+      } catch (err) {
+        console.error('Failed to register user in JewelFlow CRM:', err);
+      }
+
       reset();
       setCaptchaValue('');
       setIsCaptchaValid(false);
@@ -126,14 +155,13 @@ export default function ContactForm() {
             label="Company Name"
             placeholder="Your company name"
             wrapperClassName={styles.inputGroup}
+            required
             errorMessage={errors.company?.message}
             {...register('company', {
-              validate: (value) => {
-                if (!value) {
-                  return true;
-                }
-
-                return COMPANY_REGEX.test(value) || 'Enter a valid company name.';
+              required: 'Company name is required.',
+              pattern: {
+                value: COMPANY_REGEX,
+                message: 'Enter a valid company name.',
               },
               maxLength: {
                 value: 100,

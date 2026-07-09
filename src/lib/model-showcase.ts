@@ -31,15 +31,7 @@ export const showcaseModels: ShowcaseModel[] = [
     poster: '/images/homepage/product_3.webp',
     url: 'collections/18k/bangles-bracelet/plain/plain-1',
 
-  },
-  {
-    name: 'Dazzling-4',
-    src: '/images/models/ZAR-4.glb',
-    alt: 'Interactive 3D jewellery model 4',
-    poster: '/images/homepage/product_4.webp',
-    url: 'collections/18k/bangles-bracelet/plain/plain-1',
-
-  },
+  }
 ];
 
 const modelPreloadCache = new Map<string, Promise<void>>();

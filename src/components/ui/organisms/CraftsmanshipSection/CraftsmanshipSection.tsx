@@ -29,23 +29,23 @@ const cardVariants: Variants = {
 const features = [
   {
     icon: '/images/icon-manufacturing.svg',
-    title: 'Advanced Manufacturing',
-    description: 'Modern technology ensures consistent quality and precision across every gold bangle.',
+    title: 'Precision Manufacturing',
+    description: 'Every piece born from CNC-driven mastery. Consistency isn’t a promise here, it’s engineered in.',
   },
   {
     icon: '/images/icon-precision.svg',
-    title: 'Precision Engineering',
-    description: 'Every curve and contour is carefully defined for balance, accuracy, and design integrity.',
+    title: 'Design Engineering',
+    description: 'Every curve calculated. Every contour intentional. Balance and symmetry, down to the millimetre.',
   },
   {
     icon: '/images/icon-finishing.svg',
-    title: 'Detailed Hand Finishing',
-    description: 'Skilled artisans refine each piece, enhancing detail, texture, and overall finish.',
+    title: 'Artisan Hand Finishing',
+    description: 'Where machine precision meets generations of craft. Each piece finished by hand for a shine that can’t be automated.',
   },
   {
     icon: '/images/icon-quality.svg',
     title: 'Rigorous Quality Checks',
-    description: 'Multiple inspections ensure uniformity, durability, and flawless delivery.',
+    description: 'Multiple inspections. Zero compromises. Only the pieces that earn the Zar name make it to you.',
   },
 ];
 

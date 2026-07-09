@@ -65,9 +65,13 @@
   user-select: none;
 }
 
-.captchaInputGroup input {
+.captchaInputGroup {
   flex: 1;
-  width: 40% !important;
+  max-width: 240px;
+}
+
+.captchaInputGroup input {
+  width: 100% !important;
 }
 
 .errorMessage {
@@ -90,9 +94,11 @@
     align-items: stretch;
   }
 
-  .captchaInputGroup input {
-    flex: 1;
-    width: 100% !important;
+  .captchaInputGroup {
+    max-width: 100%;
   }
 
+  .captchaInputGroup input {
+    width: 100% !important;
+  }
 }

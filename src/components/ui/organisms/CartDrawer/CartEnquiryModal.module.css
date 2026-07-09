@@ -1,0 +1,264 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.overlayOpen {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  background: var(--color-white, #ffffff);
+  width: 1080px;
+  max-width: 95vw;
+  height: 700px;
+  max-height: 90vh;
+  border: 1px solid var(--color-gold-accent, #d0b480);
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  transform: scale(0.96);
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.overlayOpen .modal {
+  transform: scale(1);
+}
+
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-black, #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+.closeBtn:hover {
+  opacity: 0.6;
+}
+
+/* Left panel: Form details */
+.leftPanel {
+  padding: 40px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom scrollbar for leftPanel if needed */
+.leftPanel::-webkit-scrollbar {
+  width: 4px;
+}
+.leftPanel::-webkit-scrollbar-track {
+  background: transparent;
+}
+.leftPanel::-webkit-scrollbar-thumb {
+  background: #e5dec9;
+  border-radius: 2px;
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--color-black, #000);
+  margin: 0 0 6px 0;
+}
+
+.subheading {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-gray-600, #777);
+  margin: 0 0 24px 0;
+  line-height: 1.4;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formRow {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.inputGroup {
+  flex: 1;
+}
+
+.submitLoadingInline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Right panel: Summary selection details */
+.rightPanel {
+  background: #fbf9f6;
+  border-left: 1px solid #eadecf;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.panelTitle {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-black, #000);
+  margin: 0 0 20px 0;
+  border-bottom: 1px solid #eae2d8;
+  padding-bottom: 12px;
+}
+
+.itemList {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-right: 8px;
+  margin-bottom: 20px;
+}
+
+/* Custom scrollbar for itemList */
+.itemList::-webkit-scrollbar {
+  width: 4px;
+}
+.itemList::-webkit-scrollbar-track {
+  background: transparent;
+}
+.itemList::-webkit-scrollbar-thumb {
+  background: #e5dec9;
+  border-radius: 2px;
+}
+
+.item {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f3ede4;
+}
+
+.itemImage {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  background: var(--color-gray-100, #f5f5f5);
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid #eae2d8;
+}
+
+.itemDetails {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.itemName {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-black);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.itemPurity {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-gray-600, #777);
+  margin: 0;
+}
+
+.itemQty {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-black);
+  margin: 0;
+  font-weight: 500;
+}
+
+.summaryFooter {
+  border-top: 1px solid #eae2d8;
+  padding-top: 16px;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-black);
+}
+
+.totalVal {
+  font-size: 16px;
+  font-weight: 600;
+  color: #a38274;
+}
+
+.fieldGroup input
+{
+  width: 100% !important;
+}
+
+
+@media (max-width: 992px) {
+  .modal {
+    grid-template-columns: 1fr;
+    max-height: 95vh;
+    height: auto;
+    overflow-y: auto;
+  }
+  
+  .leftPanel {
+    padding: 30px;
+    overflow-y: visible;
+  }
+
+  .rightPanel {
+    display: none; /* Hide product list on tablet/mobile inside modal to keep it clean */
+  }
+}
+
+@media (max-width: 576px) {
+  .leftPanel {
+    padding: 30px 20px;
+  }
+
+  .formRow {
+    flex-direction: column;
+    gap: 20px;
+  }
+}

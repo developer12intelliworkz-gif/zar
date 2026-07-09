@@ -1,14 +1,17 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { toggleCart, removeItem } from '@/features/cart/cartSlice';
 import styles from './CartDrawer.module.css';
 import { cn, getImageUrl } from '@/lib/utils';
+import CartEnquiryModal from './CartEnquiryModal';
 
 export default function CartDrawer() {
   const dispatch = useAppDispatch();
   const { items, isOpen } = useAppSelector((state) => state.cart);
+  const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
 
   return (
     <>
@@ -76,7 +79,10 @@ export default function CartDrawer() {
             </div>
 
             <div className={styles.footer}>
-              <button className={styles.checkoutBtn}>
+              <button
+                className={styles.checkoutBtn}
+                onClick={() => setIsEnquiryModalOpen(true)}
+              >
                 Proceed to Enquire
                 <svg width="18" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12.5 1L18 6M18 6L12.5 11M18 6H1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -86,6 +92,11 @@ export default function CartDrawer() {
           </>
         )}
       </aside>
+
+      <CartEnquiryModal
+        isOpen={isEnquiryModalOpen}
+        onClose={() => setIsEnquiryModalOpen(false)}
+      />
     </>
   );
 }
