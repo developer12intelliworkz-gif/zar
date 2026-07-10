@@ -65,6 +65,15 @@ export default function ModelShowcaseSection() {
             onSwiper={(swiper) => {
               swiperRef.current = swiper;
             }}
+            onSlideChangeTransitionEnd={(swiper) => {
+              const index = swiper.activeIndex;
+              const len = showcaseModels.length;
+              if (index < len) {
+                swiper.slideTo(index + len, 0, false);
+              } else if (index >= len * 2) {
+                swiper.slideTo(index - len, 0, false);
+              }
+            }}
             breakpoints={{
               992: {
                 slidesPerView: 1,
@@ -95,7 +104,9 @@ export default function ModelShowcaseSection() {
                       loading="eager"
                       reveal="auto"
                       className={styles.viewer}
-                    />
+                    >
+                      <div slot="progress-bar" style={{ display: 'none' }} />
+                    </model-viewer>
                   </div>
                   <span className={styles.cardLabel}>{model.name}</span>
                 </article>

@@ -90,6 +90,10 @@
   object-fit: cover;
 }
 
+.viewer::part(default-progress-bar) {
+  display: none;
+}
+
 .posterFrame {
   position: relative;
 }

@@ -118,7 +118,7 @@ export default function DistributorTestimonials() {
     <div className={styles.section}>
       <h2 className={styles.heading}>Distributor Testimonials</h2>
       <p className={styles.subheading}>Hear from our partners about their journey through our exclusive showcases.</p>
-      
+
       <div className={styles.grid}>
         {testimonials.map((t, idx) => (
           <div key={t.id || idx} className={styles.card}>
@@ -149,7 +149,7 @@ export default function DistributorTestimonials() {
                 <PlayIcon />
               </div>
             </div>
-            
+
             <div className={styles.meta}>
               <span className={styles.name}>{t.name}</span>
               {t.designation && <span className={styles.designation}>{t.designation}</span>}
