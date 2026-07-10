@@ -98,15 +98,6 @@ export default function ModelShowcaseSection() {
                     />
                   </div>
                   <span className={styles.cardLabel}>{model.name}</span>
-                  {model.url ? (
-                    <Link href={`/${model.url}`} passHref>
-                      <Button variant="primary">
-                        Know More
-                      </Button>
-                    </Link>
-                  ) : (
-                    <Button variant="primary">Know More</Button>
-                  )}
                 </article>
               </SwiperSlide>
             ))}

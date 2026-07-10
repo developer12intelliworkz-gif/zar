@@ -159,7 +159,7 @@ export default function Footer() {
                         strokeLinejoin="round"
                       />
                     </svg>
-                    <span><a target='_blank' href="https://maps.app.goo.gl/PqCXmAwx82HVZn2J8">Ground floor, Peninsula Spenta, Mathuradas Mill Compound, N. M. Joshi Marg, Lower Parel(W), Mumbai - 400 013.</a></span>
+                    <span><a target='_blank' href="https://maps.app.goo.gl/PqCXmAwx82HVZn2J8">Ground Floor, Peninsula Spenta, Mathuradas Mill Compound, N. M. Joshi Marg, Lower Parel(W), Mumbai - 400 013.</a></span>
                   </li>
                   <li className={styles.contactItem}>
                     <svg

@@ -8,6 +8,7 @@ import PageTransitionProvider from "@/components/ui/organisms/PageTransitionProv
 import FirstVisitLoader from "@/components/ui/organisms/FirstVisitLoader/FirstVisitLoader";
 import CartDrawer from "@/components/ui/organisms/CartDrawer/CartDrawer";
 import { ToastProvider } from "@/components/ui/Toast/ToastContext";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export const metadata: Metadata = {
   title: "Zar Jewels — India's Trusted Gold Bangle Manufacturer",
@@ -28,6 +29,7 @@ export default function RootLayout({
       <body suppressHydrationWarning={true}>
         <ReduxProvider>
           <ToastProvider>
+            <ScrollToTop />
             <CartDrawer />
             {/* <FirstVisitLoader /> */}
             <Header />

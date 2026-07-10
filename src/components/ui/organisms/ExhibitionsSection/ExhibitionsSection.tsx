@@ -180,7 +180,7 @@ export default function ExhibitionsSection({
                 </p>
                 {showButton && (
                   <Button href="/event" variant="outline" showArrow>
-                    View Event
+                    View Past Events
                   </Button>
                 )}
               </div>
