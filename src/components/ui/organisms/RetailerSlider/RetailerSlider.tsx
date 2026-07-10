@@ -268,7 +268,7 @@ export default function RetailerSlider() {
   return (
     <section className="mt-100 mb-100">
       <div className={styles.hd}>
-        <h2 className="fs_54">What Our Retailers / End Customers Say</h2>
+        <h2 className="fs_54">What Our Distributor Say</h2>
         <p>Hear from our partners about their journey through our exclusive showcases.</p>
       </div>
 

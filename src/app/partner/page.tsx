@@ -2,6 +2,7 @@ import PageHeader from '@/components/ui/PageHeader/PageHeader';
 import Image from 'next/image';
 import { imagePath } from '@/lib/imagePath';
 import PartnerForm from './PartnerForm';
+import DistributorTestimonials from './DistributorTestimonials';
 import styles from './page.module.css';
 export const metadata = {
   title: 'Become a Partner | Partner with ZAR Jewels Today',
@@ -35,16 +36,7 @@ export default function PartnerPage() {
 
       <div className={styles.content}>
         <div className="container">
-          <h2 className="formHeading txt_center mt-100">Distributor Testimonials</h2>
-          <div className={styles.benefitsGrid}>
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className={styles.benefitCard}>
-                <Image src={imagePath("/images/Distributor-Testimonials.png")} alt="Benefit" width={300} height={280} style={{ objectFit: 'cover' }} className='imgFluid'/>
-                <h3 className={styles.benefitTitle}>Benefit Title {i}</h3>
-                <p className={styles.benefitSubtitle}>Benefit subtitle description goes here.</p>
-              </div>
-            ))}
-          </div>
+          <DistributorTestimonials />
 
           <div className={styles.grid}>
             <PartnerForm />
