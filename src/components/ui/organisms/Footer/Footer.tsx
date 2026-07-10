@@ -19,8 +19,8 @@ const linkCol2 = [
 ];
 
 const collectionsLinks = [
-  { label: '18K Jewellery', href: '/collections/18k' },
-  { label: '22K Jewellery', href: '/collections/22k' },
+  { label: '18K Gold Collection', href: '/collections/18k' },
+  { label: '22K Gold Collection', href: '/collections/22k' },
 ];
 
 export default function Footer() {
@@ -34,7 +34,7 @@ export default function Footer() {
             <div className={styles.quoteInner}>
               <span className={styles.quoteMarkLeft}>&ldquo;</span>
               <p className={styles.quoteText}>
-                <TypingText text="Excellence is not a skill, it's an attitude" speed={100} />
+                <TypingText text="Excellence is not a skill, it's an Every masterpiece begins with a commitment to excellence." speed={100} />
               </p>
               <span className={styles.quoteMarkRight}>&ldquo;</span>
             </div>
@@ -52,8 +52,7 @@ export default function Footer() {
                   className={styles.brandLogo}
                 />
                 <p className={styles.brandText}>
-                  Six decades of crafting lightweight, elegant gold bangles through innovation, precision, and timeless craftsmanship.
-                </p>
+                  For over six decades, Zar has celebrated the beauty of design through exceptional craftsmanship, innovative manufacturing, and jewellery created to be cherished for generations.                </p>
                 <div className={styles.socials}>
                   <a href="https://www.facebook.com/share/1DMeA41CPd/?mibextid=wwXIfr" aria-label="Facebook" className={`jelly ${styles.socialLink}`}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -113,9 +113,9 @@ export default function ClienteleClient() {
           <LogoGrid selectedNation={selectedNation} logos={logos} />
         )}
         <p className={styles.staticText}>
-          ZAR has grown steadily over decades, building a strong network across India through consistent quality and reliable manufacturing. With over 30 distribution centres and a presence in more than 1,000 retail outlets, the brand continues to strengthen its reach and partnerships.
+          For decades, Zar has built a trusted presence across India through exceptional craftsmanship and dependable manufacturing excellence. With over 30 distribution centres and a presence in more than 1,000 retail outlets, the brand continues to expand its footprint while fostering enduring partnerships.
           <br /><br />
-          Our clients serve customers who trust ZAR for its craftsmanship and precision, creating a connection that extends beyond business. As we expand into global markets including the UAE, Singapore, London, New York, and Canada, we remain focused on building lasting relationships grounded in trust and quality.
+          Trusted by leading jewellery retailers, Zar continues to build relationships founded on reliability, innovation, and excellence. As we expand into global markets, including the UAE, Singapore, London, New York, and Canada, we remain committed to delivering exceptional collections and creating lasting partnerships.
         </p>
       </section>
 

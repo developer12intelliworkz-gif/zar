@@ -208,8 +208,8 @@ export default function EventClient() {
                   <path d="M56.839 86.4336C56.0802 89.1369 55.4883 91.3663 55.5187 91.419C55.5794 91.4716 72.6224 95 72.8652 95C72.9259 95 72.9259 94.9298 72.8804 94.8596C72.8045 94.7191 70.6798 86.3458 70.3156 84.7659C70.2245 84.3446 70.0424 84.0287 69.8451 83.9409C69.663 83.8707 68.2668 83.5547 66.7188 83.2387C65.1708 82.9403 62.7881 82.4488 61.4071 82.1679C60.0261 81.8871 58.7512 81.6237 58.5691 81.5886C58.2504 81.536 58.1442 81.8344 56.839 86.4336Z" fill="#D0B480" />
                 </svg>
               </div>
-              <h4>Pure 24k Gold</h4>
-              <p>Every piece is certified 24k gold, ensuring the highest purity and value for our discerning clients.</p>
+              <h4>Pure Gold</h4>
+              <p>Every piece Every piece is BIS Hallmarked, ensuring the highest purity and value for our discerning clients.</p>
             </div>
             <div className="valueCard">
               <div className="valueIcon">

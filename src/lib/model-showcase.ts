@@ -10,25 +10,25 @@ export interface ShowcaseModel {
 
 export const showcaseModels: ShowcaseModel[] = [
   {
-    name: 'Dazzling-1',
-    src: '/images/models/ZAR-1.glb',
+    name: 'AD106285',
+    src: '/images/models/AD106285.glb',
     alt: 'Interactive 3D jewellery model 1',
-    poster: '/images/homepage/product_1.webp',
+    poster: '/images/models/AD106285.webp',
     url: 'collections/18k/bangles-bracelet/plain/plain-1',
   },
   {
-    name: 'Dazzling-2',
-    src: '/images/models/ZAR-2.glb',
+    name: 'AEF100966',
+    src: '/images/models/AEF100966.glb',
     alt: 'Interactive 3D jewellery model 2',
-    poster: '/images/homepage/product_2.webp',
+    poster: '/images/models/AEF100966.webp',
     url: 'collections/18k/bangles-bracelet/plain/plain-1',
 
   },
   {
-    name: 'Dazzling-3',
-    src: '/images/models/ZAR-3.glb',
+    name: 'O101317',
+    src: '/images/models/O101317.glb',
     alt: 'Interactive 3D jewellery model 3',
-    poster: '/images/homepage/product_3.webp',
+    poster: '/images/models/O101317.webp',
     url: 'collections/18k/bangles-bracelet/plain/plain-1',
 
   }
