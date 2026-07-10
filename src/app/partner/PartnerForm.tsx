@@ -356,8 +356,8 @@ export default function PartnerForm() {
             placeholder="Select Category"
             options={[
               { label: 'Distributor', value: 'distributor' },
-              { label: 'Customer', value: 'customer' },
               { label: 'Wholesaler', value: 'wholesaler' },
+              { label: 'Retailer', value: 'retailer' },
             ]}
             wrapperClassName={styles.inputGroup}
             required
@@ -373,9 +373,9 @@ export default function PartnerForm() {
             label="Referred By"
             placeholder="Select referred by"
             options={[
-              { label: 'ZAR', value: 'zar' },
-              { label: 'Marketing', value: 'marketing' },
-              { label: 'Director', value: 'director' },
+              { label: 'Sales Representative', value: 'Sales Representative' },
+              { label: 'Social Media ', value: 'Social Media' },
+              { label: 'Google Search', value: 'Google Search' },
             ]}
             wrapperClassName={styles.inputGroup}
             required

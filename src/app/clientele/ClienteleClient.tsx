@@ -191,7 +191,7 @@ export default function ClienteleClient() {
         </div>
       </section>
 
-      <RetailerSlider />
+      {/* <RetailerSlider /> */}
       <Testimonials />
     </main>
   );
