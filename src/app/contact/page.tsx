@@ -129,12 +129,12 @@ export default function ContactPage() {
                 <div className={styles.contactMapSocialRow}>
                   <p className={styles.contactMapText}>Social Media Links :</p>
                   <div className={styles.contactMapSocialIcons}>
-                    <a href="https://www.facebook.com" target="_blank" rel="noreferrer" className={`jelly ${styles.contactMapSocialLink}`} aria-label="Facebook">
+                    <a href="https://www.facebook.com/share/1DMeA41CPd/?mibextid=wwXIfr" target="_blank" rel="noreferrer" className={`jelly ${styles.contactMapSocialLink}`} aria-label="Facebook">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13.6757 23.5V12.5609H17.3467L17.8965 8.2961H13.6757V5.57329C13.6757 4.33835 14.0194 3.49564 15.7912 3.49564L18.045 3.49474V0.680121C17.6553 0.629502 16.318 0.5 14.7614 0.5C11.5112 0.5 9.28602 2.48445 9.28602 6.12753V8.2961H5.60547V12.5609H9.28602V23.5H13.6757Z" fill="#D0B480" />
                       </svg>
                     </a>
-                    <a href="https://www.instagram.com" target="_blank" rel="noreferrer" className={`jelly ${styles.contactMapSocialLink}`} aria-label="Instagram">
+                    <a href="https://www.instagram.com/zarjewelsofficial?igsh=Zno2ZWdrNHkxMWE4&utm_source=qr" target="_blank" rel="noreferrer" className={`jelly ${styles.contactMapSocialLink}`} aria-label="Instagram">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M18.3952 7.02212C17.6005 7.02368 16.9543 6.3802 16.9528 5.58548C16.9512 4.79076 17.5947 4.14457 18.3898 4.14302C19.1848 4.14146 19.831 4.78531 19.8326 5.58004C19.8338 6.37476 19.1903 7.02057 18.3952 7.02212Z" fill="#D0B480" />
                         <path fillRule="evenodd" clipRule="evenodd" d="M12.0115 18.161C8.60909 18.1676 5.8451 15.4149 5.8385 12.0117C5.83188 8.60923 8.58536 5.84481 11.9878 5.8382C15.3909 5.83159 18.1553 8.5859 18.1619 11.9879C18.1685 15.3912 15.4143 18.1544 12.0115 18.161ZM11.992 8.00035C9.78365 8.00424 7.99594 9.79858 7.99983 12.0074C8.0041 14.2166 9.79882 16.0039 12.0072 15.9996C14.2164 15.9954 16.0041 14.2014 15.9998 11.9922C15.9955 9.78302 14.2008 7.99608 11.992 8.00035Z" fill="#D0B480" />

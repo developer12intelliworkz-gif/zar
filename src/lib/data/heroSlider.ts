@@ -51,10 +51,10 @@ export const HERO_SLIDES: HeroSlide[] = [
     id: 'Banner_03',
     image: '/images/homepage/banner-2.webp',
     imageMobile: '/images/homepage/Banner_02_m.webp',
-    alt: 'Timeless gold bangle collections – ZAR Jewellery',
-    heading: 'TIMELESS ELEGANCE\nREDEFINED',
+    alt: 'A Lagacy of Excellence ZAR Jewellery',
+    heading: 'A LEGACY OF EXCELLENCE',
     subtitle:
-      'Discover our signature collections that blend centuries of tradition with bold contemporary design.',
+      'Every collection is a testament to thoughtful design, master craftsmanship, and timeless excellence.',
     orientation: 'horizontal',
     slice1Rotation: 3,
     slice2Rotation: 3,
