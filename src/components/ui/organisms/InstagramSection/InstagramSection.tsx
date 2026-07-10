@@ -133,7 +133,8 @@ export default function InstagramSection() {
   const progress = maxIndex > 0 ? currentIndex / maxIndex : 0;
 
   return (
-    <section>
+    <>  
+    {/* <section>
       <div className={styles.inner}>
         <motion.div
           className={styles.header}
@@ -247,6 +248,7 @@ export default function InstagramSection() {
           </>
         )}
       </div>
-    </section>
+    </section> */}
+      </>
   );
 }

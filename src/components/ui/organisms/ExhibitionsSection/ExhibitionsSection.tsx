@@ -7,6 +7,13 @@ import Button from '@/components/ui/atoms/Button/Button';
 import { apiGet } from '@/lib/api/axios';
 import { getImageUrl } from '@/lib/utils';
 import { imagePath } from '@/lib/imagePath';
+
+// Swiper imports
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+
 import styles from './ExhibitionsSection.module.css';
 
 interface ApiEvent {
@@ -138,56 +145,61 @@ export default function ExhibitionsSection({
           </motion.div>
         )}
 
-        {upcomingEvents.map((event) => {
-          const thumbnail = event.event_images?.[0]
-            ? getImageUrl(event.event_images[0])
-            : imagePath("/images/homepage/event.webp");
+        <Swiper
+          modules={[Pagination, Autoplay]}
+          spaceBetween={30}
+          slidesPerView={1}
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 5000, disableOnInteraction: false }}
+          className={styles.exhibitionsSwiper}
+        >
+          {upcomingEvents.map((event) => {
+            const thumbnail = event.event_images?.[0]
+              ? getImageUrl(event.event_images[0])
+              : imagePath("/images/homepage/event.webp");
 
-          return (
-            <motion.div 
-              key={event.id}
-              className={styles.eventCard}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-              viewport={{ once: true, amount: 0.2 }}
-            >
-              <div className={styles.eventImage}>
-                <Image
-                  src={thumbnail}
-                  alt={event.title}
-                  width={900}
-                  height={500}              
-                  sizes="(max-width: 1024px) 100vw, 560px"
-                />
-              </div>
-              <div className={styles.eventDetails}>
-                <h3 className="fs_30 txt_white">{event.title}</h3>
-                <div className={styles.eventMeta}>
-                  <div className={styles.metaItem}>               
-                    <span>{formatDateRange(event.start_date, event.end_date)}</span>
+            return (
+              <SwiperSlide key={event.id}>
+                <div className={styles.eventCard}>
+                  <div className={styles.eventImage}>
+                    <Image
+                      src={thumbnail}
+                      alt={event.title}
+                      width={900}
+                      height={500}              
+                      sizes="(max-width: 1024px) 100vw, 560px"
+                    />
                   </div>
-                  <div className={styles.metaItem}>
-                    <svg className={styles.metaIcon} viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M15.75 7.5C15.75 12.75 9 17.25 9 17.25C9 17.25 2.25 12.75 2.25 7.5C2.25 5.70979 2.96116 3.9929 4.22703 2.72703C5.4929 1.46116 7.20979 0.75 9 0.75C10.7902 0.75 12.5071 1.46116 13.773 2.72703C15.0388 3.9929 15.75 5.70979 15.75 7.5Z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M9 9.75C10.2426 9.75 11.25 8.74264 11.25 7.5C11.25 6.25736 10.2426 5.25 9 5.25C7.75736 5.25 6.75 6.25736 6.75 7.5C6.75 8.74264 7.75736 9.75 9 9.75Z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    <span>{event.location}</span>
+                  <div className={styles.eventDetails}>
+                    <h3 className="fs_30 txt_white">{event.title}</h3>
+                    <div className={styles.eventMeta}>
+                      <div className={styles.metaItem}>               
+                        <span>{formatDateRange(event.start_date, event.end_date)}</span>
+                      </div>
+                      <div className={styles.metaItem}>
+                        <svg className={styles.metaIcon} viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M15.75 7.5C15.75 12.75 9 17.25 9 17.25C9 17.25 2.25 12.75 2.25 7.5C2.25 5.70979 2.96116 3.9929 4.22703 2.72703C5.4929 1.46116 7.20979 0.75 9 0.75C10.7902 0.75 12.5071 1.46116 13.773 2.72703C15.0388 3.9929 15.75 5.70979 15.75 7.5Z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M9 9.75C10.2426 9.75 11.25 8.74264 11.25 7.5C11.25 6.25736 10.2426 5.25 9 5.25C7.75736 5.25 6.75 6.25736 6.75 7.5C6.75 8.74264 7.75736 9.75 9 9.75Z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        <span>{event.location}</span>
+                      </div>
+                    </div>
+                    <p className={styles.eventDescription}>
+                      {event.description}
+                    </p>
+                    {showButton && (
+                      <Button href="/event" variant="outline" showArrow>
+                        View Past Events
+                      </Button>
+                    )}
                   </div>
                 </div>
-                <p className={styles.eventDescription}>
-                  {event.description}
-                </p>
-                {showButton && (
-                  <Button href="/event" variant="outline" showArrow>
-                    View Past Events
-                  </Button>
-                )}
-              </div>
-            </motion.div>
-          );
-        })}
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
       </div>
     </section>
   );
 }
+

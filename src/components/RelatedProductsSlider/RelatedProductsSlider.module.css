@@ -81,7 +81,7 @@
   width: 100%;
   aspect-ratio: 1;
   background: var(--color-gray-100);
-  border: 1px solid #CFB480;
+  /* border: 1px solid #CFB480; */
   margin-bottom: 16px;
   overflow: hidden;
 }

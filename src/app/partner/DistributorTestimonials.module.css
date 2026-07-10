@@ -140,6 +140,7 @@
   margin-top: 4px;
 }
 
+
 @media (max-width: 1200px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
@@ -156,4 +157,9 @@
   .vwrap {
     height: 280px;
   }
+
+  .heading {
+    font-size: 36px;
+    line-height: 48px;
+}
 }

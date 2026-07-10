@@ -104,9 +104,7 @@ export default function ModelShowcaseSection() {
                       loading="eager"
                       reveal="auto"
                       className={styles.viewer}
-                    >
-                      <div slot="progress-bar" style={{ display: 'none' }} />
-                    </model-viewer>
+                    />
                   </div>
                   <span className={styles.cardLabel}>{model.name}</span>
                 </article>

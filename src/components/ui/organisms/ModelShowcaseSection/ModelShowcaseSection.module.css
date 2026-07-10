@@ -90,10 +90,6 @@
   object-fit: cover;
 }
 
-.viewer::part(default-progress-bar) {
-  display: none;
-}
-
 .posterFrame {
   position: relative;
 }
@@ -218,6 +214,10 @@
 }
 
 @media (max-width: 767px) {
+
+      .card{
+        height: 400px;
+    }
   .section {
     padding: 72px 0;
   }
