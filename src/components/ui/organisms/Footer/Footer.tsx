@@ -55,7 +55,7 @@ export default function Footer() {
                   Six decades of crafting lightweight, elegant gold bangles through innovation, precision, and timeless craftsmanship.
                 </p>
                 <div className={styles.socials}>
-                  <a href="#" aria-label="Facebook" className={`jelly ${styles.socialLink}`}>
+                  <a href="https://www.facebook.com/share/1DMeA41CPd/?mibextid=wwXIfr" aria-label="Facebook" className={`jelly ${styles.socialLink}`}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clipPath="url(#clip0_1_645)">
                         <path d="M12 0C18.6274 0 24 5.37259 24 12C24 18.1352 19.3955 23.1944 13.4538 23.9121V15.667L16.7001 15.667L17.3734 12H13.4538V10.7031C13.4538 9.73417 13.6439 9.06339 14.0799 8.63483C14.5159 8.20627 15.1979 8.01993 16.1817 8.01993C16.4307 8.01993 16.6599 8.02241 16.8633 8.02736C17.1591 8.03456 17.4002 8.047 17.568 8.06467V4.74048C17.501 4.72184 17.4218 4.70321 17.3331 4.68486C17.1321 4.6433 16.8822 4.60324 16.6136 4.56806C16.0523 4.49453 15.4093 4.4423 14.9594 4.4423C13.1424 4.4423 11.7692 4.83102 10.8107 5.63619C9.65388 6.60791 9.10108 8.18622 9.10108 10.4199V12H6.62659V15.667H9.10108V23.6466C3.87432 22.3498 0 17.6277 0 12C0 5.37259 5.37259 0 12 0Z" fill="#D0B480" />
@@ -69,7 +69,7 @@ export default function Footer() {
 
 
                   </a>
-                  <a href="#" aria-label="Instagram" className={`jelly ${styles.socialLink}`}>
+                  <a href="https://www.instagram.com/zarjewelsofficial?igsh=Zno2ZWdrNHkxMWE4&utm_source=qr" aria-label="Instagram" className={`jelly ${styles.socialLink}`}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M18.3952 7.02212C17.6005 7.02368 16.9543 6.3802 16.9528 5.58548C16.9512 4.79076 17.5947 4.14457 18.3898 4.14302C19.1848 4.14146 19.831 4.78531 19.8326 5.58004C19.8338 6.37476 19.1903 7.02057 18.3952 7.02212Z" fill="#D0B480" />
                       <path fillRule="evenodd" clipRule="evenodd" d="M12.0115 18.161C8.60909 18.1676 5.8451 15.4149 5.8385 12.0117C5.83188 8.60923 8.58536 5.84481 11.9878 5.8382C15.3909 5.83159 18.1553 8.5859 18.1619 11.9879C18.1685 15.3912 15.4143 18.1544 12.0115 18.161ZM11.992 8.00035C9.78365 8.00424 7.99594 9.79858 7.99983 12.0074C8.0041 14.2166 9.79882 16.0039 12.0072 15.9996C14.2164 15.9954 16.0041 14.2014 15.9998 11.9922C15.9955 9.78302 14.2008 7.99608 11.992 8.00035Z" fill="#D0B480" />
@@ -79,7 +79,7 @@ export default function Footer() {
                   </a>
                   {/* App Store */}
                   <a
-                    href="javascript:void(0)" // Replace with actual App Store link
+                    href="https://apps.apple.com/in/app/zar-jewels-app/id6737752920" // Replace with actual App Store link
                     aria-label="Download on the App Store"
                     className={styles.socialLink}
                     target="_blank"
@@ -89,7 +89,7 @@ export default function Footer() {
                   </a>
                   {/* Google Play */}
                   <a
-                    href="javascript:void(0)" // Replace with actual Play Store link
+                    href="https://play.google.com/store/apps/details?id=com.triologic.jewelflowpro.zarjewels&hl=en_IN" // Replace with actual Play Store link
                     aria-label="Get it on Google Play"
                     className={styles.socialLink}
                     target="_blank"
@@ -99,7 +99,6 @@ export default function Footer() {
                   </a>
                 </div>
               </div>
-
               <div className={styles.linksGrid}>
                 <div className={styles.linksColumn}>
                   <h4 className={styles.linksTitle}>Links</h4>
@@ -160,7 +159,7 @@ export default function Footer() {
                         strokeLinejoin="round"
                       />
                     </svg>
-                    <span><a target='_blank' href="https://maps.app.goo.gl/PqCXmAwx82HVZn2J8">Ground floor, Peninsula spenta, Mathuradas mill compound, N. M. Joshi Marg, Lower Parel(W), Mumbai - 400 013.</a></span>
+                    <span><a target='_blank' href="https://maps.app.goo.gl/PqCXmAwx82HVZn2J8">Ground floor, Peninsula Spenta, Mathuradas Mill Compound, N. M. Joshi Marg, Lower Parel(W), Mumbai - 400 013.</a></span>
                   </li>
                   <li className={styles.contactItem}>
                     <svg
@@ -196,7 +195,7 @@ export default function Footer() {
                         strokeLinejoin="round"
                       />
                     </svg>
-                    <span><a target='_blank' href="tel:+918657499151">Office No. : +91 86574 99151</a></span>
+                    <span><a target='_blank' href="tel:+918657499151">+91 86574 99151</a></span>
                   </li>
                 </ul>
               </div>
