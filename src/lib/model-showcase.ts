@@ -9,29 +9,55 @@ export interface ShowcaseModel {
 }
 
 export const showcaseModels: ShowcaseModel[] = [
+    {
+    name: 'A105553',
+    src: '/images/models/A105553.glb',
+    alt: 'Interactive 3D jewellery model 1',
+    poster: '/images/models/A105553.webp',
+    url: 'collections/18k/bangles-bracelet/plain/plain-1',
+  },
+  {
+    name: 'AD106157',
+    src: '/images/models/AD106157.glb',
+    alt: 'Interactive 3D jewellery model 2',
+    poster: '/images/models/AD106157.webp',
+    url: 'collections/18k/bangles-bracelet/plain/plain-1',
+  },
   {
     name: 'AD106285',
     src: '/images/models/AD106285.glb',
-    alt: 'Interactive 3D jewellery model 1',
+    alt: 'Interactive 3D jewellery model 3',
     poster: '/images/models/AD106285.webp',
     url: 'collections/18k/bangles-bracelet/plain/plain-1',
   },
   {
     name: 'AEF100966',
     src: '/images/models/AEF100966.glb',
-    alt: 'Interactive 3D jewellery model 2',
+    alt: 'Interactive 3D jewellery model 4',
     poster: '/images/models/AEF100966.webp',
     url: 'collections/18k/bangles-bracelet/plain/plain-1',
-
+  },
+  {
+    name: 'D102188',
+    src: '/images/models/D102188.glb',
+    alt: 'Interactive 3D jewellery model 5',
+    poster: '/images/models/D102188.webp',
+    url: 'collections/18k/bangles-bracelet/plain/plain-1',
   },
   {
     name: 'O101317',
     src: '/images/models/O101317.glb',
-    alt: 'Interactive 3D jewellery model 3',
+    alt: 'Interactive 3D jewellery model 6',
     poster: '/images/models/O101317.webp',
     url: 'collections/18k/bangles-bracelet/plain/plain-1',
-
-  }
+  },
+  {
+    name: 'X100927',
+    src: '/images/models/X100927.glb',
+    alt: 'Interactive 3D jewellery model 7',
+    poster: '/images/models/X100927.webp',
+    url: 'collections/18k/bangles-bracelet/plain/plain-1',
+  },
 ];
 
 const modelPreloadCache = new Map<string, Promise<void>>();
