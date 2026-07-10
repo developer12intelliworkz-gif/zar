@@ -25,5 +25,6 @@
     display: static;
     grid-template-columns: 1fr 1fr;
     margin-inline: auto;
+    margin-bottom: 24px;
   }
 }

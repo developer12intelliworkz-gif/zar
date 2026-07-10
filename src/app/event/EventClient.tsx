@@ -100,7 +100,7 @@ export default function EventClient() {
         heading="ZAR Events"
         description="Discover our latest gold bangle collections showcased across prestigious jewellery exhibitions and trade shows."
       />
-      
+
       <div className='bannerImage'>
         <Image
           src={imagePath("/images/events/events_banner.webp")}
@@ -126,7 +126,7 @@ export default function EventClient() {
       <section className={"mt-100 " + styles.pastExhibitions}>
         <div className="container">
           <h2 className={`fs_54 txt_center ${styles.pastExhibitionsTitle}`}>Past Exhibitions</h2>
-          
+
           {loading ? (
             <p className="txt_center mt-50 mb-50" style={{ color: '#666' }}>Loading past exhibitions...</p>
           ) : pastEvents.length === 0 ? (

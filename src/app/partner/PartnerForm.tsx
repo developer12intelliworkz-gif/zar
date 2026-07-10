@@ -246,7 +246,46 @@ export default function PartnerForm() {
             )}
           />
 
+           <InputField
+            id="website"
+            label="Company Website"
+            placeholder="Type your company website URL here"
+            wrapperClassName={styles.inputGroup}
+            required
+            errorMessage={errors.website?.message}
+            {...register('website', {
+              required: 'Company website is required.',
+            })}
+          />
+
+         
+        </div>
+
+        <div className={styles.formRow}>
           <Controller
+            name="city"
+            control={control}
+            render={({ field }) => (
+              <SelectField
+                id="city"
+                label="City"
+                placeholder="Select your city"
+                options={citiesList.map((city) => ({
+                  label: city.name,
+                  value: city.name,
+                }))}
+                wrapperClassName={styles.inputGroup}
+                value={field.value}
+                onChange={(event) => {
+                  field.onChange(event.target.value);
+                }}
+                onBlur={field.onBlur}
+                disabled={!selectedStateCode || citiesList.length === 0}
+              />
+            )}
+          />
+
+           <Controller
             name="state"
             control={control}
             render={({ field }) => (
@@ -270,31 +309,6 @@ export default function PartnerForm() {
                 }}
                 onBlur={field.onBlur}
                 disabled={!selectedCountryCode || statesList.length === 0}
-              />
-            )}
-          />
-        </div>
-
-        <div className={styles.formRow}>
-          <Controller
-            name="city"
-            control={control}
-            render={({ field }) => (
-              <SelectField
-                id="city"
-                label="City"
-                placeholder="Select your city"
-                options={citiesList.map((city) => ({
-                  label: city.name,
-                  value: city.name,
-                }))}
-                wrapperClassName={styles.inputGroup}
-                value={field.value}
-                onChange={(event) => {
-                  field.onChange(event.target.value);
-                }}
-                onBlur={field.onBlur}
-                disabled={!selectedStateCode || citiesList.length === 0}
               />
             )}
           />
@@ -387,19 +401,9 @@ export default function PartnerForm() {
           />
         </div>
 
-        <div className={styles.formRow}>
-          <InputField
-            id="website"
-            label="Company Website"
-            placeholder="Type your company website URL here"
-            wrapperClassName={styles.inputGroup}
-            required
-            errorMessage={errors.website?.message}
-            {...register('website', {
-              required: 'Company website is required.',
-            })}
-          />
-        </div>
+        {/* <div className={styles.formRow}>
+         
+        </div> */}
 
         <div className={styles.formRow}>
           <TextareaField

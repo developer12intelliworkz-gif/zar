@@ -66,6 +66,7 @@
   margin: 0;
   line-height: 1;
   font-family: var(--font-body, 'Helvetica Neue', sans-serif);
+  text-wrap: nowrap;
 }
 
 .finishLabel {

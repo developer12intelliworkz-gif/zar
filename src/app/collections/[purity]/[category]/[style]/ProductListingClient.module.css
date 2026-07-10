@@ -54,7 +54,7 @@
     background: var(--color-gray-100);
     margin-bottom: 16px;
     /* overflow: hidden; */
-    border: 1px solid #CFB480;
+    /* border: 1px solid #CFB480; */
 }
 
 .productImage {

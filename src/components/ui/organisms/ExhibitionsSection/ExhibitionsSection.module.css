@@ -119,6 +119,29 @@
   line-height: 38px;
 }
 
+.exhibitionsSwiper {
+  width: 100%;
+  padding-bottom: 50px !important;
+}
+
+.exhibitionsSwiper :global(.swiper-pagination) {
+  bottom: 0px !important;
+}
+
+.exhibitionsSwiper :global(.swiper-pagination-bullet) {
+  background: var(--color-gold-primary, #bfa15a);
+  opacity: 0.5;
+  width: 10px;
+  height: 10px;
+  margin: 0 4px;
+  border-radius: 50%;
+  transition: opacity 0.2s;
+}
+
+.exhibitionsSwiper :global(.swiper-pagination-bullet-active) {
+  opacity: 1;
+}
+
 @media (max-width: 1601px) {
  .inner {
   gap: 50px;

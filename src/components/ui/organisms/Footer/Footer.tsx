@@ -44,13 +44,13 @@ export default function Footer() {
           <div className={styles.footerTop}>
             <div className={styles.topInner}>
               <div className={styles.brand}>
-                <Image
+               <Link href="/"> <Image
                   src={imagePath("/images/zar-logo.svg")}
                   alt="Zar Jewels"
                   width={150}
                   height={60}
                   className={styles.brandLogo}
-                />
+                /></Link>
                 <p className={styles.brandText}>
                   For over six decades, Zar has celebrated the beauty of design through exceptional craftsmanship, innovative manufacturing, and jewellery created to be cherished for generations.                </p>
                 <div className={styles.socials}>
