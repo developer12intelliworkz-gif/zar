@@ -103,7 +103,7 @@ export default function EventClient() {
       
       <div className='bannerImage'>
         <Image
-          src={imagePath("/images/about/about_banner.webp")}
+          src={imagePath("/images/events/events_banner.webp")}
           alt="Crafting gold bangle"
           fill
           style={{ objectFit: 'cover' }}
@@ -209,7 +209,7 @@ export default function EventClient() {
                 </svg>
               </div>
               <h4>Pure Gold</h4>
-              <p>Every piece Every piece is BIS Hallmarked, ensuring the highest purity and value for our discerning clients.</p>
+              <p>Every piece is BIS Hallmarked, ensuring the highest purity and value for our discerning clients.</p>
             </div>
             <div className="valueCard">
               <div className="valueIcon">

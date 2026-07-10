@@ -34,7 +34,7 @@ export default function Footer() {
             <div className={styles.quoteInner}>
               <span className={styles.quoteMarkLeft}>&ldquo;</span>
               <p className={styles.quoteText}>
-                <TypingText text="Excellence is not a skill, it's an Every masterpiece begins with a commitment to excellence." speed={100} />
+                <TypingText text="Every masterpiece begins with a commitment to excellence." speed={100} />
               </p>
               <span className={styles.quoteMarkRight}>&ldquo;</span>
             </div>
