@@ -19,10 +19,10 @@
 }
 
 .captchaRefreshButton {
-  width: 42px;
-  height: 42px;
+  width: 57px;
+  height: 57px;
   border: 1px solid #d5d0c8;
-  border-radius: 6px;
+  border-radius: 4px;
   background: #f3f1ed;
   color: #4d4d4d;
   font-family: var(--font-body);
@@ -45,7 +45,7 @@
 .captchaRow {
   display: flex;
   gap: 14px;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .captchaImageFrame {
@@ -54,20 +54,22 @@
   align-items: center;
   justify-content: center;
   min-width: 160px;
-  min-height: 42px;
+  min-height: 57px;
 }
 
 .captchaImage {
   display: block;
   width: 160px;
-  height: 42px;
+  height: 57px;
   border-radius: 4px;
+  object-fit: cover;
   user-select: none;
 }
 
 .captchaInputGroup {
   flex: 1;
   max-width: 240px;
+  margin-top: 0 !important;
 }
 
 .captchaInputGroup input {
@@ -100,5 +102,18 @@
 
   .captchaInputGroup input {
     width: 100% !important;
+  }
+}
+
+@media (max-width: 1537px) {
+  .captchaRefreshButton {
+    width: 49px;
+    height: 49px;
+  }
+  .captchaImageFrame {
+    min-height: 49px;
+  }
+  .captchaImage {
+    height: 49px;
   }
 }

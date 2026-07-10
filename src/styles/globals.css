@@ -164,7 +164,7 @@ ol {
 .form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 25px;
 }
 
 .formHeading {
@@ -198,7 +198,7 @@ ol {
 }
 
 .input {
-  height: 60px;
+  /* height: 60px; */
   width: 100%;
   box-sizing: border-box;
   border: 1px solid #bbb;
@@ -233,11 +233,13 @@ textarea::placeholder {
 
 .inputfile {
   width: 100%;
-  margin-bottom: 26px;
+  /* margin-bottom: 26px; */
   border: 1px dashed #c7c7c7;
   border-radius: 2px;
   background: #fff;
   transition: border-color 0.2s, background 0.2s;
+  padding: 25px;
+  cursor: pointer;
 }
 
 .inputfile--dragging {
@@ -460,6 +462,22 @@ textarea::placeholder {
   .fs_54 {
     letter-spacing: -0.01em;
   }
+
+  .input {
+    padding: 10px 20px;
+    font-size: 16px;
+    line-height: 27px;
+}
+
+.iti input.iti__tel-input
+{
+  font-size: 16px;
+}
+
+.valuesSectionSubtitle {
+  margin-bottom: 30px;
+}
+
 }
 
 @media (max-width: 1367px) {

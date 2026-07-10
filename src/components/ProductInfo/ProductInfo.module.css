@@ -249,6 +249,14 @@
 }
 
 /* ---------------------RESPONSIVE STARTS HERE--------------------- */
+
+
+@media (max-width: 1537px) {
+  .manufacturingContainer li {
+  font-size: 16px;
+}
+}
+
 @media (max-width: 1281px) {
   .title {
     font-size: 40px;

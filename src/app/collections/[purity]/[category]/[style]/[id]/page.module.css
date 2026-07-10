@@ -130,6 +130,13 @@
 
 /* ---------------------RESPONSIVE STARTS HERE--------------------- */
 
+@media (max-width: 1537px) {
+  .highlightCard {
+    padding: 0 20px;
+}
+  
+}
+
 @media (max-width: 1281px) {
   .tradeHighlightsInner {
     padding: 50px 0px;

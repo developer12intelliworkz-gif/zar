@@ -157,6 +157,13 @@
 }
 
 
+@media (max-width: 1537px) {
+  .pastExhibitionsTitle {
+  margin-bottom: 30px;
+}
+}
+
+
 @media (max-width: 1367px) {
   .pastGrid {
     gap: 30px;

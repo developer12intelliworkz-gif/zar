@@ -1,6 +1,6 @@
 
 .input {
-    height: 60px;
+    /* height: 60px; */
     width: 100%;
     box-sizing: border-box;
     border: 1px solid #bbb;
@@ -36,4 +36,12 @@
 .fieldGroup :global(.iti__selected-dial-code) {
     font-size: 14px;
     color: #999;
+}
+
+@media (max-width: 1537px) {
+  .input {
+    padding: 10px 20px 10px 90px;
+    font-size: 16px;
+    line-height: 27px;
+  }
 }

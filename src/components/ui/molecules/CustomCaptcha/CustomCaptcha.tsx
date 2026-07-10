@@ -20,7 +20,7 @@ type CustomCaptchaProps = {
 
 const CAPTCHA_LENGTH = 4;
 const CAPTCHA_WIDTH = 160;
-const CAPTCHA_HEIGHT = 42;
+const CAPTCHA_HEIGHT = 57;
 
 function getSeedValue(seed: string, index: number, fallback: number) {
     return seed.codePointAt(index) ?? fallback;
@@ -45,7 +45,7 @@ function buildCaptchaImage(code: string, noiseSeed: string) {
     const digitMarkup = digits
         .map((digit, index) => {
             const rotate = (getSeedValue(noiseSeed, index, 0) % 17) - 8;
-            const offsetY = 22 + ((getSeedValue(noiseSeed, index + 4, 0) % 7) - 3);
+            const offsetY = 36 + ((getSeedValue(noiseSeed, index + 4, 0) % 7) - 3);
             const fill = palette[index % palette.length];
             const x = 22 + index * 31;
 
@@ -64,12 +64,12 @@ function buildCaptchaImage(code: string, noiseSeed: string) {
 
     const lineMarkup = Array.from({ length: 3 }, (_, index) => {
         const source = getSeedValue(noiseSeed, index + 2, index * 29);
-        const y1 = 10 + ((source * 5) % 18);
-        const y2 = 14 + ((source * 9) % 18);
+        const y1 = 16 + ((source * 5) % 25);
+        const y2 = 20 + ((source * 9) % 25);
         return `<path d="M 8 ${y1} C 48 ${y1 - 8}, 92 ${y2 + 8}, 152 ${y2}" fill="none" stroke="#c8d5cf" stroke-width="1.4" stroke-linecap="round" opacity="0.8" />`;
     }).join('');
 
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${CAPTCHA_WIDTH}" height="${CAPTCHA_HEIGHT}" viewBox="0 0 ${CAPTCHA_WIDTH} ${CAPTCHA_HEIGHT}" role="img" aria-label="4 digit captcha"><rect x="0.5" y="0.5" width="159" height="41" rx="4" fill="#f8f6f2" stroke="#cfc9c1" /><rect x="3" y="3" width="154" height="36" rx="3" fill="#f5f4f1" />${dotMarkup}${lineMarkup}${digitMarkup}</svg>`;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${CAPTCHA_WIDTH}" height="${CAPTCHA_HEIGHT}" viewBox="0 0 ${CAPTCHA_WIDTH} ${CAPTCHA_HEIGHT}" role="img" aria-label="4 digit captcha"><rect x="0.5" y="0.5" width="159" height="${CAPTCHA_HEIGHT - 1}" rx="4" fill="#f8f6f2" stroke="#cfc9c1" /><rect x="3" y="3" width="154" height="${CAPTCHA_HEIGHT - 6}" rx="3" fill="#f5f4f1" />${dotMarkup}${lineMarkup}${digitMarkup}</svg>`;
 
     return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }

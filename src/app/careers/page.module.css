@@ -41,8 +41,8 @@
 }
 
 .ctaDescription {
-  font-size: 30px;
-  line-height: 36px;
+  font-size: 24px;
+  line-height: 38px;
   margin-bottom: 40px;
   width: 90%;
   color: #000;
@@ -139,6 +139,25 @@
   flex-shrink: 0;
 }
 
+
+
+@media (max-width: 1537px) {
+
+  .ctaDescription {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  .ctaSection{
+    min-height: 400px;
+  }
+
+  .ctaContainer {
+    padding: 80px 0;
+  }
+
+}
+
 @media (max-width: 1367px) {
   .openingCard {
     grid-template-columns: 280px auto auto;
@@ -147,6 +166,15 @@
 
   .openingPart1 {
     width: 280px;
+  }
+
+    .ctaSection{
+    min-height: 300px;
+  }
+
+   .ctaDescription {
+    font-size: 18px;
+    line-height: 28px;
   }
 }
 

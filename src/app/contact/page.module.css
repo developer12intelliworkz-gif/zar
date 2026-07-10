@@ -21,7 +21,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 25px;
 }
 
 .formRow {
@@ -169,6 +169,11 @@
   gap: 24px;
 }
 
+.contactMapItem:first-child
+{
+margin-bottom: 15px;
+}
+
 .contactMapIcon {
   flex: 0 0 auto;
   display: inline-flex;
@@ -226,6 +231,13 @@
   padding-bottom: 1px;
 }
 
+@media (max-width: 1441px) {
+  .contactMapLink,
+.contactMapSocialLink {
+  font-size: 16px;
+  line-height: 1.5;
+}
+}
 
 
 @media (max-width: 1441px) {

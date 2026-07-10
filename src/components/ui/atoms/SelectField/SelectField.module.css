@@ -21,7 +21,7 @@
 } */
 
 .select {
-    height: 60px;
+    /* height: 60px; */
     width: 100%;
     box-sizing: border-box;
     border: 1px solid #bbb;
@@ -56,4 +56,12 @@
   line-height: 1.35;
   color: #d13b3b;
   font-family: var(--font-body);
+}
+
+@media (max-width: 1537px) {
+  .select {
+    padding: 10px 20px;
+    font-size: 16px;
+    line-height: 27px;
+}
 }

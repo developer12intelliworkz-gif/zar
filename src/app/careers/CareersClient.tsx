@@ -347,7 +347,7 @@ export default function CareersClient() {
         <div className={`container ${styles.ctaContainer}`}>
           <h2 className={styles.ctaTitle}>Shape the Future with Zar</h2>
           <p className={styles.ctaDescription}>
-            Ready to be part of a team driven by creativity, collaboration, and excellence? Join us and help craft jewellery that inspires generations.
+            Ready to be part of a team driven by creativity, <br /> collaboration, and excellence? Join us and help craft jewellery that inspires generations.
           </p>
           <Button href="mailto:careers@zarjewels.com" variant="secondary" showArrow>
           Apply Now

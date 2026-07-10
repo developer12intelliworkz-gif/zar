@@ -53,7 +53,8 @@
     aspect-ratio: 1;
     background: var(--color-gray-100);
     margin-bottom: 16px;
-    overflow: hidden;
+    /* overflow: hidden; */
+    border: 1px solid #CFB480;
 }
 
 .productImage {
