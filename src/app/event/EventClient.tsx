@@ -103,7 +103,7 @@ export default function EventClient() {
       
       <div className='bannerImage'>
         <Image
-          src={imagePath("/images/about/about_banner.webp")}
+          src={imagePath("/images/events/events_banner.webp")}
           alt="Crafting gold bangle"
           fill
           style={{ objectFit: 'cover' }}
