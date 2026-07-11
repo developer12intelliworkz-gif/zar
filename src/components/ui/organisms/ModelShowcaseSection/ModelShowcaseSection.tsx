@@ -104,7 +104,16 @@ export default function ModelShowcaseSection() {
                       loading="eager"
                       reveal="auto"
                       className={styles.viewer}
-                    />
+                    >
+                      <div slot="poster" className={styles.customPoster}>
+                        <img 
+                          src={imagePath(model.poster)} 
+                          alt={model.alt} 
+                          className={styles.posterImage} 
+                        />
+                      </div>
+                      <div slot="progress-bar" className={styles.hiddenProgressBar} />
+                    </model-viewer>
                   </div>
                   <span className={styles.cardLabel}>{model.name}</span>
                 </article>
