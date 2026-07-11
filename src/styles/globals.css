@@ -556,6 +556,47 @@ textarea::placeholder {
 
 /*------------------------ resposnive css ends --------------------------------------------- */
 
-model-viewer::part(default-progress-bar) {
-  display: none;
+model-viewer::part(default-progress-bar),
+model-viewer::part(default-progress-mask),
+model-viewer::part(interaction-prompt),
+model-viewer::part(ar-button),
+model-viewer::part(default-ar-button) {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+model-viewer,
+model-viewer:focus,
+model-viewer:focus-visible,
+model-viewer:active,
+model-viewer::part(default-canvas),
+model-viewer::part(canvas-container),
+model-viewer::part(canvas-content),
+model-viewer::part(default-poster),
+model-viewer::part(shadow) {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border-radius: 50% !important;
+  clip-path: circle(49.5% at 50% 50%) !important;
+  overflow: hidden !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.swiper,
+.swiper-slide,
+.swiper-slide:focus,
+.swiper-slide:focus-visible,
+.swiper-wrapper {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  -webkit-tap-highlight-color: transparent !important;
 }
