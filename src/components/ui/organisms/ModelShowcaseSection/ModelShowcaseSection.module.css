@@ -25,9 +25,18 @@
   opacity: 1;
 }
 
+.slider :global(.swiper-slide) .modelWrapper {
+  transform: scale(0.78);
+  transition: transform 0.4s ease;
+}
+
 .slider :global(.swiper-slide-active) {
   transform: scale(1);
   opacity: 1;
+}
+
+.slider :global(.swiper-slide-active) .modelWrapper {
+  transform: scale(1);
 }
 
 .slider :global(.swiper-slide) .cardLabel,
@@ -41,10 +50,7 @@
   opacity: 1;
 }
 
-.slider :global(.swiper-slide-active) .viewer {
-  height: 400px;
-  width: 100%;
-}
+
 
 .card {
   height: 600px;
@@ -56,6 +62,9 @@
   flex-direction: column;
   gap: 10px;
   justify-content: space-between;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .card a {
@@ -69,20 +78,56 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 #default-poster {
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border-radius: 50% !important;
+  clip-path: circle(49.5% at 50% 50%) !important;
+  overflow: hidden !important;
+}
+
+.viewerWrapper {
+  width: 320px;
+  height: 320px;
+  max-width: 72%;
+  max-height: 72%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border-radius: 50% !important;
+  clip-path: circle(49.5% at 50% 50%) !important;
+  overflow: hidden !important;
 }
 
 .viewer {
-  width: 50%;
-  height: 340px;
+  width: 100%;
+  height: 100%;
   display: block;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border-radius: 50% !important;
+  clip-path: circle(49.5% at 50% 50%) !important;
+  overflow: hidden !important;
 }
 
 .customPoster {
@@ -92,6 +137,12 @@
   align-items: center;
   justify-content: center;
   background-color: transparent;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 50% !important;
+  clip-path: circle(49.5% at 50% 50%) !important;
+  overflow: hidden !important;
 }
 
 .posterImage {
@@ -99,6 +150,10 @@
   height: 90%;
   object-fit: contain;
   transition: transform 0.4s ease;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
 }
 
 .hiddenProgressBar {
@@ -129,17 +184,27 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 95%;
-  height: 100%;
-  transform: translate(-50%, -50%) scale(0.65);
+  width: 440px;
+  height: 440px;
+  max-width: 86%;
+  max-height: 86%;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%) scale(1);
   opacity: 1;
   z-index: -1;
   pointer-events: none;
-  background-image: url('data:image/svg+xml;utf8,<svg width="551" height="567" viewBox="0 0 551 567" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="275.451" cy="266.834" r="266.334" stroke="%23D0B480"/><circle cx="275.45" cy="291.465" r="274.95" stroke="%23D0B480"/></svg>');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  background: transparent !important;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
   transition: all 0.8s ease;
+}
+
+.circleSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
 }
 
 @keyframes spinSlow {
@@ -210,14 +275,23 @@
   .modelWrapper {
     height: 430px;
   }
-  .slider :global(.swiper-slide-active) .viewer {
-    height: 300px;
+  .circleBg {
+    width: 400px;
+    height: 400px;
+    max-width: 86%;
+    max-height: 86%;
+    aspect-ratio: 1 / 1;
+  }
+  .viewerWrapper {
+    width: 290px;
+    height: 290px;
   }
 }
 
 @media (max-width: 1199px) {
-  .viewer {
-    height: 300px;
+  .viewerWrapper {
+    width: 270px;
+    height: 270px;
   }
   .navPrev {
     left: -20px;
@@ -234,14 +308,20 @@
   .modelWrapper {
     height: 370px;
   }
-  .viewer {
-    width: 260px !important;
-    height: 260px !important;
-    margin: 0 auto;
+  .circleBg {
+    width: 340px;
+    height: 340px;
+    max-width: 86%;
+    max-height: 86%;
+    aspect-ratio: 1 / 1;
   }
-  .slider :global(.swiper-slide-active) .viewer {
-    width: 260px !important;
-    height: 260px !important;
+  .viewerWrapper {
+    width: 240px;
+    height: 240px;
+  }
+  .viewer {
+    width: 100% !important;
+    height: 100% !important;
   }
   .navBtn svg {
     width: 44px;
@@ -263,19 +343,19 @@
     height: 280px;
   }
   .circleBg {
-    width: 100%;
-    height: 100%;
-    max-width: 280px;
-    max-height: 280px;
+    width: 260px;
+    height: 260px;
+    max-width: 86%;
+    max-height: 86%;
+    aspect-ratio: 1 / 1;
+  }
+  .viewerWrapper {
+    width: 180px;
+    height: 180px;
   }
   .viewer {
-    width: 200px !important;
-    height: 200px !important;
-    margin: 0 auto;
-  }
-  .slider :global(.swiper-slide-active) .viewer {
-    width: 200px !important;
-    height: 200px !important;
+    width: 100% !important;
+    height: 100% !important;
   }
   .section {
     padding: 40px 0;

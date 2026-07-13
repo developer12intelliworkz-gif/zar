@@ -88,32 +88,39 @@ export default function ModelShowcaseSection() {
               <SwiperSlide key={`${model.src}-${index}`}>
                 <article className={styles.card}>
                   <div className={styles.modelWrapper}>
-                    <div className={styles.circleBg} aria-hidden="true" />
-                    <model-viewer
-                      src={imagePath(model.src)}
-                      alt={model.alt}
-                      poster={imagePath(model.poster)}
-                      camera-controls
-                      disable-zoom
-                      max-camera-orbit="auto auto 100%"
-                      auto-rotate
-                      touch-action="pan-y"
-                      interaction-prompt="auto"
-                      shadow-intensity="0"
-                      exposure="1"
-                      loading="eager"
-                      reveal="auto"
-                      className={styles.viewer}
-                    >
-                      <div slot="poster" className={styles.customPoster}>
-                        <img 
-                          src={imagePath(model.poster)} 
-                          alt={model.alt} 
-                          className={styles.posterImage} 
-                        />
-                      </div>
-                      <div slot="progress-bar" className={styles.hiddenProgressBar} />
-                    </model-viewer>
+                    <div className={styles.circleBg} aria-hidden="true">
+                      <svg className={styles.circleSvg} viewBox="0 0 580 580" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="290" cy="280" r="265" stroke="#D0B480" strokeWidth="1.5" />
+                        <circle cx="290" cy="300" r="272" stroke="#D0B480" strokeWidth="1.5" />
+                      </svg>
+                    </div>
+                    <div
+                      className={styles.viewerWrapper}
+                      suppressHydrationWarning
+                      dangerouslySetInnerHTML={{
+                        __html: `<model-viewer
+                          src="${imagePath(model.src)}"
+                          alt="${model.alt}"
+                          poster="${imagePath(model.poster)}"
+                          camera-controls
+                          disable-zoom
+                          max-camera-orbit="auto auto 100%"
+                          auto-rotate
+                          touch-action="pan-y"
+                          interaction-prompt="auto"
+                          shadow-intensity="0"
+                          exposure="1"
+                          loading="eager"
+                          reveal="auto"
+                          class="${styles.viewer}"
+                        >
+                          <div slot="poster" class="${styles.customPoster}">
+                            <img src="${imagePath(model.poster)}" alt="${model.alt}" class="${styles.posterImage}" />
+                          </div>
+                          <div slot="progress-bar" class="${styles.hiddenProgressBar}"></div>
+                        </model-viewer>`,
+                      }}
+                    />
                   </div>
                   <span className={styles.cardLabel}>{model.name}</span>
                 </article>
