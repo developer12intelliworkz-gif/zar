@@ -9,6 +9,12 @@ import { cn } from '@/lib/utils';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { toggleCart } from '@/features/cart/cartSlice';
 
+const SCROLL_DISTANCE_TO_REACT = 10;
+const PIXELS_FROM_BOTTOM_TO_KEEP_HEADER_VISIBLE = 150;
+const PIXELS_BEFORE_HEADER_CAN_HIDE = 100;
+const PIXELS_BEFORE_HEADER_LOOKS_SCROLLED = 50;
+const MEGA_MENU_CLOSE_DELAY_MS = 100;
+
 export default function Header() {
   const dispatch = useAppDispatch();
   const cartCount = useAppSelector((state) =>
@@ -19,45 +25,109 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileCollectionsOpen, setMobileCollectionsOpen] = useState(false);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
-  const megaMenuTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const lastScrollY = useRef(0);
+
+  const megaMenuCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const previousScrollY = useRef(0);
+  const isHeaderCurrentlyHidden = useRef(false);
+  const isWaitingForNextScrollFrame = useRef(false);
+
+  const clearMegaMenuCloseTimer = useCallback(() => {
+    if (megaMenuCloseTimer.current) {
+      clearTimeout(megaMenuCloseTimer.current);
+      megaMenuCloseTimer.current = null;
+    }
+  }, []);
+
+  const closeAllMenus = useCallback(() => {
+    clearMegaMenuCloseTimer();
+    setMegaMenuOpen(false);
+    setMenuOpen(false);
+    setMobileCollectionsOpen(false);
+  }, [clearMegaMenuCloseTimer]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentY = window.scrollY;
-      setScrolled(currentY > 50);
-      if (currentY > 100 && currentY > lastScrollY.current) {
-        setHidden(true);
-      } else {
-        setHidden(false);
+    previousScrollY.current = window.scrollY;
+
+    const updateHeaderAfterScroll = () => {
+      isWaitingForNextScrollFrame.current = false;
+
+      const currentScrollY = window.scrollY;
+      const howFarUserScrolled = currentScrollY - previousScrollY.current;
+      const totalPageHeight = Math.max(
+        document.documentElement.scrollHeight,
+        document.body.scrollHeight,
+      );
+      const isNearBottomOfPage =
+        currentScrollY + window.innerHeight >= totalPageHeight - PIXELS_FROM_BOTTOM_TO_KEEP_HEADER_VISIBLE;
+
+      if (Math.abs(howFarUserScrolled) > SCROLL_DISTANCE_TO_REACT) {
+        closeAllMenus();
       }
-      lastScrollY.current = currentY;
+
+      setScrolled(currentScrollY > PIXELS_BEFORE_HEADER_LOOKS_SCROLLED);
+
+      if (isNearBottomOfPage) {
+        if (isHeaderCurrentlyHidden.current) {
+          isHeaderCurrentlyHidden.current = false;
+          setHidden(false);
+        }
+
+        previousScrollY.current = currentScrollY;
+        return;
+      }
+
+      let shouldHideHeader = isHeaderCurrentlyHidden.current;
+
+      if (currentScrollY <= PIXELS_BEFORE_HEADER_CAN_HIDE) {
+        shouldHideHeader = false;
+      } else if (howFarUserScrolled > SCROLL_DISTANCE_TO_REACT) {
+        shouldHideHeader = true;
+      } else if (howFarUserScrolled < -SCROLL_DISTANCE_TO_REACT) {
+        shouldHideHeader = false;
+      }
+
+      if (shouldHideHeader !== isHeaderCurrentlyHidden.current) {
+        isHeaderCurrentlyHidden.current = shouldHideHeader;
+        setHidden(shouldHideHeader);
+      }
+
+      previousScrollY.current = currentScrollY;
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+
+    const handlePageScroll = () => {
+      if (isWaitingForNextScrollFrame.current) {
+        return;
+      }
+
+      isWaitingForNextScrollFrame.current = true;
+      requestAnimationFrame(updateHeaderAfterScroll);
+    };
+
+    window.addEventListener('scroll', handlePageScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handlePageScroll);
+  }, [closeAllMenus]);
 
 
   const openMegaMenu = useCallback(() => {
-    if (megaMenuTimeout.current) clearTimeout(megaMenuTimeout.current);
+    clearMegaMenuCloseTimer();
     setMegaMenuOpen(true);
-  }, []);
+  }, [clearMegaMenuCloseTimer]);
 
   const closeMegaMenu = useCallback(() => {
-    megaMenuTimeout.current = setTimeout(() => setMegaMenuOpen(false), 100);
+    megaMenuCloseTimer.current = setTimeout(() => {
+      setMegaMenuOpen(false);
+    }, MEGA_MENU_CLOSE_DELAY_MS);
   }, []);
 
-  const handleMegaMenuEnter = useCallback(() => {
-    if (megaMenuTimeout.current) clearTimeout(megaMenuTimeout.current);
-  }, []);
+  const keepMegaMenuOpen = useCallback(() => {
+    clearMegaMenuCloseTimer();
+  }, [clearMegaMenuCloseTimer]);
 
-  const handleMegaMenuLeave = useCallback(() => {
-    megaMenuTimeout.current = setTimeout(() => setMegaMenuOpen(false), 100);
+  const closeMegaMenuOnMouseLeave = useCallback(() => {
+    megaMenuCloseTimer.current = setTimeout(() => {
+      setMegaMenuOpen(false);
+    }, MEGA_MENU_CLOSE_DELAY_MS);
   }, []);
-
-  useEffect(() => {
-    // console.log('megaMenuOpen state:', megaMenuOpen);
-  }, [megaMenuOpen]);
 
   useEffect(() => {
     if (!menuOpen) {
@@ -90,8 +160,8 @@ export default function Header() {
                   </a>
                   <div className={styles.dropdown}>
                     <div
-                      onMouseEnter={handleMegaMenuEnter}
-                      onMouseLeave={handleMegaMenuLeave}
+                      onMouseEnter={keepMegaMenuOpen}
+                      onMouseLeave={closeMegaMenuOnMouseLeave}
                     >
                       <MegaMenu open={megaMenuOpen} onClose={() => setMegaMenuOpen(false)} />
                     </div>
