@@ -93,7 +93,9 @@ export default function Timeline() {
               src={imagePath(activeItem.image)}
               alt={`ZAR journey - ${activeItem.year}`}
               fill
+              sizes="(max-width: 992px) 100vw, (max-width: 1440px) 40vw, 520px"
               className={styles.timelineImage}
+              priority={activeIndex === 0}
             />
           </div>
 
