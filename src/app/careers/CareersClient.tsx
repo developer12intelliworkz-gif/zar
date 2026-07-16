@@ -403,7 +403,7 @@ export default function CareersClient() {
                         onChange={field.onChange}
                         onBlur={field.onBlur}
                         options={[
-                          { label: 'General Application', value: 'General' },
+                          { label: 'Apply Without a Specific Role', value: 'Apply Without a Specific Role' },
                           ...positions.map((pos) => ({ label: pos.title, value: pos.title }))
                         ]}
                         wrapperClassName={styles.inputGroup}

@@ -45,7 +45,7 @@ function getAccessToken(): string | undefined {
 }
 
 function toProxyUrl(sourceUrl: string): string {
-  return `/api/instagram/media?url=${encodeURIComponent(sourceUrl)}`;
+  return sourceUrl;
 }
 
 function isVideoMedia(item: InstagramMediaItem): boolean {

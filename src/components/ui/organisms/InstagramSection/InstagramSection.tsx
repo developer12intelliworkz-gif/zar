@@ -77,7 +77,7 @@ export default function InstagramSection() {
 
     async function loadInstagramPosts() {
       try {
-        const response = await fetch(resolveApiPath('/api/instagram'));
+        const response = await fetch(resolveApiPath('/instagram.json'));
         const payload = (await response.json()) as {
           success?: boolean;
           posts?: InstagramPost[];
@@ -131,6 +131,10 @@ export default function InstagramSection() {
   }, [maxIndex]);
 
   const progress = maxIndex > 0 ? currentIndex / maxIndex : 0;
+
+  if (!isLoading && posts.length === 0) {
+    return null;
+  }
 
   return (
     <section>

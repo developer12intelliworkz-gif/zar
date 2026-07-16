@@ -262,29 +262,6 @@ export default function PartnerForm() {
         </div>
 
         <div className={styles.formRow}>
-          <Controller
-            name="city"
-            control={control}
-            render={({ field }) => (
-              <SelectField
-                id="city"
-                label="City"
-                placeholder="Select your city"
-                options={citiesList.map((city) => ({
-                  label: city.name,
-                  value: city.name,
-                }))}
-                wrapperClassName={styles.inputGroup}
-                value={field.value}
-                onChange={(event) => {
-                  field.onChange(event.target.value);
-                }}
-                onBlur={field.onBlur}
-                disabled={!selectedStateCode || citiesList.length === 0}
-              />
-            )}
-          />
-
            <Controller
             name="state"
             control={control}
@@ -309,6 +286,29 @@ export default function PartnerForm() {
                 }}
                 onBlur={field.onBlur}
                 disabled={!selectedCountryCode || statesList.length === 0}
+              />
+            )}
+          />
+
+          <Controller
+            name="city"
+            control={control}
+            render={({ field }) => (
+              <SelectField
+                id="city"
+                label="City"
+                placeholder="Select your city"
+                options={citiesList.map((city) => ({
+                  label: city.name,
+                  value: city.name,
+                }))}
+                wrapperClassName={styles.inputGroup}
+                value={field.value}
+                onChange={(event) => {
+                  field.onChange(event.target.value);
+                }}
+                onBlur={field.onBlur}
+                disabled={!selectedStateCode || citiesList.length === 0}
               />
             )}
           />

@@ -6,6 +6,7 @@ import { createPortal } from 'react-dom';
 import styles from './EnquiryModal.module.css';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/components/ui/Toast/ToastContext';
+import { submitContactInquiry } from '@/lib/api/contact';
 
 interface EnquiryModalProps {
   open: boolean;
@@ -86,19 +87,15 @@ export default function EnquiryModal({ open, onClose, productName }: EnquiryModa
 
   const onSubmit = handleSubmit(async (values) => {
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: values.fullName,
-          company: values.companyName,
-          email: values.email,
-          phone: values.contactNo,
-          subject: values.enquiryType,
-          message: values.message || 'N/A',
-        }),
+      const response = await submitContactInquiry({
+        fullName: values.fullName,
+        companyName: values.companyName || '',
+        email: values.email,
+        contactNumber: values.contactNo,
+        inquiryType: values.enquiryType,
+        message: values.message || 'N/A',
       });
-      if (response.ok) {
+      if (response.success) {
         reset();
         onClose();
         showToast('Your enquiry has been submitted successfully.', 'success');

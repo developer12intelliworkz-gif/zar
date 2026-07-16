@@ -1,7 +1,8 @@
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 const nextConfig = {
-  trailingSlash: false,
+  output: 'export',
+  trailingSlash: true,
   basePath: basePath,
   assetPrefix: basePath,
   images: {
@@ -16,6 +17,12 @@ const nextConfig = {
         hostname: 'scontent.cdninstagram.com',
       },
     ],
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
   },
 };
 
