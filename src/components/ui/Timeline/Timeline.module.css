@@ -79,7 +79,8 @@
 }
 
 .timelineImage {
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
 }
 
 /* Content */
@@ -117,6 +118,7 @@
 @media (max-width: 992px) {
   .timelineWrapper {
     grid-template-columns: 1fr;
+    gap: 40px;
   }
 
   .timelineWrapper> :nth-child(1) {
@@ -136,6 +138,28 @@
   /* Original 3rd → becomes second */
   .yearList {
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px 24px;
+  }
+
+  .imageWrapper {
+    aspect-ratio: 16 / 10;
+  }
+
+  .timelineImage {
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .yearButtonActive {
+    font-size: 32px;
+    line-height: 1.1;
+  }
+
+  .contentYear {
+    font-size: 32px;
+    line-height: 1.1;
   }
 }
 
@@ -143,6 +167,14 @@
   .timelineWrapper {
     grid-template-columns: 1fr;
     gap: 30px;
+  }
+
+  .timelineSection {
+    padding: 70px 0;
+  }
+
+  .imageWrapper {
+    aspect-ratio: 4 / 3;
   }
 
   .drumWrapper {
@@ -163,14 +195,14 @@
 @media (max-width: 577px) {
   .yearList {
     overflow-x: auto;
-    /* Enables horizontal scrolling */
     overflow-y: hidden;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
     scroll-snap-type: x mandatory;
-    /* or 'x proximity' for softer snapping */
     scroll-behavior: smooth;
     scrollbar-width: thin;
-    /* Firefox */
     scrollbar-color: #888 #f1f1f1;
+    padding-bottom: 8px;
   }
 
   .yearList::-webkit-scrollbar {
@@ -187,10 +219,14 @@
     border-radius: 10px;
   }
 
+  .yearButton {
+    scroll-snap-align: center;
+    font-size: 16px;
+  }
 
   .timelineSection {
-    padding: 70px 0;
-    height: 960px;
+    padding: 60px 0;
+    height: auto;
   }
 }
 

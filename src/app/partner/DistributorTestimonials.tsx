@@ -116,7 +116,7 @@ export default function DistributorTestimonials() {
 
   return (
     <div className={styles.section}>
-      <h2 className={styles.heading}>Distributor Testimonials</h2>
+      <h2 className={`fs_54 txt_center ${styles.heading}`}>Distributor Testimonials</h2>
       <p className={styles.subheading}>Hear from our partners about their journey through our exclusive showcases.</p>
 
       <div className={styles.grid}>

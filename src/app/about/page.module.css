@@ -73,10 +73,10 @@
 
 .fs_60 {
   color: #A38274;
-  font-family: "Times Now";
+  font-family: var(--font-heading);
   font-size: 60px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 66px;
   text-transform: uppercase;
 }
@@ -148,9 +148,10 @@
 }
 
 .legacyBottomText p:nth-child(4) {
-  font-size: 54px;
-  line-height: 66px;
+  font-size: 40px;
+  line-height: 48px;
   font-family: var(--font-heading);
+  font-weight: 500;
   color: var(--color-brown);
 }
 
@@ -212,18 +213,23 @@
 }
 
 /* ------------------------------------------- */
-.paraSection p:nth-child(1) {
-  font-size: 30px;
-  line-height: 40px;
-  color: var(--color-gray-600);
+.paraSection p:nth-child(1),
+.paraSection p:nth-child(2) {
+  font-family: var(--font-body);
+  font-weight: 400;
   text-align: center;
 }
 
+.paraSection p:nth-child(1) {
+  font-size: 24px;
+  line-height: 34px;
+  color: var(--color-gray-600);
+}
+
 .paraSection p:nth-child(2) {
-  font-size: 36px;
-  line-height: normal;
+  font-size: 24px;
+  line-height: 34px;
   color: #000;
-  text-align: center;
 }
 
 /* ------------------------------------------- */
@@ -259,12 +265,44 @@
 .storyHead {
   color: var(--color-brown);
   font-family: var(--font-heading);
-  font-size: 54px;
+  font-size: 40px;
   font-style: normal;
   font-weight: 500;
-  line-height: 66px;
+  line-height: 48px;
   text-transform: uppercase;
   text-align: center;
+}
+
+@media (max-width: 1601px) {
+  .storyHead {
+    font-size: 36px;
+    line-height: 44px;
+  }
+}
+
+@media (max-width: 1441px) {
+  .storyHead {
+    font-size: 32px;
+    line-height: 40px;
+  }
+}
+
+@media (max-width: 992px) {
+  .storyHead {
+    font-size: 36px;
+    line-height: 46px;
+  }
+
+  .ourImage {
+    object-fit: contain !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .storyHead {
+    font-size: 36px;
+    line-height: 46px;
+  }
 }
 
 .storyGrid {
@@ -347,9 +385,8 @@
 }
 
 .ourImage {
-  max-width: 100%;
-  height: auto;
-  width: auto !important
+  object-fit: contain !important;
+  object-position: center;
 }
 
 
@@ -417,13 +454,13 @@
   }
 
   .paraSection p:nth-child(1) {
-    font-size: 24px;
-    line-height: 40px;
+    font-size: 20px;
+    line-height: 30px;
   }
 
   .paraSection p:nth-child(2) {
-    font-size: 30px;
-    line-height: normal;
+    font-size: 20px;
+    line-height: 34px;
   }
 
   .storyGrid {
@@ -504,6 +541,11 @@
     margin-left: 0;
   }
 
+  .ourImage {
+    object-fit: contain !important;
+    object-position: center;
+  }
+
   .storyBox:nth-child(even) .storyChild1::after {
     left: -40px;
     top: 18px;
@@ -514,11 +556,12 @@
 
   .paraSection p:nth-child(1) {
     font-size: 16px;
-    line-height: 26px;
+    line-height: 24px;
   }
 
   .paraSection p:nth-child(2) {
-    font-size: 24px;
+    font-size: 16px;
+    line-height: 26px;
   }
 
   .storyYear {
@@ -815,8 +858,8 @@ ul.designList li::marker {
   }
 
   .legacyBottomText p:nth-child(4) {
-    font-size: 48px;
-    line-height: 66px;
+    font-size: 32px;
+    line-height: 40px;
   }
 
   .legacyBottomText {

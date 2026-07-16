@@ -34,9 +34,15 @@
     --max-width: 1400px;
   }
 
-  /* contact page css */
+  .fs_54 {
+    font-size: 36px;
+    line-height: 44px;
+  }
+
   .formHeading {
     margin-bottom: 40px;
+    font-size: 36px;
+    line-height: 44px;
   }
 }
 
@@ -46,9 +52,14 @@
   }
 
   .fs_54 {
-    font-size: 44px;
-    line-height: 50px;
+    font-size: 32px;
+    line-height: 40px;
     letter-spacing: -0.01em;
+  }
+
+  .formHeading {
+    font-size: 32px;
+    line-height: 40px;
   }
 
   .storyGrid .fs_54 {
@@ -97,9 +108,9 @@
     --max-width: calc(100% - 80px);
   }
 
-.main {
-  padding-top: 75px;
-}
+  .main {
+    padding-top: 75px;
+  }
 
   .mt-100 {
     margin-top: 50px;
@@ -111,6 +122,8 @@
 
   .formHeading {
     margin-bottom: 10px;
+    font-size: 26px;
+    line-height: 32px;
   }
 
   .valuesGrid {
@@ -123,7 +136,7 @@
   }
 
   .fs_54 {
-    font-size: 28px;
+    font-size: 26px;
     line-height: 32px;
     margin-bottom: 15px;
   }
@@ -153,8 +166,13 @@
 
   .formHeading {
     margin-bottom: 10px;
-    font-size: 30px;
-    line-height: 40px;
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .fs_54 {
+    font-size: 24px;
+    line-height: 30px;
   }
 
   .bannerImage {
