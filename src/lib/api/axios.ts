@@ -8,7 +8,7 @@ export const apiClient = axios.create({
   headers: {
     Accept: 'application/json',
   },
-  timeout: 10000,
+  timeout: 4000,
 });
 
 export class ApiError extends Error {

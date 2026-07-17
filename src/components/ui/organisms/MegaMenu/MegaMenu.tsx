@@ -25,6 +25,10 @@ export default function MegaMenu({ open, onClose }: Readonly<MegaMenuProps>) {
   const [loadingKt, setLoadingKt] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!open) {
+      return;
+    }
+
     const filter = ktFilters.find((item) => item.value === activeKt);
 
     if (!filter) {
@@ -70,7 +74,7 @@ export default function MegaMenu({ open, onClose }: Readonly<MegaMenuProps>) {
     return () => {
       cancelled = true;
     };
-  }, [activeKt, categoriesByKt]);
+  }, [open, activeKt, categoriesByKt]);
 
   const activePurity = ktFilters.find((item) => item.value === activeKt)?.purity || '18k';
   const categories = categoriesByKt[activeKt] ?? [];

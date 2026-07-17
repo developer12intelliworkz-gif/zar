@@ -1,14 +1,32 @@
 import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import HeroSection from '@/components/ui/organisms/HeroSection/HeroSection';
 import LegacySection from '@/components/ui/organisms/LegacySection/LegacySection';
-import ModelShowcaseSection from '@/components/ui/organisms/ModelShowcaseSection/ModelShowcaseSection';
-import ManufacturingSection from '@/components/ui/organisms/ManufacturingSection/ManufacturingSection';
-import CraftsmanshipSection from '@/components/ui/organisms/CraftsmanshipSection/CraftsmanshipSection';
-import ModernWomanSection from '@/components/ui/organisms/ModernWomanSection/ModernWomanSection';
-import ExhibitionsSection from '@/components/ui/organisms/ExhibitionsSection/ExhibitionsSection';
-import RetailerSlider from '@/components/ui/organisms/RetailerSlider/RetailerSlider';
-import TrustedBrandsSection from '@/components/ui/organisms/TrustedBrandsSection/TrustedBrandsSection';
-import InstagramSection from '@/components/ui/organisms/InstagramSection/InstagramSection';
+
+const ModelShowcaseSection = dynamic(
+  () => import('@/components/ui/organisms/ModelShowcaseSection/ModelShowcaseSection'),
+);
+const ManufacturingSection = dynamic(
+  () => import('@/components/ui/organisms/ManufacturingSection/ManufacturingSection'),
+);
+const CraftsmanshipSection = dynamic(
+  () => import('@/components/ui/organisms/CraftsmanshipSection/CraftsmanshipSection'),
+);
+const ModernWomanSection = dynamic(
+  () => import('@/components/ui/organisms/ModernWomanSection/ModernWomanSection'),
+);
+const ExhibitionsSection = dynamic(
+  () => import('@/components/ui/organisms/ExhibitionsSection/ExhibitionsSection'),
+);
+const RetailerSlider = dynamic(
+  () => import('@/components/ui/organisms/RetailerSlider/RetailerSlider'),
+);
+const InstagramSection = dynamic(
+  () => import('@/components/ui/organisms/InstagramSection/InstagramSection'),
+);
+const TrustedBrandsSection = dynamic(
+  () => import('@/components/ui/organisms/TrustedBrandsSection/TrustedBrandsSection'),
+);
 
 export const metadata: Metadata = {
   title: 'ZAR Jewels | Premium Gold Bangles & Jewellery Manufacturer',
@@ -23,7 +41,6 @@ export default function Home() {
     <>
       <HeroSection />
       <LegacySection />
-      {/* <CollectionShowcase /> */}
       <ModelShowcaseSection />
       <ManufacturingSection />
       <CraftsmanshipSection />

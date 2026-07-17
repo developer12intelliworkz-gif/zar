@@ -2,12 +2,17 @@
 
 import type { CSSProperties } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { getImageUrl } from '@/lib/utils';
 import Button from '@/components/ui/atoms/Button/Button';
-import EnquiryModal from '@/components/ui/organisms/EnquiryModal/EnquiryModal';
 import { HERO_SLIDES } from '@/lib/data/heroSlider';
 import styles from './HeroSection.module.css';
+
+const EnquiryModal = dynamic(
+  () => import('@/components/ui/organisms/EnquiryModal/EnquiryModal'),
+  { ssr: false },
+);
 
 type Direction = 'next' | 'prev';
 
@@ -419,7 +424,9 @@ export default function HeroSection() {
         </button>
       </div>
 
-      <EnquiryModal open={enquiryOpen} onClose={() => setEnquiryOpen(false)} />
+      {enquiryOpen ? (
+        <EnquiryModal open={enquiryOpen} onClose={() => setEnquiryOpen(false)} />
+      ) : null}
     </section>
   );
 }

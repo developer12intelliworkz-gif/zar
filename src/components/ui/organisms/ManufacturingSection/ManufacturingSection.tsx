@@ -1,23 +1,60 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { imagePath } from '@/lib/imagePath';
 import Button from '@/components/ui/atoms/Button/Button';
 import styles from './ManufacturingSection.module.css';
 
 export default function ManufacturingSection() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoadVideo(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '150px 0px' },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!shouldLoadVideo) return;
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.load();
+    void video.play().catch(() => {
+      // Autoplay can be blocked; poster remains visible.
+    });
+  }, [shouldLoadVideo]);
+
   return (
-    <section className={`${styles.section} mt-100`}>
-      <motion.video
+    <section ref={sectionRef} className={`${styles.section} mt-100`}>
+      <video
+        ref={videoRef}
         className={styles.backgroundVideo}
-        autoPlay
         muted
         loop
         playsInline
-        poster={imagePath("/images/homepage/video.webp")}
+        preload="none"
+        poster={imagePath('/images/homepage/video.webp')}
       >
-        <source src={imagePath("/images/homepage/manufacturing-video.mp4")} type="video/mp4" />
-      </motion.video>
+        {shouldLoadVideo ? (
+          <source src={imagePath('/images/homepage/manufacturing-video.mp4')} type="video/mp4" />
+        ) : null}
+      </video>
       <div className={styles.overlay} />
       <div className={styles.content}>
         <motion.div

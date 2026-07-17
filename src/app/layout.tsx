@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import "@/styles/index.css";
-import 'swiper/css';
 import ReduxProvider from "@/store/ReduxProvider";
 import Header from "@/components/ui/organisms/Header/Header";
 import Footer from "@/components/ui/organisms/Footer/Footer";
-import PageTransitionProvider from "@/components/ui/organisms/PageTransitionProvider/PageTransitionProvider";
-import FirstVisitLoader from "@/components/ui/organisms/FirstVisitLoader/FirstVisitLoader";
 import CartDrawer from "@/components/ui/organisms/CartDrawer/CartDrawer";
 import { ToastProvider } from "@/components/ui/Toast/ToastContext";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -31,12 +28,9 @@ export default function RootLayout({
           <ToastProvider>
             <ScrollToTop />
             <CartDrawer />
-            {/* <FirstVisitLoader /> */}
             <Header />
             <main className="main">
-              {/* <PageTransitionProvider> */}
                 {children}
-                {/* </PageTransitionProvider> */}
             </main>
             <Footer />
           </ToastProvider>
