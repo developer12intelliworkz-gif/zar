@@ -106,10 +106,10 @@ ol {
 .fs_70 {
   color: var(--color-brown);
   font-family: var(--font-heading);
-  font-size: 72px;
+  font-size: 60px;
   font-style: normal;
-  font-weight: 600;
-  line-height: 80px;
+  font-weight: 500;
+  line-height: 70px;
   text-transform: uppercase;
   margin-bottom: 30px;
 }
