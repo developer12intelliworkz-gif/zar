@@ -49,10 +49,10 @@
 }
 
 .quoteText {
-  font-family: var(--font-heading);
-  font-size: 48px;
-  font-weight: 600;
-  line-height: 50px;
+  font-family: var(--font-body);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 42px;
   color: var(--color-gold-accent);
 }
 
@@ -131,11 +131,11 @@
 
 .linksTitle {
   color: var(--color-white);
-  font-family: var(--font-heading);
-  font-size: 24px;
+  font-family: var(--font-body);
+  font-size: 22px;
   font-style: normal;
-  font-weight: 600;
-  line-height: 30px;
+  font-weight: 400;
+  line-height: 24px;
   /* 125% */
 }
 
@@ -245,8 +245,8 @@
 /* ── Mobile ── */
 @media (max-width: 1441px) {
   .quoteText {
-    font-size: 40px;
-    line-height: 56px;
+    font-size: 30px;
+    line-height: 40px;
   }
 
   .quoteSection {
@@ -273,8 +273,8 @@
   }
 
   .quoteText {
-    font-size: 36px;
-    line-height: 46px;
+    font-size: 28px;
+    line-height: 38px;
   }
 
   .quoteSection {
@@ -288,8 +288,8 @@
 
 @media (max-width: 767px) {
   .quoteText {
-    font-size: 28px;
-    line-height: 38px;
+    font-size: 22px;
+    line-height: 32px;
   }
 
   .quoteMarkLeft,
