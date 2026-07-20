@@ -77,6 +77,7 @@ export default function ModelShowcaseSection() {
             breakpoints={{
               992: {
                 slidesPerView: 1,
+                spaceBetween: 0,
               },
               1024: {
                 slidesPerView: 3,

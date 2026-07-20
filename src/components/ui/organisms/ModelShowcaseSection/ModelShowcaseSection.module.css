@@ -17,7 +17,8 @@
   overflow: hidden;
 }
 
-/* Non-active slides scale down, active stays full size */
+/* Non-active slides scale down, active stays full size.
+   Side slides are pulled inward so the scaled-down circles don't look far apart. */
 .slider :global(.swiper-slide) {
   transition:
     transform 0.4s ease,
@@ -26,17 +27,26 @@
 }
 
 .slider :global(.swiper-slide) .modelWrapper {
-  transform: scale(0.78);
+  transform: scale(0.88);
   transition: transform 0.4s ease;
+}
+
+.slider :global(.swiper-slide-prev) .modelWrapper {
+  transform: scale(0.88) translateX(14%);
+}
+
+.slider :global(.swiper-slide-next) .modelWrapper {
+  transform: scale(0.88) translateX(-14%);
 }
 
 .slider :global(.swiper-slide-active) {
   transform: scale(1);
   opacity: 1;
+  z-index: 2;
 }
 
 .slider :global(.swiper-slide-active) .modelWrapper {
-  transform: scale(1);
+  transform: scale(1) translateX(0);
 }
 
 .slider :global(.swiper-slide) .cardLabel,
@@ -302,6 +312,13 @@
 }
 
 @media (max-width: 1023px) {
+  .slider :global(.swiper-slide) .modelWrapper,
+  .slider :global(.swiper-slide-prev) .modelWrapper,
+  .slider :global(.swiper-slide-next) .modelWrapper,
+  .slider :global(.swiper-slide-active) .modelWrapper {
+    transform: none;
+  }
+
   .card {
     height: 440px;
   }
