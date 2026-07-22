@@ -13,17 +13,17 @@ export default function NavTabs({ selectedNation, setSelectedNation }: NavTabsPr
     <div className={styles.tabWrapper}>
       <button
         type="button"
-        className={selectedNation === 'uae' ? styles.activeTab : styles.inactiveTab}
-        onClick={() => setSelectedNation('uae')}
-      >
-        UAE
-      </button>
-      <button
-        type="button"
         className={selectedNation === 'india' ? styles.activeTab : styles.inactiveTab}
         onClick={() => setSelectedNation('india')}
       >
         India
+      </button>
+      <button
+        type="button"
+        className={selectedNation === 'uae' ? styles.activeTab : styles.inactiveTab}
+        onClick={() => setSelectedNation('uae')}
+      >
+        UAE
       </button>
     </div>
   );

@@ -158,7 +158,7 @@ export default function InstagramSection() {
           <div className={styles.titleBlock}>
             <h2 className="fs_54">Join Our Instagram Community</h2>
             <p>
-              Discover new designs, upcoming exhibitions, and moments that shape the ZAR journey in gold jewellery.
+              Discover new designs, upcoming exhibitions, and moments that shape the Zar journey in gold jewellery.
             </p>
           </div>
         </motion.div>

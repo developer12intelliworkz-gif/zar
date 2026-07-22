@@ -1,5 +1,6 @@
 import type { Category, ProductCard, ProductDetail, Style, TechnicalSpec } from '@/types/domain';
 import axios from 'axios';
+import { sortCategoriesForMenu } from '@/lib/category-menu-order';
 import { apiClient, IMAGE_BASE_PATH } from './axios';
 
 type ProductDetailResponse = {
@@ -299,7 +300,7 @@ function toProductDetail(item: BackendProductItem): ProductDetail {
 export async function fetchCategories(purity: string): Promise<Category[]> {
   const searchParams = new URLSearchParams({ gold_type: toGoldTypeQuery(purity) });
   const payload = await fetchCatalogEndpoint<BackendListResponse<BackendCategoryItem>>('/api/categories', searchParams);
-  return (payload.items || []).map(toCategory);
+  return sortCategoriesForMenu((payload.items || []).map(toCategory));
 }
 
 type GoldType = {

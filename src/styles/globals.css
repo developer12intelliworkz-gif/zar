@@ -18,11 +18,12 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 body {
-  font-size: 18px;
-  line-height: 26px;
+  font-size: var(--fs-base);
+  line-height: var(--lh-body);
   font-family: var(--font-body);
   font-weight: 400;
   color: var(--color-gray-600);
@@ -106,36 +107,39 @@ ol {
 .fs_70 {
   color: var(--color-brown);
   font-family: var(--font-heading);
-  font-size: 60px;
+  font-size: var(--fs-display);
   font-style: normal;
   font-weight: 500;
-  line-height: 70px;
+  line-height: var(--lh-display);
+  letter-spacing: -0.02em;
   text-transform: uppercase;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
 }
 
 .fs_54 {
   color: var(--color-brown);
   font-family: var(--font-heading);
-  font-size: 40px;
+  font-size: var(--fs-section);
   font-style: normal;
   font-weight: 500;
-  line-height: 48px;
+  line-height: var(--lh-section);
+  letter-spacing: -0.01em;
   text-transform: uppercase;
+  margin-bottom: 16px;
 }
 
 .fs_30 {
   color: var(--color-black);
   font-family: var(--font-body);
-  font-size: 30px;
+  font-size: var(--fs-subsection);
   font-style: normal;
   font-weight: 400;
-  line-height: 36px;
+  line-height: var(--lh-subsection);
 }
 
 /*----------------------------- MAIN lAYOUT css -----------------------------*/
 .main {
-  padding-top: 80px;
+  padding-top: 88px;
 }
 
 /*----------------------------- MAIN lAYOUT css -----------------------------*/
@@ -168,15 +172,15 @@ ol {
 }
 
 .formHeading {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   color: var(--color-brown);
   font-family: var(--font-heading);
-  font-size: 40px;
+  font-size: var(--fs-section);
   font-style: normal;
   font-weight: 500;
-  line-height: 48px;
-  text-transform: uppercase;
+  line-height: var(--lh-section);
   letter-spacing: -0.01em;
+  text-transform: uppercase;
 }
 
 .label {

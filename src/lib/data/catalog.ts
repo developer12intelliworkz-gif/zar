@@ -1,4 +1,5 @@
 import type { Category, ProductCard, ProductDetail, Style } from '@/types/domain';
+import { sortCategoriesForMenu } from '@/lib/category-menu-order';
 import catalogData from './catalog.json';
 
 type CatalogProduct = {
@@ -84,13 +85,15 @@ function toProductCard(
 }
 
 export function getCategoriesByPurity(purity: string): Category[] {
-  return (findPurity(purity)?.categories || []).map((category) => ({
-    id: `${purity}-${category.slug}`,
-    slug: category.slug,
-    name: category.name,
-    image: category.image,
-    purity,
-  }));
+  return sortCategoriesForMenu(
+    (findPurity(purity)?.categories || []).map((category) => ({
+      id: `${purity}-${category.slug}`,
+      slug: category.slug,
+      name: category.name,
+      image: category.image,
+      purity,
+    }))
+  );
 }
 
 export function getStylesByCategory(purity: string, categorySlug: string): Style[] {

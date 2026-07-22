@@ -14,7 +14,7 @@ export default function PrivacyPage() {
         <p className={styles.text} style={{ marginBottom: '32px' }}>
           <strong>Last Updated: July 10, 2026</strong>
           <br /><br />
-          At ZAR, we value your privacy and are committed to protecting the personal information you share with us. This Privacy Policy explains how we collect, use, store, and protect your information when you visit our website, submit inquiries, request quotations, purchase products, or engage with our services.
+          At Zar, we value your privacy and are committed to protecting the personal information you share with us. This Privacy Policy explains how we collect, use, store, and protect your information when you visit our website, submit inquiries, request quotations, purchase products, or engage with our services.
           <br /><br />
           By accessing or using our website, you consent to the practices described in this Privacy Policy.
         </p>
@@ -124,7 +124,7 @@ export default function PrivacyPage() {
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>5. Sharing of Information</h2>
           <p className={styles.text}>
-            ZAR does not sell, rent, or trade personal information to third parties. We may share information with trusted third parties where necessary, including:
+            Zar does not sell, rent, or trade personal information to third parties. We may share information with trusted third parties where necessary, including:
           </p>
           <ul className={styles.list}>
             <li className={styles.listItem}>Shipping and logistics providers</li>
@@ -201,14 +201,14 @@ export default function PrivacyPage() {
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>10. Children's Privacy</h2>
           <p className={styles.text}>
-            ZAR's website and services are not intended for individuals under the age of 18. We do not knowingly collect personal information from children. If we become aware that information has been collected from a minor without appropriate authorization, we will take reasonable steps to remove such information.
+            Zar's website and services are not intended for individuals under the age of 18. We do not knowingly collect personal information from children. If we become aware that information has been collected from a minor without appropriate authorization, we will take reasonable steps to remove such information.
           </p>
         </div>
 
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>11. Third-Party Websites</h2>
           <p className={styles.text}>
-            Our website may contain links to third-party websites for informational purposes. ZAR is not responsible for the privacy practices, content, or policies of third-party websites. Users are encouraged to review the privacy policies of any external sites they visit.
+            Our website may contain links to third-party websites for informational purposes. Zar is not responsible for the privacy practices, content, or policies of third-party websites. Users are encouraged to review the privacy policies of any external sites they visit.
           </p>
         </div>
 
@@ -224,7 +224,7 @@ export default function PrivacyPage() {
           <p className={styles.text}>
             If you have any questions regarding this Privacy Policy or how your information is handled, please contact us:
             <br /><br />
-            <strong>ZAR</strong>
+            <strong>Zar</strong>
             <br />
             India
             <br />

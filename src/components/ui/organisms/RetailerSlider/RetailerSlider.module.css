@@ -1,6 +1,9 @@
 /* ── Section ── */
 .section {
-  padding: 70px 0 80px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 /* ── Header ── */
@@ -16,7 +19,10 @@
   margin: 0 auto;
   padding: 0;
   height: 480px;
+  width: 100%;
+  max-width: 100%;
   overflow: hidden;
+  isolation: isolate;
 }
 
 .skeletonOverlay {
@@ -89,7 +95,9 @@
 /* ── Swiper ── */
 .swiper {
   height: 100%;
-  overflow: visible !important;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden !important;
 }
 
 .swiperLoading {
@@ -106,8 +114,9 @@
 
 /* ── Slide base (inactive) ── */
 .slide {
-  width: 100%;
   border-radius: 4px;
+  box-sizing: border-box;
+  max-width: 100%;
   overflow: hidden;
   opacity: 0.65;
   cursor: pointer;
@@ -391,11 +400,16 @@
   .outer {
     height: auto;
     padding: 0 16px;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .swiper {
     height: auto;
+    overflow: hidden !important;
+  }
+
+  .swiper :global(.swiper-wrapper) {
+    align-items: stretch !important;
   }
 
   .skeletonGrid {

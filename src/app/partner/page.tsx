@@ -5,8 +5,8 @@ import PartnerForm from './PartnerForm';
 import DistributorTestimonials from './DistributorTestimonials';
 import styles from './page.module.css';
 export const metadata = {
-  title: 'Become a Partner | Partner with ZAR Jewels Today',
-  description: 'Partner with ZAR Jewels and grow your jewellery business with premium gold collections, reliable manufacturing, nationwide distribution, and trusted expertise.',
+  title: 'Become a Partner | Partner with Zar Jewels Today',
+  description: 'Partner with Zar Jewels and grow your jewellery business with premium gold collections, reliable manufacturing, nationwide distribution, and trusted expertise.',
   openGraph: {
     images: ['https://zar-one.vercel.app/images/zar-logo.svg'],
   },
@@ -21,7 +21,7 @@ export default function PartnerPage() {
           { label: 'Partner', isActive: true },
         ]}
         heading="Become a Partner"
-        description="Collaborate with ZAR to grow your retail business with precision-crafted gold jewellery, supported by consistent quality, scalable manufacturing, and trusted supply."
+        description="Collaborate with Zar to grow your retail business with precision-crafted gold jewellery, supported by consistent quality, scalable manufacturing, and trusted supply."
       />
 
       <div className='bannerImage'>

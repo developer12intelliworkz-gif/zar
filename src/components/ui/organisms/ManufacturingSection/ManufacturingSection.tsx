@@ -30,8 +30,8 @@ export default function ManufacturingSection() {
           <h2 className={styles.heading}>Craftsmanship at Scale</h2>
           <div className={styles.textBlock}>
             <p>
-              Rooted in tradition and refined through modern manufacturing, ZAR delivers gold bangles with precision, consistency, and quality at scale.<br />
-              As a leading <strong>gold bangle manufacturer</strong>, we combine design expertise with advanced processes to ensure uniformity, finish, and reliability, making us a trusted partner for retailers.
+              Rooted in tradition and refined through modern manufacturing, Zar delivers gold bangles with precision, consistency, and quality at scale.<br />
+              As a leading gold bangle manufacturer, we combine design expertise with advanced processes to ensure uniformity, finish, and reliability, making us a trusted partner for retailers.
             </p>
             <Button href="/partner" variant="outline" showArrow className={styles.btn1}>
               Become a Partner

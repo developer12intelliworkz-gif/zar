@@ -5,7 +5,7 @@
 
   position: relative;
   width: 100%;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 88px);
   overflow: hidden;
   background: #191919;
   touch-action: pan-y;
@@ -91,8 +91,8 @@
 }
 
 .heading {
-  font-size: 72px;
-  line-height: 80px;
+  font-size: var(--fs-5xl);
+  line-height: var(--lh-display);
   font-family: var(--font-heading);
   font-weight: var(--fw-semibold);
   color: var(--color-white);

@@ -97,8 +97,8 @@ export default function EventClient() {
           { label: 'Home', href: '/' },
           { label: 'Events', isActive: true }
         ]}
-        heading="ZAR Events"
-        description="Discover our latest gold bangle collections showcased across prestigious jewellery exhibitions and trade shows."
+        heading="Zar Events"
+        description="Discover our latest gold jewellery collections showcased across prestigious jewellery exhibitions and trade shows."
       />
 
       <div className='bannerImage'>
@@ -115,7 +115,7 @@ export default function EventClient() {
         <div className="container">
           <div className={styles.introContent}>
             <p className={styles.introText}>
-              At ZAR, craftsmanship is not just a process—it’s a shared philosophy. Every piece of jewellery is the result of seamless collaboration between designers, artisans, technicians, and business teams, all working towards a single standard of excellence.
+              At Zar, craftsmanship is not just a process—it’s a shared philosophy. Every piece of jewellery is the result of seamless collaboration between designers, artisans, technicians, and business teams, all working towards a single standard of excellence.
             </p>
           </div>
         </div>
@@ -208,7 +208,7 @@ export default function EventClient() {
                   <path d="M56.839 86.4336C56.0802 89.1369 55.4883 91.3663 55.5187 91.419C55.5794 91.4716 72.6224 95 72.8652 95C72.9259 95 72.9259 94.9298 72.8804 94.8596C72.8045 94.7191 70.6798 86.3458 70.3156 84.7659C70.2245 84.3446 70.0424 84.0287 69.8451 83.9409C69.663 83.8707 68.2668 83.5547 66.7188 83.2387C65.1708 82.9403 62.7881 82.4488 61.4071 82.1679C60.0261 81.8871 58.7512 81.6237 58.5691 81.5886C58.2504 81.536 58.1442 81.8344 56.839 86.4336Z" fill="#D0B480" />
                 </svg>
               </div>
-              <h4>Pure Gold</h4>
+              <h4>Hallmark Gold</h4>
               <p>Every piece is BIS Hallmarked, ensuring the highest purity and value for our discerning clients.</p>
             </div>
             <div className="valueCard">
@@ -245,7 +245,7 @@ export default function EventClient() {
                 </svg>
               </div>
               <h4>Global Presence</h4>
-              <p>Showcased in the world&#39s most prestigious exhibitions, from VicenzaOro to JCK Las Vegas.</p>
+              <p>Showcased in the world&apos;s most prestigious exhibitions, from VicenzaOro to JCK Las Vegas.</p>
             </div>
             <div className="valueCard">
               <div className="valueIcon">

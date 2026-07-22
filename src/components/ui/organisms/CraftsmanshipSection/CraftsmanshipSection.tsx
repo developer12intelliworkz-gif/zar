@@ -62,7 +62,7 @@ export default function CraftsmanshipSection() {
         >
           <h2 className="fs_54">Precision in Every Process</h2>
           <p className={styles.subtitle}>
-            From concept to creation, every <strong className="txt_black">gold bangle</strong> is shaped through precision manufacturing processes and refined by skilled artisans to ensure consistency and exceptional finish.
+            From concept to creation, Every Piece of Jewellery is shaped through precision manufacturing processes and refined by skilled artisans to ensure consistency and exceptional finish.
           </p>
         </motion.div>
         <div className={styles.grid}>
