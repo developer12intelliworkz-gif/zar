@@ -5,9 +5,13 @@ import type { Swiper as SwiperType } from 'swiper';
 import { Autoplay } from 'swiper/modules';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
-import { apiGet, API_BASE_URL } from '@/lib/api/axios';
-import { getImageUrl } from '@/lib/utils';
+import { apiGet } from '@/lib/api/axios';
 import { imagePath } from '@/lib/imagePath';
+import {
+  isRetailerTestimonialVisible,
+  resolveRetailerTestimonial,
+  type ResolvedRetailerTestimonial,
+} from '@/lib/api/retailer-testimonials';
 import styles from './RetailerSlider.module.css';
 
 // ---------------------------------------------------------------------------
@@ -30,50 +34,17 @@ const PlayIcon = () => (
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
-interface Testimonial {
-  poster: string;
-  video: string;
-  quote: string;
-  name: string;
-  designation: string;
-}
-
-interface ApiRetailerTestimonial {
-  video_link?: string;
-  fallback_image?: string;
-  title?: string;
-  name?: string;
-  designation?: string;
-  description?: string;
-}
+type Testimonial = ResolvedRetailerTestimonial;
 
 interface RetailerApiResponse {
   success?: boolean;
-  data?: ApiRetailerTestimonial[];
+  data?: import('@/lib/api/retailer-testimonials').ApiRetailerTestimonial[];
 }
 
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
-function resolveRetailerTestimonial(item: ApiRetailerTestimonial): Testimonial {
-  const rawVideo = item.video_link?.trim() || '';
-  const normalizedVideo = rawVideo && !/^https?:\/\//i.test(rawVideo)
-    ? `${API_BASE_URL.replace(/\/+$/, '')}/${rawVideo.replace(/^\/+/, '')}`
-    : rawVideo;
-
-  return {
-    poster: getImageUrl(item.fallback_image || ''),
-    video: normalizedVideo,
-    quote: item.description?.trim() || '',
-    name: item.name?.trim() || item.title?.trim() || 'Retailer',
-    designation: item.designation?.trim() || '',
-  };
-}
-
-/**
- * FIX #6 — broadened check: match mp4/webm/ogg anywhere in the URL
- * (handles query-params, redirect URLs, etc.)
- */
+/** Match mp4/webm/ogg anywhere in the URL (handles query-params, redirect URLs, etc.) */
 function isPlayableVideo(url: string): boolean {
   return /mp4|webm|ogg/i.test(url);
 }
@@ -118,16 +89,26 @@ export default function RetailerSlider() {
   }, [sliderTestimonials]);
 
   useEffect(() => {
+    if (isLoading || sliderTestimonials.length === 0) return;
+
+    const frame = requestAnimationFrame(() => {
+      swiperRef.current?.update();
+    });
+
+    return () => cancelAnimationFrame(frame);
+  }, [isLoading, sliderTestimonials.length]);
+
+  useEffect(() => {
     const updateSkeletonTarget = debounce(() => {
       if (window.innerWidth <= 767) {
         setSkeletonTarget(1);
-        return;
-      }
-      if (window.innerWidth <= 1199) {
+      } else if (window.innerWidth <= 1199) {
         setSkeletonTarget(2);
-        return;
+      } else {
+        setSkeletonTarget(3);
       }
-      setSkeletonTarget(3);
+
+      swiperRef.current?.update();
     }, 150);
 
     async function fetchRetailerTestimonials() {
@@ -137,7 +118,7 @@ export default function RetailerSlider() {
         if (json?.success && Array.isArray(json.data) && json.data.length > 0) {
           const remoteTestimonials = json.data
              .map(resolveRetailerTestimonial)
-             .filter((item) => item.name && (item.quote || item.video));
+             .filter(isRetailerTestimonialVisible);
 
           if (remoteTestimonials.length > 0) {
             let finalTestimonials = [...remoteTestimonials];
@@ -276,10 +257,12 @@ export default function RetailerSlider() {
   // Render
   // -------------------------------------------------------------------------
   return (
-    <section className="mt-100 mb-100">
-      <div className={styles.hd}>
-        <h2 className="fs_54">What Our Distributor Say</h2>
-        <p>Hear from our partners about their journey through our exclusive showcases.</p>
+    <section className={`mt-100 mb-100 ${styles.section}`}>
+      <div className="container">
+        <div className={styles.hd}>
+          <h2 className="fs_54">What Our Distributors Say</h2>
+          <p>Hear from our partners about their journey through our exclusive showcases.</p>
+        </div>
       </div>
 
       <div
@@ -312,7 +295,10 @@ export default function RetailerSlider() {
         ) : (
           <Swiper
             modules={[Autoplay]}
-            loop={true}
+            loop={sliderTestimonials.length > 1}
+            watchOverflow
+            observer
+            observeParents
             autoplay={{
               delay: 3000,
               disableOnInteraction: false,
@@ -327,13 +313,14 @@ export default function RetailerSlider() {
             speed={800}
             grabCursor
             breakpoints={{
-              0:    { slidesPerView: 1, spaceBetween: 20 },
-              768:  { slidesPerView: 2, spaceBetween: 24 },
-              1280: { slidesPerView: 3, spaceBetween: 30 },
-              1441: { slidesPerView: 3, spaceBetween: 30 },
+              0:    { slidesPerView: 1, spaceBetween: 16, centeredSlides: true },
+              768:  { slidesPerView: 2, spaceBetween: 24, centeredSlides: true },
+              1280: { slidesPerView: 3, spaceBetween: 30, centeredSlides: true },
+              1441: { slidesPerView: 3, spaceBetween: 30, centeredSlides: true },
             }}
             onSwiper={(s) => {
               swiperRef.current = s;
+              requestAnimationFrame(() => s.update());
             }}
             // FIX #7 — track real active index from Swiper
             onActiveIndexChange={(s) => {

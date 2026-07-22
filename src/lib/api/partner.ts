@@ -11,7 +11,7 @@ export type BuildConnectionPayload = {
   contact: string;
   category: string;
   referredBy: string;
-  companyWebsite: string;
+  companyWebsite?: string;
   message: string;
 };
 

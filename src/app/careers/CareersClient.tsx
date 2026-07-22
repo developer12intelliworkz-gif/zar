@@ -168,8 +168,8 @@ export default function CareersClient() {
           { label: 'Home', href: '/' },
           { label: 'Careers', isActive: true }
         ]}
-        heading="Build Your Career with ZAR"
-        description="Be part of a team where craftsmanship meets innovation. At ZAR, we combine traditional artistry with modern precision to create jewellery defined by quality and design."
+        heading="Build Your Career with Zar"
+        description="Be part of a team where craftsmanship meets innovation. At Zar, we combine traditional artistry with modern precision to create jewellery defined by quality and design."
       />
       <div className='bannerImage'>
         <Image
@@ -217,7 +217,7 @@ export default function CareersClient() {
       {/* Our Values Section */}
       <section className="valuesSection mt-100">
         <div className="container">
-          <h2 className="fs_54 txt_center">WHY WORK WITH ZAR</h2>
+          <h2 className="fs_54 txt_center">Why Work With Zar</h2>
           <p className="valuesSectionSubtitle">Build your career with a company backed by decades of heritage, trusted partnerships, and sustained growth in fine jewellery manufacturing. Collaborate with designers, artisans, and innovators in an environment where creativity and craftsmanship thrive together.
           Advance your career through continuous learning, hands-on experience, and opportunities for long-term professional growth</p>
           <div className="valuesGrid">
@@ -338,7 +338,7 @@ export default function CareersClient() {
         <div className={styles.ctaImageWrapper}>
           <Image
             src={imagePath("/images/career/career-bg.webp")}
-            alt="ZAR careers"
+            alt="Zar careers"
             fill
             style={{ objectFit: 'cover' }}
             sizes="100vw"

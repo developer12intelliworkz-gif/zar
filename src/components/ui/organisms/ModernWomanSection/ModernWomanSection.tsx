@@ -42,7 +42,7 @@ export default function ModernWomanSection() {
               Designed for the Modern Woman
             </p>
             <p>
-              ZAR gold bangles are thoughtfully created for today’s woman…confident, graceful, and contemporary.
+              Zar gold bangles are thoughtfully created for today’s woman…confident, graceful, and contemporary.
             </p>
             <br/>
             <p>

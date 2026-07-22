@@ -14,20 +14,20 @@ export default function TermsPage() {
         <p className={styles.text} style={{ marginBottom: '32px' }}>
           <strong>Last Updated: July 10, 2026</strong>
           <br /><br />
-          Welcome to ZAR. These Terms & Conditions govern your access to and use of our website, products, and services. By accessing, browsing, or using this website, you agree to comply with and be bound by the terms outlined below. If you do not agree with any part of these Terms & Conditions, please refrain from using our website.
+          Welcome to Zar. These Terms & Conditions govern your access to and use of our website, products, and services. By accessing, browsing, or using this website, you agree to comply with and be bound by the terms outlined below. If you do not agree with any part of these Terms & Conditions, please refrain from using our website.
         </p>
 
         <div className={styles.section}>
-          <h2 className={styles.sectionTitle}>1. About ZAR</h2>
+          <h2 className={styles.sectionTitle}>1. About Zar</h2>
           <p className={styles.text}>
-            ZAR is a jewelry manufacturer and supplier based in India, serving both business customers and individual consumers. Our offerings may include jewelry collections, custom manufacturing solutions, wholesale services, and related information available through our website.
+            Zar is a jewelry manufacturer and supplier based in India, serving both business customers and individual consumers. Our offerings may include jewelry collections, custom manufacturing solutions, wholesale services, and related information available through our website.
           </p>
         </div>
 
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>2. Acceptance of Terms</h2>
           <p className={styles.text}>
-            By accessing this website, submitting inquiries, placing orders, requesting quotations, or using any services provided by ZAR, you acknowledge that you have read, understood, and agreed to these Terms & Conditions.
+            By accessing this website, submitting inquiries, placing orders, requesting quotations, or using any services provided by Zar, you acknowledge that you have read, understood, and agreed to these Terms & Conditions.
           </p>
         </div>
 
@@ -62,14 +62,14 @@ export default function TermsPage() {
             <li className={styles.listItem}>Product availability may change without prior notice.</li>
           </ul>
           <p className={styles.text} style={{ marginTop: '12px' }}>
-            ZAR reserves the right to modify product specifications, designs, collections, and offerings at any time.
+            Zar reserves the right to modify product specifications, designs, collections, and offerings at any time.
           </p>
         </div>
 
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>5. Custom Orders & Manufacturing</h2>
           <p className={styles.text}>
-            Certain products and services offered by ZAR may be customized or manufactured to specific customer requirements.
+            Certain products and services offered by Zar may be customized or manufactured to specific customer requirements.
           </p>
           <p className={styles.text} style={{ marginTop: '12px' }}>
             For custom orders:
@@ -85,7 +85,7 @@ export default function TermsPage() {
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>6. Pricing & Quotations</h2>
           <p className={styles.text}>
-            All prices, quotations, and estimates provided by ZAR are subject to change without notice unless otherwise agreed in writing.
+            All prices, quotations, and estimates provided by Zar are subject to change without notice unless otherwise agreed in writing.
           </p>
           <p className={styles.text} style={{ marginTop: '12px' }}>
             Pricing may vary based on:
@@ -105,7 +105,7 @@ export default function TermsPage() {
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>7. Orders & Payment</h2>
           <p className={styles.text}>
-            Orders are subject to acceptance and confirmation by ZAR.
+            Orders are subject to acceptance and confirmation by Zar.
           </p>
           <p className={styles.text} style={{ marginTop: '12px' }}>
             We reserve the right to:
@@ -123,7 +123,7 @@ export default function TermsPage() {
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>8. Shipping & Delivery</h2>
           <p className={styles.text}>
-            ZAR makes reasonable efforts to fulfill deliveries within estimated timelines. However, delivery schedules are estimates only and may be affected by factors beyond our control.
+            Zar makes reasonable efforts to fulfill deliveries within estimated timelines. However, delivery schedules are estimates only and may be affected by factors beyond our control.
           </p>
           <p className={styles.text} style={{ marginTop: '12px' }}>
             We shall not be liable for delays resulting from:
@@ -176,7 +176,7 @@ export default function TermsPage() {
             <li className={styles.listItem}>Website design elements</li>
           </ul>
           <p className={styles.text} style={{ marginTop: '12px' }}>
-            are the property of ZAR or its licensors and are protected under applicable intellectual property laws. No content may be copied, reproduced, modified, distributed, or used without prior written consent.
+            are the property of Zar or its licensors and are protected under applicable intellectual property laws. No content may be copied, reproduced, modified, distributed, or used without prior written consent.
           </p>
         </div>
 
@@ -199,7 +199,7 @@ export default function TermsPage() {
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>12. Limitation of Liability</h2>
           <p className={styles.text}>
-            To the fullest extent permitted by applicable law, ZAR shall not be liable for any indirect, incidental, consequential, special, or punitive damages arising from:
+            To the fullest extent permitted by applicable law, Zar shall not be liable for any indirect, incidental, consequential, special, or punitive damages arising from:
           </p>
           <ul className={styles.list}>
             <li className={styles.listItem}>Use of this website</li>
@@ -217,7 +217,7 @@ export default function TermsPage() {
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>13. Third-Party Links</h2>
           <p className={styles.text}>
-            This website may contain links to external websites operated by third parties. Such links are provided solely for convenience. ZAR does not control or endorse third-party websites and accepts no responsibility for their content, privacy practices, or operations.
+            This website may contain links to external websites operated by third parties. Such links are provided solely for convenience. Zar does not control or endorse third-party websites and accepts no responsibility for their content, privacy practices, or operations.
           </p>
         </div>
 
@@ -231,7 +231,7 @@ export default function TermsPage() {
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>15. Force Majeure</h2>
           <p className={styles.text}>
-            ZAR shall not be held liable for any failure or delay in performance resulting from events beyond its reasonable control, including but not limited to:
+            Zar shall not be held liable for any failure or delay in performance resulting from events beyond its reasonable control, including but not limited to:
           </p>
           <ul className={styles.list}>
             <li className={styles.listItem}>Natural disasters</li>
@@ -254,7 +254,7 @@ export default function TermsPage() {
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>17. Changes to Terms</h2>
           <p className={styles.text}>
-            ZAR reserves the right to update, modify, or replace these Terms & Conditions at any time without prior notice. Updated versions will be published on this page and become effective immediately upon posting.
+            Zar reserves the right to update, modify, or replace these Terms & Conditions at any time without prior notice. Updated versions will be published on this page and become effective immediately upon posting.
           </p>
         </div>
 
@@ -263,7 +263,7 @@ export default function TermsPage() {
           <p className={styles.text}>
             For any questions regarding these Terms & Conditions, please contact us:
             <br /><br />
-            <strong>ZAR</strong>
+            <strong>Zar</strong>
             <br />
             India
             <br />

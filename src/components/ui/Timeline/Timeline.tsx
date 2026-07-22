@@ -52,13 +52,13 @@ const timelineData: TimelineItem[] = [
   {
     year: '2020',
     title: '2020',
-    description: 'ZAR is born — a modern brand built on heritage, precision, and innovation in gold bangle design.',
+    description: 'Zar is born — a modern brand built on heritage, precision, and innovation in gold bangle design.',
     image: '/images/about/about_5.webp',
   },
   {
     year: '2021',
     title: '2021',
-    description: 'ZAR establishes itself as a leader in gold bangle manufacturing, serving partners across India.',
+    description: 'Zar establishes itself as a leader in gold bangle manufacturing, serving partners across India.',
     image: '/images/about/about_5.webp',
   },
 ];
@@ -70,7 +70,7 @@ export default function Timeline() {
   return (
     <section className={styles.timelineSection} style={{ backgroundImage: `url(${imagePath('/images/homepage/event_bg.webp')})` }}>
       <div className="container">
-        <h2 className={styles.title}>THE ZAR JOURNEY</h2>
+        <h2 className={styles.title}>The Zar Journey</h2>
         <p className={styles.subtitle}>A journey shaped by craftsmanship, innovation, and growth.</p>
 
         <div className={styles.timelineWrapper}>
@@ -91,7 +91,7 @@ export default function Timeline() {
           <div className={styles.imageWrapper}>
             <Image
               src={imagePath(activeItem.image)}
-              alt={`ZAR journey - ${activeItem.year}`}
+              alt={`Zar journey - ${activeItem.year}`}
               fill
               sizes="(max-width: 992px) 100vw, (max-width: 1440px) 40vw, 520px"
               className={styles.timelineImage}

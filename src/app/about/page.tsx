@@ -6,8 +6,8 @@ import PageHeader from '@/components/ui/PageHeader/PageHeader';
 import OurStory from '@/components/ui/OurStory/OurStory';
 
 export const metadata: Metadata = {
-  title: 'About ZAR Jewels | 60+ Years of Gold Jewellery Excellence',
-  description: 'Learn the story of ZAR Jewels, a leading gold jewellery manufacturer known for exceptional craftsmanship, innovative designs, quality, and trusted partnerships worldwide.',
+  title: 'About Zar Jewels | 60+ Years of Gold Jewellery Excellence',
+  description: 'Learn the story of Zar Jewels, a leading gold jewellery manufacturer known for exceptional craftsmanship, innovative designs, quality, and trusted partnerships worldwide.',
   openGraph: {
     images: ['https://zar-one.vercel.app/images/zar-logo.svg'],
   },
@@ -22,8 +22,8 @@ export default function AboutPage() {
           { label: 'Home', href: '/' },
           { label: 'The Story of Zar', isActive: true }
         ]}
-        heading="THE STORY OF ZAR"
-        description="ZAR began with a singular pursuit—perfecting the craft of gold bangles through precision, consistency, and trust."
+        heading="The Story of Zar"
+        description="Zar began with a singular pursuit—perfecting the craft of gold bangles through precision, consistency, and trust."
       />
       <div className='bannerImage'>
         <Image
@@ -40,10 +40,10 @@ export default function AboutPage() {
       <section className="mb-100">
         <div className="container">
           <p>
-            Over time, that pursuit evolved into something greater: a disciplined system of excellence shaped by innovation and continuous improvement. Today, with a strong presence across India and Dubai, ZAR stands as a premium jewellery house—defined not only by what it creates, but by the standards it upholds.<br /><br />
+            Over time, that pursuit evolved into something greater: a disciplined system of excellence shaped by innovation and continuous improvement. Today, with a strong presence across India and Dubai, Zar stands as a premium jewellery house—defined not only by what it creates, but by the standards it upholds.<br /><br />
           </p>
           <p>
-            <strong className="txt_black">Because at ZAR, the benchmark is always rising</strong>.
+            Because at Zar, the benchmark is always rising.
           </p>
         </div>
       </section>
@@ -56,7 +56,7 @@ export default function AboutPage() {
         <div className={styles.paraSection}>
           <div className="container">
             <p>Across generations, one belief has remained constant: there is always a higher standard to pursue.</p>
-            <p>This belief defines ZAR today not just as a legacy, but as a journey in motion.</p>
+            <p>This belief defines Zar today not just as a legacy, but as a journey in motion.</p>
           </div>
         </div>
       </section>
@@ -74,13 +74,13 @@ export default function AboutPage() {
                 Driven by Discipline. Defined by Progress.
               </p>
               <p>
-                For three generations, ZAR has crafted gold with a clear belief true luxury should feel effortless, even when built on precision. Because what appears simple is rarely so. It is the result of consistency, control, and uncompromising standards.
+                For three generations, Zar has crafted gold with a clear belief true luxury should feel effortless, even when built on precision. Because what appears simple is rarely so. It is the result of consistency, control, and uncompromising standards.
               </p>
               <p>
                 Blending heritage craftsmanship with modern design, every piece is made to be worn with ease and to endure over time.
               </p>
               <p>
-                The foundation of ZAR extends beyond craftsmanship.<br />
+                The foundation of Zar extends beyond craftsmanship.<br />
                 It lies in ownership—of process, detail, and outcome.
               </p>
               <p>This mindset has built lasting trust, strong partnerships, and a reputation grounded in reliability.</p>
@@ -161,11 +161,11 @@ export default function AboutPage() {
             <div className="storyTextBlock">
               <h2 className="fs_54">Design & Innovation</h2>
               <p>
-                <strong className="txt_black">Precision, Engineered.</strong>
+                Precision, Engineered.
               </p>
-              <p>At ZAR, design is not just expression it is execution.</p>
+              <p>At Zar, design is not just expression it is execution.</p>
               <p>We create ultra-light, design-led gold jewellery that merges heritage craftsmanship with modern engineering—crafted for those who value precision, comfort, and refinement.</p>
-              <p className='txt_black'>Every piece is developed with intent:</p>
+              <p>Every piece is developed with intent:</p>
               <p>to make gold lighter, stronger, and more wearable—without compromising presence.</p>
               <ul className={styles.designList}>
                 <li>Lightweight engineering reducing weight by 20–30% while maintaining strength</li>
@@ -174,7 +174,7 @@ export default function AboutPage() {
                 <li>A blend of handcrafted artistry and CNC precision for consistent detailing</li>
               </ul>
               <p>Innovation, for us, is not feature-driven. It is progress-driven.</p>
-              <p className='txt_black'>We don’t follow trends.<br /> We set new benchmarks.</p>
+              <p>We don’t follow trends.<br /> We set new benchmarks.</p>
               <p style={{ color: '#A38274' }}>Because there is always a better way to create—and we are committed to finding it.</p>
             </div>
           </div>

@@ -140,7 +140,7 @@ export default function PartnerForm() {
       contact: values.phone,
       category: values.category,
       referredBy: values.referred_by,
-      companyWebsite: values.website,
+      companyWebsite: values.website.trim() || undefined,
       message: values.message,
     };
 
@@ -251,10 +251,23 @@ export default function PartnerForm() {
             label="Company Website"
             placeholder="Type your company website URL here"
             wrapperClassName={styles.inputGroup}
-            required
             errorMessage={errors.website?.message}
             {...register('website', {
-              required: 'Company website is required.',
+              validate: (value) => {
+                const trimmed = value?.trim();
+                if (!trimmed) {
+                  return true;
+                }
+
+                const withProtocol = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+
+                try {
+                  const url = new URL(withProtocol);
+                  return Boolean(url.hostname) || 'Enter a valid website URL.';
+                } catch {
+                  return 'Enter a valid website URL.';
+                }
+              },
             })}
           />
 

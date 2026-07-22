@@ -75,11 +75,11 @@ function toAltText(item: InstagramMediaItem, index: number): string {
 
   if (isVideoMedia(item)) {
     return item.media_product_type?.toUpperCase() === 'REELS'
-      ? `ZAR Jewels Instagram reel ${index + 1}`
-      : `ZAR Jewels Instagram video ${index + 1}`;
+      ? `Zar Jewels Instagram reel ${index + 1}`
+      : `Zar Jewels Instagram video ${index + 1}`;
   }
 
-  return `ZAR Jewels Instagram post ${index + 1}`;
+  return `Zar Jewels Instagram post ${index + 1}`;
 }
 
 function mapMediaItem(item: InstagramMediaItem, index: number): InstagramPost | null {

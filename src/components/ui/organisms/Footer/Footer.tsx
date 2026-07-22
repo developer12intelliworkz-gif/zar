@@ -1,8 +1,10 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import TypingText from '../../atoms/TypingText/TypingText';
+import Logo from '@/components/ui/atoms/Logo/Logo';
 import styles from './Footer.module.css';
 import { imagePath } from '@/lib/imagePath';
+
+const currentYear = new Date().getFullYear();
 
 const linkCol1 = [
   { label: 'Home', href: '/' },
@@ -44,13 +46,7 @@ export default function Footer() {
           <div className={styles.footerTop}>
             <div className={styles.topInner}>
               <div className={styles.brand}>
-               <Link href="/"> <Image
-                  src={imagePath("/images/zar-logo.svg")}
-                  alt="Zar Jewels"
-                  width={150}
-                  height={60}
-                  className={styles.brandLogo}
-                /></Link>
+                <Logo variant="footer" />
                 <p className={styles.brandText}>
                   For over six decades, Zar has celebrated the beauty of design through exceptional craftsmanship, innovative manufacturing, and jewellery created to be cherished for generations.                </p>
                 <div className={styles.socials}>
@@ -158,7 +154,7 @@ export default function Footer() {
                         strokeLinejoin="round"
                       />
                     </svg>
-                    <span><a target='_blank' href="https://maps.app.goo.gl/PqCXmAwx82HVZn2J8">Ground Floor, Peninsula Spenta, Mathuradas Mill Compound, N. M. Joshi Marg, Lower Parel(W), Mumbai - 400 013.</a></span>
+                    <span><a target='_blank' href="https://maps.app.goo.gl/PqCXmAwx82HVZn2J8">Ground Floor, Peninsula Spenta, Mathuradas Mill Compound, N. M. Joshi Marg, Lower Parel(W), Mumbai - 400013.</a></span>
                   </li>
                   <li className={styles.contactItem}>
                     <svg
@@ -206,7 +202,7 @@ export default function Footer() {
       {/* ── Footer Bottom ── */}
       <div className={styles.footerBottom}>
         <div className={styles.bottomInner}>
-          <p className={styles.copyright}>&copy; 2026 Zar Gold Bangles. All rights reserved.</p>
+          <p className={styles.copyright}>&copy; {currentYear} Zar Jewels. All rights reserved.</p>
           <div className={styles.legalLinks}>
             <Link href="/privacy">Privacy Policy</Link>
             <span className={styles.separator}>|</span>

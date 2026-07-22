@@ -63,7 +63,7 @@ function LogoGrid({ selectedNation, logos }: { selectedNation: Nation; logos: Cl
 }
 
 export default function ClienteleClient() {
-  const [selectedNation, setSelectedNation] = useState<Nation>('uae');
+  const [selectedNation, setSelectedNation] = useState<Nation>('india');
   const [logos, setLogos] = useState<ClientLogoItem[]>(clientLogos);
   const [loading, setLoading] = useState(true);
 
@@ -93,7 +93,7 @@ export default function ClienteleClient() {
           { label: 'Our Clientele', isActive: true }
         ]}
         heading="Our Clientele"
-        description="ZAR partners with leading jewellers and retail brands, built on consistency, precision, and long-standing trust."
+        description="Zar partners with leading jewellers and retail brands, built on consistency, precision, and long-standing trust."
       />
       <div className='bannerImage'>
         <Image

@@ -42,3 +42,6 @@ next-env.d.ts
 # build artifacts & zips
 *.zip
 /zarproductionbuild
+
+# internal deployment & performance notes (local reference)
+/docs/STATIC-DEPLOYMENT-AND-PERFORMANCE.md

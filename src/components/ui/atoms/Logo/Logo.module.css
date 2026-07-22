@@ -1,16 +1,46 @@
 .logo {
   display: flex;
   align-items: center;
-  height: 60px;
+  overflow: visible;
 }
 
 .logoLink {
   display: flex;
   align-items: center;
+  overflow: visible;
+  line-height: 0;
+}
+
+.logoImage,
+.logoImageFooter {
+  width: auto;
+  height: auto;
+  max-width: none;
+  object-fit: contain;
+  object-position: left center;
+  overflow: visible;
 }
 
 .logoImage {
-  /* widtx`h: auto; */
-  /* height: 40px; */
-  object-fit: contain;
+  width: 140px;
+  height: 56px;
+}
+
+.logoImageFooter {
+  width: 168px;
+  height: 68px;
+  /* Footer sits on a dark image — keep subline lighter for contrast */
+  filter: brightness(1.08) saturate(0.95);
+}
+
+@media (max-width: 992px) {
+  .logoImage {
+    width: 120px;
+    height: 48px;
+  }
+
+  .logoImageFooter {
+    width: 150px;
+    height: 60px;
+  }
 }

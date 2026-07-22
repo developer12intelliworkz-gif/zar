@@ -90,7 +90,7 @@ export default function TrustedBrandsSection() {
         >
           <h2 className="fs_54">Trusted Across Generations</h2>
           <p className="">
-            Built on decades of craftsmanship and consistency, ZAR continues to earn the trust of retail partners across generations through precision, reliability, and lasting relationships.
+            Built on decades of craftsmanship and consistency, Zar continues to earn the trust of retail partners across generations through precision, reliability, and lasting relationships.
           </p>
         </motion.div>
       </div>

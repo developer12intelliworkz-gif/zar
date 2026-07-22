@@ -32,38 +32,42 @@
 @media (max-width: 1601px) {
   :root {
     --max-width: 1400px;
+    --fs-display: 40px;
+    --fs-section: 28px;
   }
 
   .fs_54 {
-    font-size: 36px;
-    line-height: 44px;
+    font-size: var(--fs-section);
+    line-height: var(--lh-section);
   }
 
   .formHeading {
-    margin-bottom: 40px;
-    font-size: 36px;
-    line-height: 44px;
+    margin-bottom: 32px;
+    font-size: var(--fs-section);
+    line-height: var(--lh-section);
   }
 }
 
 @media (max-width: 1441px) {
   :root {
     --max-width: 1360px;
+    --fs-display: 36px;
+    --fs-section: 26px;
+    --fs-subsection: 18px;
   }
 
   .fs_54 {
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -0.01em;
+    font-size: var(--fs-section);
+    line-height: var(--lh-section);
   }
 
   .formHeading {
-    font-size: 32px;
-    line-height: 40px;
+    font-size: var(--fs-section);
+    line-height: var(--lh-section);
   }
 
   .storyGrid .fs_54 {
-    margin-bottom: 30px;
+    margin-bottom: 24px;
   }
 
   .valueIcon {
@@ -71,9 +75,8 @@
   }
 
   .fs_30 {
-    font-size: 24px;
-    line-height: 30px;
-    letter-spacing: -0.01em;
+    font-size: var(--fs-subsection);
+    line-height: var(--lh-subsection);
   }
 }
 
@@ -109,7 +112,7 @@
   }
 
   .main {
-    padding-top: 75px;
+    padding-top: 80px;
   }
 
   .mt-100 {
@@ -122,8 +125,8 @@
 
   .formHeading {
     margin-bottom: 10px;
-    font-size: 26px;
-    line-height: 32px;
+    font-size: 22px;
+    line-height: 28px;
   }
 
   .valuesGrid {
@@ -136,9 +139,9 @@
   }
 
   .fs_54 {
-    font-size: 26px;
-    line-height: 32px;
-    margin-bottom: 15px;
+    font-size: 22px;
+    line-height: 28px;
+    margin-bottom: 12px;
   }
 
   .bannerImage img {
@@ -152,8 +155,8 @@
   }
 
   body {
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 1.5;
   }
 
   .mt-100 {
@@ -166,13 +169,13 @@
 
   .formHeading {
     margin-bottom: 10px;
-    font-size: 24px;
-    line-height: 30px;
+    font-size: 20px;
+    line-height: 26px;
   }
 
   .fs_54 {
-    font-size: 24px;
-    line-height: 30px;
+    font-size: 20px;
+    line-height: 26px;
   }
 
   .bannerImage {

@@ -1,8 +1,12 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { apiGet, API_BASE_URL } from '@/lib/api/axios';
-import { getImageUrl } from '@/lib/utils';
+import { apiGet } from '@/lib/api/axios';
+import {
+  isRetailerTestimonialVisible,
+  resolveRetailerTestimonial,
+  type ResolvedRetailerTestimonial,
+} from '@/lib/api/retailer-testimonials';
 import styles from './DistributorTestimonials.module.css';
 
 const PlayIcon = () => (
@@ -19,44 +23,11 @@ const PlayIcon = () => (
   </svg>
 );
 
-interface Testimonial {
-  id: number;
-  poster: string;
-  video: string;
-  quote: string;
-  name: string;
-  designation: string;
-}
-
-interface ApiRetailerTestimonial {
-  id: number;
-  video_link?: string;
-  fallback_image?: string;
-  name?: string;
-  title?: string;
-  designation?: string;
-  description?: string;
-}
+type Testimonial = ResolvedRetailerTestimonial;
 
 interface RetailerApiResponse {
   success?: boolean;
-  data?: ApiRetailerTestimonial[];
-}
-
-function resolveRetailerTestimonial(item: ApiRetailerTestimonial): Testimonial {
-  const rawVideo = item.video_link?.trim() || '';
-  const normalizedVideo = rawVideo && !/^https?:\/\//i.test(rawVideo)
-    ? `${API_BASE_URL.replace(/\/+$/, '')}/${rawVideo.replace(/^\/+/, '')}`
-    : rawVideo;
-
-  return {
-    id: item.id,
-    poster: getImageUrl(item.fallback_image || ''),
-    video: normalizedVideo,
-    quote: item.description?.trim() || '',
-    name: item.name?.trim() || item.title?.trim() || 'Distributor',
-    designation: item.designation?.trim() || '',
-  };
+  data?: import('@/lib/api/retailer-testimonials').ApiRetailerTestimonial[];
 }
 
 function isPlayableVideo(url: string): boolean {
@@ -75,7 +46,7 @@ export default function DistributorTestimonials() {
         if (json?.success && Array.isArray(json.data)) {
           const mapped = json.data
             .map(resolveRetailerTestimonial)
-            .filter((t) => t.name && (t.quote || t.video));
+            .filter(isRetailerTestimonialVisible);
           setTestimonials(mapped);
         }
       } catch (err) {
@@ -91,7 +62,6 @@ export default function DistributorTestimonials() {
     if (!video) return;
 
     if (video.paused) {
-      // Pause any other playing video
       videoRefs.current.forEach((otherVideo, idx) => {
         if (otherVideo && idx !== index) {
           otherVideo.pause();
@@ -142,12 +112,14 @@ export default function DistributorTestimonials() {
                   setPlayingIndices((prev) => ({ ...prev, [idx]: false }));
                 }}
               />
-              <div
-                className={styles.pbtn}
-                onClick={() => handlePlay(idx)}
-              >
-                <PlayIcon />
-              </div>
+              {isPlayableVideo(t.video) ? (
+                <div
+                  className={styles.pbtn}
+                  onClick={() => handlePlay(idx)}
+                >
+                  <PlayIcon />
+                </div>
+              ) : null}
             </div>
 
             <div className={styles.meta}>
